@@ -1,0 +1,169 @@
+fos_user_security:
+  resource: "@GizmoCapoBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+
+gizmo_capo_homepage:
+    pattern:  /
+    defaults: { _controller: GizmoCapoBundle:Default:index }
+
+gizmo_capo_weathermaps:
+    pattern:  /weathermaps/
+    defaults: { _controller: GizmoCapoBundle:Default:weathermaps }
+
+gizmo_capo_settings_index:
+    pattern:  /settings/index/
+    defaults: { _controller: GizmoCapoBundle:Settings:index}
+gizmo_capo_settings_saved_selections:
+    pattern:  /settings/saved_selections/
+    defaults: { _controller: GizmoCapoBundle:Settings:savedSelections}
+gizmo_capo_settings_cacti_instances:
+    pattern:  /settings/cacti_instances/
+    defaults: { _controller: GizmoCapoBundle:Settings:cactiInstances}
+gizmo_capo_settings_users:
+    pattern:  /settings/users/
+    defaults: { _controller: GizmoCapoBundle:Settings:userAccess}
+gizmo_capo_settings_groups:
+    pattern:  /settings/groups/
+    defaults: { _controller: GizmoCapoBundle:Settings:groupAccess}
+gizmo_capo_settings_event_log:
+    pattern:  /settings/event_log/
+    defaults: { _controller: GizmoCapoBundle:Settings:eventLog}
+
+gizmo_capo_pdf_graph:
+    pattern:  /pdf/single_graph/
+    defaults: { _controller: GizmoCapoBundle:Pdf:pdfSingleGraph}
+gizmo_capo_pdf:
+    pattern:  /pdf/graph_selection/
+    defaults: { _controller: GizmoCapoBundle:Pdf:pdfGraphSelection}
+
+gizmo_capo_api_show_graph:
+    pattern: /api/show_graph/{graph_id}/{rra_id}/
+    defaults: { _controller: GizmoCapoBundle:Api:showGraph }
+    requirements:
+        graph_id: \d+
+        rra_id: \d+
+gizmo_capo_api_show_graph_dated:
+    pattern: /api/show_graph/{graph_id}/{rra_id}/{graph_start}/{graph_end}/
+    defaults: { _controller: GizmoCapoBundle:Api:showGraph, graph_start: null, graph_end: null}
+    requirements:
+        graph_id: \d+
+        rra_id: \d+
+        graph_start: \d+
+        graph_end: \d+
+gizmo_capo_api_show_wmap:
+    pattern: /api/show_wmap/{wmap_id}/
+    defaults: { _controller: GizmoCapoBundle:Api:showWmap}
+    requirements:
+        wmap_id: \d+
+gizmo_capo_api_get_cacti_instances:
+    pattern: /api/get_cacti_instances/
+    defaults: { _controller: GizmoCapoBundle:Api:getCactiInstances}
+gizmo_capo_api_get_graph:
+    pattern: /api/get_graph/
+    defaults: { _controller: GizmoCapoBundle:Api:getGraph}
+gizmo_capo_api_get_graphs:
+    pattern: /api/get_graphs/
+    defaults: { _controller: GizmoCapoBundle:Api:getGraphs}
+gizmo_capo_api_get_graph_selections:
+    pattern: /api/get_graph_selections/
+    defaults: { _controller: GizmoCapoBundle:Api:getGraphSelections}
+gizmo_capo_api_get_graph_selection_graphs:
+    pattern: /api/get_graph_selection_graphs/
+    defaults: { _controller: GizmoCapoBundle:Api:getGraphSelectionGraphs}
+gizmo_capo_api_save_graph_selection:
+    pattern: /api/save_graph_selection/
+    defaults: { _controller: GizmoCapoBundle:Api:saveGraphSelection}
+gizmo_capo_api_disable_graph_selection:
+    pattern: /api/disable_graph_selection/
+    defaults: { _controller: GizmoCapoBundle:Api:disableGraphSelection}
+gizmo_capo_api_rename_graph_selection:
+    pattern: /api/rename_graph_selection/
+    defaults: { _controller: GizmoCapoBundle:Api:renameGraphSelection}
+gizmo_capo_api_get_graph_titles:
+    pattern: /api/get_graph_titles/
+    defaults: { _controller: GizmoCapoBundle:Api:getGraphTitles}
+gizmo_capo_api_get_graph_templates:
+    pattern: /api/get_graph_templates/
+    defaults: { _controller: GizmoCapoBundle:Api:getGraphTemplates}
+gizmo_capo_api_get_hosts:
+    pattern: /api/get_hosts/
+    defaults: { _controller: GizmoCapoBundle:Api:getHosts}
+gizmo_capo_api_get_weathermaps:
+    pattern: /api/get_weathermaps/
+    defaults: { _controller: GizmoCapoBundle:Api:getWeathermaps}
+
+gizmo_capo_api_admin_get_users:
+    pattern: /api/admin/get_users/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:getUsers}
+
+gizmo_capo_api_admin_user_change_group:
+    pattern: /api/admin/user/change_group/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:changeGroupForUser}
+
+gizmo_capo_api_admin_get_groups:
+    pattern: /api/admin/get_groups/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:getGroups}
+
+gizmo_capo_api_admin_get_eventlog:
+    pattern: /api/admin/get_event_log/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:getEventLog}
+
+gizmo_capo_api_admin_get_cacti_instances:
+    pattern: /api/admin/get_cacti_instances/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:getCactiInstances}
+
+gizmo_capo_api_admin_enable_cacti_instance_for_group:
+    pattern: /api/admin/enable_cacti_instance_for_group/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:enableCactiInstanceForGroup}
+
+gizmo_capo_api_admin_disable_cacti_instance_for_group:
+    pattern: /api/admin/disable_cacti_instance_for_group/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:disableCactiInstanceForGroup}
+
+gizmo_capo_api_admin_update_cacti_instance:
+    pattern: /api/admin/cacti_instance/update/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:updateCactiInstance}
+
+gizmo_capo_api_admin_create_cacti_instance:
+    pattern: /api/admin/cacti_instance/create/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:createCactiInstance}
+
+gizmo_capo_api_admin_create_group:
+    pattern: /api/admin/group/create/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:createGroup}
+
+gizmo_capo_api_admin_update_group:
+    pattern: /api/admin/group/update/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:updateGroup}
+
+gizmo_capo_api_admin_update_user:
+    pattern: /api/admin/user/update/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:updateUser}
+
+gizmo_capo_api_external_get_graphs:
+    pattern: /srv/get_graphs/
+    defaults: { _controller: GizmoCapoBundle:Api:getGraphs}
+gizmo_capo_api_external_get_graph:
+    pattern: /srv/get_graph/
+    defaults: { _controller: GizmoCapoBundle:Api:getGraph}
+gizmo_capo_api_external_show_graph:
+    pattern: /srv/show_graph/{graph_id}/{rra_id}/
+    defaults: { _controller: GizmoCapoBundle:Api:showGraph }
+    requirements:
+        graph_id: \d+
+        rra_id: \d+

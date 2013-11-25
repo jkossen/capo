@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+        <title>{% block title %}capo: cacti portal{% endblock %}{% block subtitle %}{% endblock %}</title>
+
+        {% stylesheets output='css/styles.css' filter='cssrewrite'
+        '../vendor/twitter/bootstrap/css/bootstrap.min.css'
+        '../vendor/select2/select2.css'
+        'bundles/gizmocapo/css/capo.css'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+        {% endstylesheets %}
+        <link rel="stylesheet" type="text/css" media="print" href="{{ asset('bundles/gizmocapo/css/print.css') }}">
+    </head>
+    <body>
+        <div class="container-fluid" id="top_container">
+            <div class="navbar" id="main_navbar">
+                <div class="navbar-inner">
+                <span class="pull-left"><img src="{{ asset('bundles/gizmocapo/images/logo.png') }}" class="logo-icon" alt="Z"></span>
+                    <div class="container-fluid">
+                        <a class="brand" href="#">Capo</a>
+                        {% if data is defined %}
+                        <ul class="nav">
+                            {% block navitems %}
+                            <li {% if data.active_page == "graphs" %}class="active"{% endif %}><a href="{{ path('gizmo_capo_homepage') }}"><i class="icon-signal"></i> graphs</a></li>
+                            <li {% if data.active_page == "weathermaps" %}class="active"{% endif %}><a href="{{ path('gizmo_capo_weathermaps') }}"><i class="icon-picture"></i> weathermaps</a></li>
+                            <li {% if data.active_page == "settings" %}class="active"{% endif %}><a href="{{ path('gizmo_capo_settings_index') }}"><i class="icon-wrench"></i> settings</a></li>
+                            <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-ban-circle"></i> logout</a></li>
+                            {% endblock %}
+                        </ul>
+                        {% endif %}
+                        <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <div class="nav-collapse collapse pull-right">
+                            <span id="loading-div" class="pull-right">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            {% block extrabuttons %}{% endblock %}
+                        </div>
+                    </div><!-- /.container-fluid -->
+                </div><!-- /.navbar-inner -->
+            </div> <!-- /.navbar -->
+
+            {% block contents %}{% endblock %}
+        </div><!-- /.container -->
+        {% javascripts filter=''
+        '../vendor/jquery/jquery-1.8.3.min.js'
+        '../vendor/underscorejs/underscore-min.js'
+        '../vendor/twitter/bootstrap/js/bootstrap.min.js'
+        '../vendor/select2/select2.min.js'
+        '../vendor/spinjs/spin.min.js'
+        '../vendor/jscrolljs/jquery.jscroll.min.js'
+        'bundles/gizmocapo/js/capo.js'
+        'bundles/gizmocapo/js/capo.html.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        {% block bottom %}{% endblock %}
+    </body>
+</html>

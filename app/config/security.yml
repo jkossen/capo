@@ -1,0 +1,72 @@
+jms_security_extra:
+    secure_all_services: false
+    expressions: true
+
+security:
+    encoders:
+        #Symfony\Component\Security\Core\User\User: plaintext
+        #Gizmo\CapoBundle\Entity\User: sha512
+        Gizmo\CapoBundle\Entity\User: plaintext
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+#        in_memory:
+#            memory:
+#                users:
+#                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+#                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+#
+        chain_provider:
+            chain:
+                providers: [fos_userbundle, fr3d_ldapbundle]
+
+        fr3d_ldapbundle:
+            id: fr3d_ldap.security.user.provider
+
+        fos_userbundle:
+            id: fos_user.user_manager
+
+    firewalls:
+        main:
+            pattern:    ^/
+            #fr3d_ldap:  ~
+            form_login:
+            #    always_use_default_target_path: false
+            #    default_target_path: /profile
+                 use_referer: true
+            logout:     true
+            anonymous:  true
+
+        login:
+            pattern:  ^/login$
+            security: false
+
+#        secured_area:
+#            pattern:    ^/
+#            form_login:
+#                check_path: /login_check
+#                login_path: /login
+#            logout:
+#                path:   /logout
+#                target: /
+#            #anonymous: ~
+            #http_basic:
+            #    realm: "Secured Demo Area"
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+
+    access_control:
+        - { path: ^/_wdt, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/css, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/js, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_USER}
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }

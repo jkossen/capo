@@ -1,0 +1,120 @@
+<?php
+/*
+    Capo, a web interface for querying multiple Cacti instances
+    Copyright (C) 2013  Jochem Kossen <jochem@jkossen.nl>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+namespace Gizmo\CapoBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\SecurityContext;
+
+class SecurityController extends BaseController
+{
+    /**
+     * Create an event log message
+     */
+    protected function _log_event($str_function, $str_args, $message=null)
+    {
+        if ($this->container->getParameter('enable_eventlog') !== 'yes') {
+            return;
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $er = $em->getRepository('GizmoCapoBundle:EventLog');
+        $msg = get_class($this) . ':' . $str_function . ':' . $str_args;
+
+        if ($message !== null) {
+            $msg = $message;
+        }
+
+        $log_line = $er->createEventLog(
+            false,
+            get_class($this),
+            $str_function,
+            $str_args,
+            $msg
+        );
+
+        try {
+            $em->persist($log_line);
+            $em->flush();
+        } catch (\Exception $e) { } // ignore errors with logging
+    }
+
+    public function loginAction(Request $request)
+    {
+        /** @var $session \Symfony\Component\HttpFoundation\Session\Session */
+        $session = $request->getSession();
+
+        // get the error if any (works with forward and redirect -- see below)
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } elseif (null !== $session && $session->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = '';
+        }
+
+        // last username entered by the user
+        $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
+
+        if ($error) {
+            // TODO: this is a potential security risk (see http://trac.symfony-project.org/ticket/9523)
+            $error = $error->getMessage();
+            $this->_log_event('loginAction', '', 'Bad login attempt with username: ' . $lastUsername);
+        }
+
+        $csrfToken = $this->container->has('form.csrf_provider')
+            ? $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
+            : null;
+
+        return $this->renderLogin(array(
+            'last_username' => $lastUsername,
+            'error'         => $error,
+            'csrf_token' => $csrfToken,
+        ));
+    }
+
+    /**
+     * Renders the login template with the given parameters. Overwrite this function in
+     * an extended controller to provide additional data for the login template.
+     *
+     * @param array $data
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function renderLogin(array $data)
+    {
+        $template = sprintf('FOSUserBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
+
+        return $this->container->get('templating')->renderResponse($template, $data);
+    }
+
+    public function checkAction()
+    {
+        throw new \RuntimeException('You must configure the check path to be handled by the firewall using form_login in your security firewall configuration.');
+    }
+
+    public function logoutAction()
+    {
+        throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
+    }
+
+}

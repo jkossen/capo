@@ -1,0 +1,23 @@
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: capo
+    database_user: capo
+    database_password: "djikjdioue23io4ueiodwjdioq932108329edjka;"
+    mailer_transport: smtp
+    mailer_host: localhost
+    mailer_user: null
+    mailer_password: null
+    locale: en
+    secret: 0c8848b632e29f989c134ea3d6dc19ad
+    database_path: null
+    enable_eventlog: yes
+    admins: [ "admin" ]
+    capo_retrieval_code: --- TODO ---
+    max_selections_per_user: 100
+    ldap_host: ldap.domain.local
+    ldap_user: ldapuser@domain.local
+    ldap_password: jdk1l234iu9dsakl
+    ldap_basedn: ou=Company,dc=domain,dc=local
+

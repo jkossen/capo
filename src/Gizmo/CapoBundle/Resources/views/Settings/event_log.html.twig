@@ -1,0 +1,59 @@
+{% extends 'GizmoCapoBundle::base.html.twig' %}
+{% block subtitle %} - settings - eventlog{% endblock %}
+
+{% block contents %}
+<div class="row-fluid">
+    <div id="error_container"></div>
+    <div class="well well-large" id="search_box">
+        <ul class="nav nav-tabs">
+            <li><a href="{{ path('gizmo_capo_settings_saved_selections') }}">Saved selections</a></li>
+            <li class="active pull-right"><a href="{{ path('gizmo_capo_settings_event_log') }}">Event log</a></li>
+            <li class="pull-right"><a href="{{ path('gizmo_capo_settings_cacti_instances') }}">Cacti instances</a></li>
+            <li class="pull-right"><a href="{{ path('gizmo_capo_settings_groups') }}">Groups</a></li>
+            <li class="pull-right"><a href="{{ path('gizmo_capo_settings_users') }}">Users</a></li>
+        </ul>
+        <div class="container pull-left">
+            <div class="control-group">
+                <div class="controls">
+                    <form class="navbar-form form-search" id="search-form">
+                        <div class="input-prepend" style="width:90%">
+                            <span class="add-on" style="border-radius: 14px 0px 0px 14px;"><i class="icon-search"></i></span>
+                            <input id="filter_1" type="text" placeholder="Search">
+                        </div><!-- /.input-prepend -->
+                    </form>
+                </div><!-- /.controls -->
+            </div><!-- /.control-group -->
+        </div><!-- /.container -->
+        <div id="results" class="settings">
+            <table class="table table-hover">
+                <thead>
+                    <tr><th class="event_date">Event date</th><th class="user">User</th><th class="ip">IP</th><th class="uri">Uri</th><th class="message">Message</th></tr>
+                </thead>
+                <tbody id="results_list">
+                    <tr><td class="event_date"></td><td class="username"></td><td class="IP"></td><td class="uri"></td><td class="message">Message</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="muted" id="result_count"></p>
+    </div><!-- /.well -->
+</div><!-- /.row-fluid -->
+{% endblock %}
+
+{% block bottom %}
+{% javascripts filter=''
+'bundles/gizmocapo/js/capo.settings.event_log.js'
+%}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script>
+    $(document).ready(function() {
+        var cfg = {
+            'base_url': '{{ app.request.baseUrl }}/'
+        };
+
+        CAPO.init(cfg);
+        CAPO.settings.event_log.init();
+    });
+</script>
+{% endblock %}

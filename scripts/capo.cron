@@ -1,0 +1,12 @@
+#
+# Cron script for Capo, the Cacti Portal
+#
+
+PATH=/usr/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+
+## Import data from the Cacti servers
+*/12 * * * * cacti /var/www/capo/scripts/import_all.sh > /dev/null 2>&1
+
+## Clean up old session files
+47 3 * * *   root  /var/www/capo/scripts/cleanup_old_sessions.sh > /dev/null 2>&1
+

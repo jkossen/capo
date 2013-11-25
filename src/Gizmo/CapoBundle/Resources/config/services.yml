@@ -1,0 +1,30 @@
+parameters:
+#    gizmo_capo.example.class: Gizmo\CapoBundle\Example
+
+services:
+    wsse.security.authentication.provider:
+        class:  Gizmo\CapoBundle\Security\Authentication\Provider\WsseProvider
+        arguments: ["", "%kernel.cache_dir%/security/nonces"]
+
+    wsse.security.authentication.listener:
+        class:  Gizmo\CapoBundle\Security\Firewall\WsseListener
+        arguments: ["@security.context", "@security.authentication.manager"]
+
+    #gizmo_capobundle.apiuser_manager:
+    #    class: Gizmo\CapoBundle\Security\UserProvider
+
+    pdf_exporter:
+        class:  Gizmo\CapoBundle\Services\PDFService
+        calls:
+            - [ setTitle, [ 'Capo PDF Export', true ] ]
+            - [ setLogoPath, [ "Resources/public/images/logo.png" ] ]
+    xml_conversion:
+        class:  Gizmo\CapoBundle\Services\XmlConversionService
+    login_listener:
+        class: Gizmo\CapoBundle\Services\LoginListener
+        arguments: ['@security.context', '@doctrine']
+        tags:
+            - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+#    gizmo_capo.example:
+#        class: %gizmo_capo.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

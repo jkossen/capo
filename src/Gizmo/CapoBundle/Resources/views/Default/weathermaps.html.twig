@@ -1,0 +1,99 @@
+{% extends 'GizmoCapoBundle::base.html.twig' %}
+
+{% block subtitle %} - weathermaps{% endblock %}
+
+{% block extrabuttons %}
+<a class="btn btn-warning pull-right" id="btn-toggle-search">hide search box</a>
+{% endblock %}
+
+{% block contents %}
+<div class="row-fluid">
+    <div id="error_container"></div>
+    <div class="well well-large" id="search_box">
+        {% if privileges.user_has_access %}
+        <h3>Search <small id="search_is_loading" style="display:none;">(loading ...)</small></h3>
+            <div class="container" id="search-container">
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <form class="form-inline" id="search-form">
+                            <span class="add-on" id="search-icon"><i class="icon-search"></i></span>
+                            <input id="filter_1" type="text" placeholder="Search" value="{{ data.q }}">
+                            </form>
+                        </div><!-- /.input-prepend -->
+                        <form class="form-horizontal" id="form-capo-selectors">
+                        <fieldset>
+                            <input type="hidden" class="bigdrop cacti_instance_select" id="cacti_instance_select_1"/>
+                        </fieldset>
+                        </form>
+                    </div><!-- /.controls -->
+                </div><!-- /.control-group -->
+
+            </div><!-- /.container -->
+            <div id="results">
+                <table class="table table-hover">
+                    <thead>
+                        <tr><th class="cacti-instance">Cacti Instance</th><th class="wmap">Weathermap</th></tr>
+                    </thead>
+                    <tbody id="results_list">
+                        <tr><td class="cacti-instance"></td><td class="wmap"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="muted" id="result_count"></p>
+        </form>
+        {% else %}
+            <div style="text-align: center;">
+            <h4 class="error">Successfully logged in, but your group does not have access to any Cacti instances yet.</h4>
+            </div>
+        {% endif %}
+    </div><!-- /.well -->
+</div><!-- /.row-fluid -->
+
+{% if privileges.user_has_access %}
+<div class="row-fluid">
+    <h3>Selection</h3>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <ul class="nav">
+                <li><form class="navbar-form"><label class="checkbox"><input type="checkbox" name="activate_slideshow" id="slideshow_activator"> slideshow</label></form></li>
+                <li class="divider-vertical"></li>
+                <li><form class="navbar-form"><label class="checkbox"><input type="checkbox" name="activate_autorefresh" id="autorefresh_activator"> autorefresh</label></form></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+<div id="wmap-selection-container" class="row-fluid">
+    <ul class="wmaps" id="selected_wmaps_list">
+        <li class="span12" id="selected_wmaps_placeholder">
+        <div class="thumbnail">
+            <h3>no weathermaps selected yet</h3>
+        </div>
+        </li>
+    </ul>
+</div><!-- /.row-fluid -->
+{% endif %}
+{% endblock %}
+
+{% block bottom %}
+{% if privileges.user_has_access %}
+{% javascripts filter=''
+'bundles/gizmocapo/js/capo.weathermaps.js'
+%}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script>
+    $(document).ready(function() {
+        var cfg = {
+            'base_url': '{{ app.request.baseUrl }}/',
+            'modules': [ 'weathermaps' ]
+        };
+
+        CAPO.init(cfg);
+        CAPO.weathermaps.init();
+    });
+</script>
+{% endif %}
+{% endblock %}

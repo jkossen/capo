@@ -1,0 +1,120 @@
+{% extends 'GizmoCapoBundle::base.html.twig' %}
+
+{% block subtitle %} - graphs{% endblock %}
+
+{% block extrabuttons %}
+<a class="btn btn-warning pull-right" id="btn-toggle-search">hide search box</a>
+{% endblock %}
+
+{% block contents %}
+<div class="row-fluid">
+    <div id="error_container"></div>
+    <div class="well well-large" id="search_box">
+        {% if privileges.user_has_access %}
+        <h3>Search <small id="search_is_loading" style="display:none;">(loading ...)</small></h3>
+            <div class="container" id="search-container">
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <form class="form-inline" id="search-form">
+                            <span class="add-on" id="search-icon"><i class="icon-search"></i></span>
+                            <input id="filter_1" type="text" placeholder="Search" value="{{ data.q }}">
+                            </form>
+                        </div><!-- /.input-prepend -->
+                        <form class="form-horizontal" id="form-capo-selectors">
+                        <fieldset>
+                            <input type="hidden" class="bigdrop cacti_instance_select" id="cacti_instance_select_1"/>
+                            <input type="hidden" class="bigdrop graph_template_select" id="template_select_1"/>
+                            <input type="hidden" class="bigdrop host_select" id="host_select_1"/>
+                        </fieldset>
+                        </form>
+                    </div><!-- /.controls -->
+                </div><!-- /.control-group -->
+
+            </div><!-- /.container -->
+            <div id="results">
+                <table class="table table-hover">
+                    <thead>
+                        <tr><th class="cacti-instance">Cacti Instance</th><th class="graph-title">Graph</th><th class="actions">Actions</th></tr>
+                    </thead>
+                    <tbody id="results-list">
+                        <tr><td class="cacti-instance"></td><td></td><td class="actions"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="muted" id="result-count"></p>
+        {% else %}
+            <div style="text-align: center;">
+            <h4 class="error">Successfully logged in, but your group does not have access to any Cacti instances yet.</h4>
+            </div>
+        {% endif %}
+    </div><!-- /.well -->
+</div><!-- /.row-fluid -->
+
+{% if privileges.user_has_access %}
+<div class="row-fluid">
+    <h3>Selection</h3>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <ul class="nav">
+                <li><a href="#" id="export-selected-pdf" title="Export to PDF"><i class="icon-print"></i> PDF</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="#" id="deselect-all-graphs" title="Clear selection"><i class="icon-trash"></i> Clear</a></li>
+                <li class="divider-vertical"></li>
+                <li>
+                    <form class="navbar-form pull-left">
+                        <select name="rra-selector" id="rra-selector">
+                            <!-- option value="5">Hourly (1 Minute Average)</option -->
+                            <option selected="selected" value="1">Daily (5 minute average)</option>
+                            <option value="2">Weekly (30 Minute Average)</option>
+                            <option value="3">Monthly (2 Hour Average)</option>
+                            <option value="4">Yearly (1 Day Average)</option>
+                        </select>
+                    </form>
+                </li>
+            </ul>
+
+            <form class="pull-right navbar-form form-inline">
+                <div class="input-append">
+                    <input type="text" name="graph_selection_name" id="graph_selection_name" placeholder="Name">
+                    <a class="btn" id="btn_save_graph_selection"><i class="icon-star"></i> Save</a>
+                </div>
+                <input type="hidden" class="bigdrop graph_selections_select" id="graph-selections-select-1"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="graph-selection-container" class="row-fluid">
+    <ul class="thumbnails" id="selected-graphs-list">
+        <li class="span12" id="selected-graphs-placeholder">
+        <div class="thumbnail">
+            <h3>no graphs selected yet</h3>
+        </div>
+        </li>
+    </ul>
+</div><!-- /.row-fluid -->
+{% endif %}
+{% endblock %}
+
+{% block bottom %}
+{% if privileges.user_has_access %}
+{% javascripts filter=''
+'bundles/gizmocapo/js/capo.graphs.js'
+%}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script>
+    $(document).ready(function() {
+        var cfg = {
+            'base_url': '{{ app.request.baseUrl }}/',
+            'modules': [ 'graphs' ]
+        };
+
+        CAPO.init(cfg);
+        CAPO.graphs.init();
+    });
+</script>
+{% endif %}
+{% endblock %}

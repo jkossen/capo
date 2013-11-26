@@ -22,6 +22,9 @@ namespace Gizmo\CapoBundle\Entity;
 use Doctrine\ORM\Query;
 use Gizmo\CapoBundle\Entity\UseIndexWalker;
 
+/**
+ * GraphRepository
+ */
 class GraphRepository extends BaseEntityRepository
 {
     /**

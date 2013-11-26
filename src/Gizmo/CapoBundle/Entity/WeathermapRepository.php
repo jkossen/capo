@@ -19,6 +19,9 @@
 
 namespace Gizmo\CapoBundle\Entity;
 
+/**
+ * WeathermapRepository
+ */
 class WeathermapRepository extends BaseEntityRepository
 {
     /**

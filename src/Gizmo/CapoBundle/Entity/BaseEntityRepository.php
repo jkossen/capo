@@ -22,6 +22,9 @@ namespace Gizmo\CapoBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
+/**
+ * BaseEntityRepository
+ */
 abstract class BaseEntityRepository extends EntityRepository
 {
     /**

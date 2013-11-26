@@ -19,6 +19,9 @@
 
 namespace Gizmo\CapoBundle\Entity;
 
+/**
+ * UserRepository
+ */
 class UserRepository extends BaseEntityRepository
 {
     /**

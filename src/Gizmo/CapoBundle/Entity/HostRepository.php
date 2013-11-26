@@ -19,6 +19,9 @@
 
 namespace Gizmo\CapoBundle\Entity;
 
+/**
+ * HostRepository
+ */
 class HostRepository extends BaseEntityRepository
 {
     /**

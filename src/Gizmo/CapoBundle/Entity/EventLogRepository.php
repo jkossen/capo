@@ -19,6 +19,9 @@
 
 namespace Gizmo\CapoBundle\Entity;
 
+/**
+ * EventLogRepository
+ */
 class EventLogRepository extends BaseEntityRepository
 {
     /**

@@ -19,6 +19,9 @@
 
 namespace Gizmo\CapoBundle\Entity;
 
+/**
+ * GraphSelectionRepository
+ */
 class GraphSelectionRepository extends BaseEntityRepository
 {
     /**

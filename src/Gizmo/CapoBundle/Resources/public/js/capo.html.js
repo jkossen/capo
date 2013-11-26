@@ -207,7 +207,7 @@ CAPO.html = CAPO.html || {};
 
     var api_account_show_secret = function() {
         var tpl =
-            '<a id="<%= id %>" href="#"><%= secret %></a>';
+            '<a id="<%= id %>" href="#">********</a>';
         
         return _.template(tpl);
     };

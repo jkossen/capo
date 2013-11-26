@@ -24,7 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Gizmo\CapoBundle\Entity\ApiUserRepository")
  * @ORM\Table(name="api_user")
  */
 class ApiUser implements UserInterface
@@ -67,7 +67,6 @@ class ApiUser implements UserInterface
 
     public function __construct()
     {
-        parent::__construct();
         $this->cacti_instances = new ArrayCollection();
     }
 
@@ -92,6 +91,52 @@ class ApiUser implements UserInterface
 
     public function getRoles() {
         return Array('ROLE_USER');
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return Group
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return ApiUser
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
     }
 
     /**
@@ -157,19 +202,11 @@ class ApiUser implements UserInterface
         return $this->cacti_instances;
     }
 
-    public function getPassword() {
-        return $this->password;
-    }
-
     public function getSalt() {
 
     }
 
-    public function getUsername() {
-        return $this->username;
-    }
-
     public function eraseCredentials() {
-
+        $this->password = null;
     }
 }

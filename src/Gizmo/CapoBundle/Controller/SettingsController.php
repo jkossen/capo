@@ -73,6 +73,18 @@ class SettingsController extends BaseController
     }
 
     /**
+     * Page for configuring API accounts
+     */
+    public function apiAccountsAction()
+    {
+        $this->_need_admin_privileges();
+        $data = $this->_get_privileges();
+        $data['active_page'] = 'settings';
+        return $this->render('GizmoCapoBundle:Settings:api_accounts.html.twig',
+                             array('data' => $data));
+    }
+
+    /**
      * Page for granting and revoking access for groups to Cacti instances
      */
     public function groupAccessAction()

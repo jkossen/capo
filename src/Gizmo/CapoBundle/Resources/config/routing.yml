@@ -43,6 +43,9 @@ gizmo_capo_settings_groups:
 gizmo_capo_settings_event_log:
     pattern:  /settings/event_log/
     defaults: { _controller: GizmoCapoBundle:Settings:eventLog}
+gizmo_capo_settings_api_accounts:
+    pattern:  /settings/api_accounts/
+    defaults: { _controller: GizmoCapoBundle:Settings:apiAccounts}
 
 gizmo_capo_pdf_graph:
     pattern:  /pdf/single_graph/
@@ -119,6 +122,10 @@ gizmo_capo_api_admin_get_groups:
     pattern: /api/admin/get_groups/
     defaults: { _controller: GizmoCapoBundle:AdminApi:getGroups}
 
+gizmo_capo_api_admin_get_api_accounts:
+    pattern: /api/admin/get_api_accounts/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:getApiAccounts}
+
 gizmo_capo_api_admin_get_eventlog:
     pattern: /api/admin/get_event_log/
     defaults: { _controller: GizmoCapoBundle:AdminApi:getEventLog}
@@ -135,6 +142,14 @@ gizmo_capo_api_admin_disable_cacti_instance_for_group:
     pattern: /api/admin/disable_cacti_instance_for_group/
     defaults: { _controller: GizmoCapoBundle:AdminApi:disableCactiInstanceForGroup}
 
+gizmo_capo_api_admin_enable_cacti_instance_for_api_user:
+    pattern: /api/admin/enable_cacti_instance_for_api_user/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:enableCactiInstanceForApiUser}
+
+gizmo_capo_api_admin_disable_cacti_instance_for_api_user:
+    pattern: /api/admin/disable_cacti_instance_for_api_user/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:disableCactiInstanceForApiUser}
+
 gizmo_capo_api_admin_update_cacti_instance:
     pattern: /api/admin/cacti_instance/update/
     defaults: { _controller: GizmoCapoBundle:AdminApi:updateCactiInstance}
@@ -147,9 +162,17 @@ gizmo_capo_api_admin_create_group:
     pattern: /api/admin/group/create/
     defaults: { _controller: GizmoCapoBundle:AdminApi:createGroup}
 
+gizmo_capo_api_admin_create_api_user:
+    pattern: /api/admin/api_user/create/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:createApiUser}
+
 gizmo_capo_api_admin_update_group:
     pattern: /api/admin/group/update/
     defaults: { _controller: GizmoCapoBundle:AdminApi:updateGroup}
+
+gizmo_capo_api_admin_update_api_user:
+    pattern: /api/admin/api_user/update/
+    defaults: { _controller: GizmoCapoBundle:AdminApi:updateApiUser}
 
 gizmo_capo_api_admin_update_user:
     pattern: /api/admin/user/update/

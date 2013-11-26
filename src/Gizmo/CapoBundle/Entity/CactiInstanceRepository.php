@@ -121,7 +121,7 @@ class CactiInstanceRepository extends BaseEntityRepository
 
         if ($exclude_query) {
             $q->andWhere($q->expr()->notIn('e.id', $exclude_query->getDQL()));
-            $q->setParameter('group_id', $data['exclude_group_id']);
+            $q->setParameter('id', $data['exclude_id']);
         }
 
         $total = $this->_getResultCount($q);

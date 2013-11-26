@@ -20,19 +20,19 @@
 namespace Gizmo\CapoBundle\Entity;
 
 /**
- * GroupRepository
+ * ApiUserRepository
  */
-class GroupRepository extends BaseEntityRepository
+class ApiUserRepository extends BaseEntityRepository
 {
     /**
-     * Get Group
+     * Get ApiUser
      *
      * @param int $id
      * @param bool $as_array return Array or object
      *
-     * @return Group|Array
+     * @return ApiUser|Array
      */
-    public function getGroup($id, $as_array = false)
+    public function getApiUser($id, $as_array = false)
     {
         $qb = $this->_getStdQueryBuilder(Array());
         $q = $qb['q'];
@@ -53,10 +53,10 @@ class GroupRepository extends BaseEntityRepository
     }
 
     public function getCactiInstanceIdsQuery(Array $data) {
-        $qb = $this->_getStdQueryBuilder($data, 'ci_g');
+        $qb = $this->_getStdQueryBuilder($data, 'ci_u');
         $q = $qb['q'];
-        $q->leftJoin('ci_g.cacti_instances', 'c');
-        $q->where('ci_g.id = :id');
+        $q->leftJoin('ci_u.cacti_instances', 'c');
+        $q->where('ci_u.id = :id');
         $q->setParameter('id', $data['id']);
 
         $q2 = clone($q);
@@ -73,21 +73,21 @@ class GroupRepository extends BaseEntityRepository
     }
 
     /**
-     * Get array of groups
+     * Get array of API users
      *
      * @param Array $data array of filters
      *
      * @return Array array of groups
      */
-    public function getGroups(Array $data)
+    public function getApiUsers(Array $data)
     {
         $qb = $this->_getStdQueryBuilder($data);
         $q = $qb['q'];
 
         $q->where('1 = 1');
 
-        if (!(isset($data['active_groups_only']) &&
-              intval($data['active_groups_only']) === 0)) {
+        if (!(isset($data['active_accounts_only']) &&
+              intval($data['active_accounts_only']) === 0)) {
             $q->andWhere('e.active = 1');
         }
 
@@ -97,7 +97,7 @@ class GroupRepository extends BaseEntityRepository
         }
 
         if (isset($data['q'])) {
-            $q->andWhere('e.name LIKE :query');
+            $q->andWhere('e.username LIKE :query');
             $q->setParameter('query', '%' . $data['q'] . '%');
         }
 
@@ -105,7 +105,7 @@ class GroupRepository extends BaseEntityRepository
 
         $q->select(array('e', 'c'));
         $q->leftJoin('e.cacti_instances', 'c');
-        $q->addOrderBy('e.name', 'asc');
+        $q->addOrderBy('e.username', 'asc');
         $q->setFirstResult($qb['first_result']);
         $q->setMaxResults($qb['limit']);
 
@@ -114,29 +114,40 @@ class GroupRepository extends BaseEntityRepository
         $array_result = $query->getArrayResult();
 
         return array(
-            'groups_total' => $total,
-            'groups' => $array_result
+            'api_accounts_total' => $total,
+            'api_accounts' => $array_result
         );
     }
 
-    public function createGroup($name)
+    public function genPassword()
     {
-        $obj = new Group();
-        $obj->setName($name);
+        $size = mcrypt_get_iv_size(MCRYPT_CAST_256, MCRYPT_MODE_CFB);
+        return hash('sha256', mcrypt_create_iv($size, MCRYPT_DEV_URANDOM));
+    }
+
+    public function createApiUser($username)
+    {
+        $obj = new ApiUser();
+        $obj->setUsername($username);
+        $obj->setPassword($this->genPassword());
 
         return $obj;
     }
 
-    public function updateGroup($id, $params)
+    public function updateApiUser($id, $params)
     {
-        $obj = $this->getGroup($id);
+        $obj = $this->getApiUser($id);
 
         if ($obj === null) {
             return null;
         }
 
-        if (array_key_exists('name', $params) && !empty($params['name'])) {
-            $obj->setName($params['name']);
+        if (array_key_exists('username', $params) && !empty($params['username'])) {
+            $obj->setUsername($params['username']);
+        }
+
+        if (array_key_exists('password', $params) && !empty($params['password'])) {
+            $obj->setPassword($params['password']);
         }
 
         if (array_key_exists('active', $params)) {

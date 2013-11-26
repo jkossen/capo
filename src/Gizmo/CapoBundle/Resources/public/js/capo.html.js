@@ -177,6 +177,74 @@ CAPO.html = CAPO.html || {};
         return _.template(tpl);
     };
 
+    // An API account result row
+    var api_accounts_result_list_item = function() {
+
+        var tpl =
+            '<tr id="api-account-<%= id %>">' +
+            '<td id="col-account-name-<%= id %>" class="account-name">&nbsp;</td>' +
+            '<td id="col-account-secret-<%= id %>">&nbsp;</td>' +
+            '<td class="actions"><a id="btn-edit-access-<%= id %>" href="#">edit access</a></td>' +
+            '<td id="col-account-active-<%= id %>" class="active">&nbsp;</td>' +
+            '</tr>';
+ 
+        return _.template(tpl);
+    };
+
+    var api_account_show_username = function() {
+        var tpl =
+            '<a id="<%= id %>" href="#"><%= name %></a>';
+        
+        return _.template(tpl);
+    };
+
+    var api_account_edit_username = function() {
+        var tpl =
+            '<input id="<%= id %>" type="text" name="account_name" value="<%= name %>">';
+        
+        return _.template(tpl);
+    };
+
+    var api_account_show_secret = function() {
+        var tpl =
+            '<a id="<%= id %>" href="#"><%= secret %></a>';
+        
+        return _.template(tpl);
+    };
+
+    var api_account_edit_secret = function() {
+        var tpl =
+            '<input id="<%= id %>" type="text" name="account_secret" value="<%= secret %>">';
+        
+        return _.template(tpl);
+    };
+
+    var col_api_account_is_active = function() {
+        var tpl =
+            '<a id="<%= btn_id %>" class="btn btn-<%= btn_class %>">' +
+            '<i class="icon-<%= icon_class %> icon-white"></i>' +
+            '</a>';
+        
+        return _.template(tpl);
+    };
+
+    var api_account_cacti_instances_list_item = function() {
+        var tpl_multiselect = multi_select();
+        var ms = tpl_multiselect({
+            'id': 'api-account-<%= id %>-ci-select',
+            'title_selected': 'has access to',
+            'title_deselected':'has no access to'
+        });
+
+        var tpl =
+            '<tr id="api-account-edit-cacti-instances-<%= id %>">' +
+            '<td colspan="4" class="api-account-edit-cacti-instances">' +
+            ms +
+            '</td></tr>';
+
+        return _.template(tpl);
+    };
+
     var wmap_result_list_item = function(selected) {
         var tpl_wmap_link = (selected) ? wmap_link_selected() : wmap_link_deselected();
         var row_class = (selected) ? 'selected' : '';
@@ -358,6 +426,13 @@ CAPO.html = CAPO.html || {};
     ns.html.group_show_name = group_show_name;
     ns.html.group_edit_name = group_edit_name;
     ns.html.groups_cacti_instances_list_item = groups_cacti_instances_list_item;
+    ns.html.api_accounts_result_list_item = api_accounts_result_list_item;
+    ns.html.col_api_account_is_active = col_api_account_is_active;
+    ns.html.api_account_show_username = api_account_show_username;
+    ns.html.api_account_edit_username = api_account_edit_username;
+    ns.html.api_account_show_secret = api_account_show_secret;
+    ns.html.api_account_edit_secret = api_account_edit_secret;
+    ns.html.api_account_cacti_instances_list_item = api_account_cacti_instances_list_item;
     ns.html.selected_graph_item = selected_graph_item;
     ns.html.selected_wmap_item = selected_wmap_item;
     ns.html.select_all_graphs = select_all_graphs;

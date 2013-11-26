@@ -1,5 +1,5 @@
 {% extends 'GizmoCapoBundle::base.html.twig' %}
-{% block subtitle %} - settings - eventlog{% endblock %}
+{% block subtitle %} - settings - API accounts{% endblock %}
 
 {% block contents %}
 <div class="row-fluid">
@@ -7,20 +7,27 @@
     <div class="well well-large" id="search_box">
         <ul class="nav nav-tabs">
             <li><a href="{{ path('gizmo_capo_settings_saved_selections') }}">Saved selections</a></li>
-            <li class="active pull-right"><a href="{{ path('gizmo_capo_settings_event_log') }}">Event log</a></li>
+            <li class="pull-right"><a href="{{ path('gizmo_capo_settings_event_log') }}">Event log</a></li>
             <li class="pull-right"><a href="{{ path('gizmo_capo_settings_cacti_instances') }}">Cacti instances</a></li>
-            <li class="pull-right"><a href="{{ path('gizmo_capo_settings_api_accounts') }}">API accounts</a></li>
+            <li class="active pull-right"><a href="{{ path('gizmo_capo_settings_api_accounts') }}">API accounts</a></li>
             <li class="pull-right"><a href="{{ path('gizmo_capo_settings_groups') }}">Groups</a></li>
             <li class="pull-right"><a href="{{ path('gizmo_capo_settings_users') }}">Users</a></li>
         </ul>
-        <div class="container pull-left">
+        <div class="container pull-left" style="width:100%;margin-bottom: 10px;">
             <div class="control-group">
                 <div class="controls">
-                    <form class="navbar-form form-search" id="search-form">
+                    <form class="navbar-form form-search pull-left" id="search-form">
                         <div class="input-prepend" style="width:90%">
                             <span class="add-on" style="border-radius: 14px 0px 0px 14px;"><i class="icon-search"></i></span>
                             <input id="filter_1" type="text" placeholder="Search">
                         </div><!-- /.input-prepend -->
+                    </form>
+                    <div class="control-group pull-left" style="padding-top:15px;">
+                        <label class="checkbox" for="active_accounts_only"><input type="checkbox" name="active_accounts_only" id="active_accounts_only" value="0" checked="checked"> active accounts only</label>
+                    </div>
+                    <form class="navbar-form pull-right" id="add-account-form" style="margin-left: 50px;">
+                        <input type="text" value="" placeholder="Username" id="new-account-name">
+                        <input type="submit" value="Add account" class="btn">
                     </form>
                 </div><!-- /.controls -->
             </div><!-- /.control-group -->
@@ -28,10 +35,10 @@
         <div id="results" class="settings">
             <table class="table table-hover">
                 <thead>
-                    <tr><th class="event_date">Event date</th><th class="user">User</th><th class="ip">IP</th><th class="uri">Uri</th><th class="message">Message</th></tr>
+                    <tr><th class="username">Username</th><th class="secret">Secret</th><th class="actions">Actions</th><th class="active">Active</th></tr>
                 </thead>
                 <tbody id="results_list">
-                    <tr><td class="event_date"></td><td class="username"></td><td class="IP"></td><td class="uri"></td><td class="message">Message</td></tr>
+                    <tr><td class="username"></td><td class="secret"></td><td class="actions"></td><td class="active"></td></tr>
                 </tbody>
             </table>
         </div>
@@ -42,7 +49,7 @@
 
 {% block bottom %}
 {% javascripts filter=''
-'bundles/gizmocapo/js/capo.settings.event_log.js'
+'bundles/gizmocapo/js/capo.settings.api_accounts.js'
 %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
@@ -54,7 +61,7 @@
         };
 
         CAPO.init(cfg);
-        CAPO.settings.event_log.init();
+        CAPO.settings.api_accounts.init();
     });
 </script>
 {% endblock %}

@@ -89,6 +89,36 @@ class AdminApiController extends BaseController
     }
 
     /**
+     * Get array of API accounts
+     *
+     * Results are filtered based on GET or POST input data
+     *
+     * @return Response encoded array of API accounts
+     */
+    public function getApiAccountsAction()
+    {
+        $this->_need_admin_privileges();
+
+        $form = Array(
+            Array('q', 'text'),
+            Array('page_limit', 'integer'),
+            Array('page', 'integer'),
+            Array('active_accounts_only', 'integer'),
+            Array('format', 'text')
+        );
+
+        $data = $this->_get_request_data($form);
+        $format = $this->_get_supported_format($data['format']);
+
+        $em = $this->getDoctrine()->getManager();
+        $groups = $em
+            ->getRepository('GizmoCapoBundle:ApiUser')
+            ->getApiUsers($data);
+
+        return $this->_encoded_response($groups, $format);
+    }
+
+    /**
      * Get array of event log messages
      *
      * @return Response encoded array of event log messages
@@ -129,6 +159,7 @@ class AdminApiController extends BaseController
             Array('page_limit', 'integer'),
             Array('page', 'integer'),
             Array('exclude_group_id', 'integer'),
+            Array('exclude_api_account_id', 'integer'),
             Array('format', 'text')
         );
 
@@ -137,10 +168,22 @@ class AdminApiController extends BaseController
 
         $em = $this->getDoctrine()->getManager();
 
-        $exclude_query = $em->getRepository('GizmoCapoBundle:Group')
-            ->getCactiInstanceIdsQuery(
-                Array('group_id' => $data['exclude_group_id'])
+        $exclude_query = false;
+        
+        if (intval($data['exclude_group_id']) > 0) {
+            $data['exclude_id'] = $data['exclude_group_id'];
+            $exclude_query = $em->getRepository('GizmoCapoBundle:Group')
+                                ->getCactiInstanceIdsQuery(
+                                    Array('id' => $data['exclude_group_id'])
+                                );
+        } elseif (intval($data['exclude_api_account_id']) > 0) {
+            $data['exclude_id'] = $data['exclude_api_account_id'];
+            $exclude_query = $em->getRepository('GizmoCapoBundle:ApiUser')
+                                ->getCactiInstanceIdsQuery(
+                                    Array('id' => $data['exclude_api_account_id'])
             );
+        }
+
 
         $cacti_instances = $em
             ->getRepository('GizmoCapoBundle:CactiInstance')
@@ -254,6 +297,116 @@ class AdminApiController extends BaseController
         $this->_log_event(__FUNCTION__,
                           'group_id:' . $data['group_id'] . ', ' . 'cacti_instance_id:' . $data['cacti_instance_id'],
                           'revoked access to cacti instance ' . $ci->getId() . ' (' . $ci->getName() . ') for group ' . $group->getId() . ' (' . $group->getName() . ')'
+        );
+
+        return $this->_encoded_response(array('result' => 'OK'), $format);
+    }
+
+    /**
+     * Grant access to cacti instance for group
+     *
+     * @return Response OK
+     */
+    public function enableCactiInstanceForApiUserAction()
+    {
+        $this->_need_admin_privileges();
+
+        $form = Array(
+            Array('api_user_id', 'integer'),
+            Array('cacti_instance_id', 'integer'),
+            Array('format', 'text')
+        );
+
+        $data = $this->_get_request_data($form);
+        $format = $this->_get_supported_format($data['format']);
+
+        if (!isset($data['api_user_id'])) {
+            return $this->_api_fail(
+                'No api user id given',
+                $format);
+        }
+
+        if (!isset($data['cacti_instance_id'])) {
+            return $this->_api_fail(
+                'No cacti instance id given',
+                $format);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $api_user = $em->getRepository('GizmoCapoBundle:ApiUser')
+                   ->findOneBy(array('id' => $data['api_user_id']));
+        $ci = $em->getRepository('GizmoCapoBundle:CactiInstance')
+                 ->findOneBy(array('id' => $data['cacti_instance_id']));
+
+        if (! $api_user) {
+            return $this->_api_fail(
+                'No such api user',
+                $format);
+        }
+
+        if (! $ci) {
+            return $this->_api_fail(
+                'No such cacti instance',
+                $format);
+        }
+
+        $api_user->addCactiInstance($ci);
+
+        $em->flush();
+
+        $this->_log_event(__FUNCTION__,
+                          'api_user_id:' . $data['api_user_id'] . ', ' . 'cacti_instance_id:' . $data['cacti_instance_id'],
+                          'granted access to cacti instance ' . $ci->getId() . ' (' . $ci->getName() . ') for api user ' . $api_user->getId() . ' (' . $api_user->getUsername() . ')'
+        );
+
+        return $this->_encoded_response(array('result' => 'OK'), $format);
+    }
+
+    /**
+     * Revoke access to cacti instance for group
+     *
+     * @return Response OK
+     */
+    public function disableCactiInstanceForApiUserAction()
+    {
+        $this->_need_admin_privileges();
+
+        $form = Array(
+            Array('api_user_id', 'integer'),
+            Array('cacti_instance_id', 'integer'),
+            Array('format', 'text')
+        );
+
+        $data = $this->_get_request_data($form);
+        $format = $this->_get_supported_format($data['format']);
+
+        $em = $this->getDoctrine()->getManager();
+        $api_user = $em->getRepository('GizmoCapoBundle:ApiUser')
+            ->findOneBy(array('id' => $data['api_user_id']));
+
+        $ci = $em->getRepository('GizmoCapoBundle:CactiInstance')
+            ->findOneBy(array('id' => $data['cacti_instance_id']));
+
+        if (! $api_user) {
+            return $this->_api_fail(
+                'No such api user',
+                $format);
+        }
+
+        if (! $ci) {
+            return $this->_api_fail(
+                'No such cacti instance',
+                $format);
+        }
+
+        $api_user->removeCactiInstance($ci);
+
+        $em->flush();
+
+        $this->_log_event(__FUNCTION__,
+                          'api_user_id:' . $data['api_user_id'] . ', ' . 'cacti_instance_id:' . $data['cacti_instance_id'],
+                          'revoked access to cacti instance ' . $ci->getId() . ' (' . $ci->getName() . ') for api user ' . $api_user->getId() . ' (' . $api_user->getUsername() . ')'
         );
 
         return $this->_encoded_response(array('result' => 'OK'), $format);
@@ -409,6 +562,55 @@ class AdminApiController extends BaseController
                 $this->_log_event(__FUNCTION__,
                                   'name:' . $data['name'] .  ', active:' . $data['active'],
                                   'updated group ' . $obj->getId() . ' with data: name:' . $data['name'] . ', active:' . $data['active']
+                );
+
+                $response['result'] = 'OK';
+            }
+        }
+
+        return $this->_encoded_response($response, $format);
+    }
+
+    /**
+     * Change properties of an existing group
+     *
+     * @return Response encoded response
+     */
+    public function updateApiUserAction()
+    {
+        $this->_need_admin_privileges();
+
+        $form = Array(
+            Array('id', 'integer'),
+            Array('username', 'text'),
+            Array('password', 'text'),
+            Array('active', 'integer'),
+            Array('format', 'text')
+        );
+
+        $data = $this->_get_request_data($form);
+        $format = $this->_get_supported_format($data['format']);
+
+        if (empty($data['id'])) {
+            return $this->_api_fail(
+                'No ApiUser id given',
+                $format);
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $repo = $em->getRepository('GizmoCapoBundle:ApiUser');
+            $obj = $repo->updateApiUser($data['id'], $data);
+
+            if (! $obj) {
+                return $this->_api_fail(
+                    'No such ApiUser',
+                    $format);
+            } else {
+                $em->persist($obj);
+                $em->flush();
+
+                $this->_log_event(__FUNCTION__,
+                                  'name:' . $data['username'] .  ', active:' . $data['active'],
+                                  'updated api user ' . $obj->getId() . ' with data: username:' . $data['username'] . ', password: ***, active:' . $data['active']
                 );
 
                 $response['result'] = 'OK';
@@ -584,6 +786,60 @@ class AdminApiController extends BaseController
 
             $response['result'] = 'OK';
             $response['group_id'] = $obj->getId();
+        }
+
+        return $this->_encoded_response($response, $format);
+    }
+    /**
+     * Create new Group
+     *
+     * @return Response encoded response
+     */
+    public function createApiUserAction()
+    {
+        $this->_need_admin_privileges();
+
+        $form = Array(
+            Array('username', 'text'),
+            Array('format', 'text')
+        );
+
+        $data = $this->_get_request_data($form);
+        $format = $this->_get_supported_format($data['format']);
+
+        if (empty($data['username'])) {
+            return $this->_api_fail(
+                'Username required',
+                $format);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('GizmoCapoBundle:ApiUser');
+
+        $existing_obj = $repo->findOneByUsername($data['username']);
+        if ($existing_obj) {
+            return $this->_api_fail(
+                'ApiUser with this username already exists',
+                $format);
+        }
+
+        $obj = $repo->createApiUser($data['username']);
+
+        if (! $obj) {
+            return $this->_api_fail(
+                'Failed to create ApiUser',
+                $format);
+        } else {
+            $em->persist($obj);
+            $em->flush();
+
+            $this->_log_event(__FUNCTION__,
+                              'name:' . $data['username'],
+                              'created api user ' . $obj->getId() . ' with data: username:' . $data['username']
+            );
+
+            $response['result'] = 'OK';
+            $response['api_user_id'] = $obj->getId();
         }
 
         return $this->_encoded_response($response, $format);

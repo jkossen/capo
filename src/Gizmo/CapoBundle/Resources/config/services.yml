@@ -18,8 +18,14 @@ services:
         calls:
             - [ setTitle, [ 'Capo PDF Export', true ] ]
             - [ setLogoPath, [ "Resources/public/images/logo.png" ] ]
+
+    event_logger:
+        class:  Gizmo\CapoBundle\Services\EventLogService
+        arguments: ['@security.context', '@doctrine', %enable_eventlog%]
+
     xml_conversion:
         class:  Gizmo\CapoBundle\Services\XmlConversionService
+
     login_listener:
         class: Gizmo\CapoBundle\Services\LoginListener
         arguments: ['@security.context', '@doctrine']

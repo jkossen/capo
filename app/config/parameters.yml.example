@@ -12,7 +12,7 @@ parameters:
     locale: en
     secret: 0c8848b632e29f989c134ea3d6dc19ad
     database_path: null
-    enable_eventlog: yes
+    enable_eventlog: true
     admins: [ "admin" ]
     capo_retrieval_code: --- TODO ---
     max_selections_per_user: 100

@@ -83,7 +83,7 @@ class EventLogRepository extends BaseEntityRepository
             $obj->setUserName('no user');
         }
         $obj->setCustomData(Array(
-            'controller' => $controller,
+            'class' => $controller,
             'function' => $function,
             'arguments' => $arguments,
             'message' => $message

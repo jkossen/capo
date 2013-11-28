@@ -19,6 +19,7 @@
 
 namespace Gizmo\CapoBundle\Services;
 
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Core\SecurityContext;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 
@@ -74,5 +75,36 @@ class EventLogService
             $this->em->persist($log_line);
             $this->em->flush();
         } catch (\Exception $e) { } // ignore errors with logging
+    }
+
+	/**
+	 * Do the magic.
+	 * 
+	 * @param InteractiveLoginEvent $event
+	 */
+	public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
+	{
+        /*
+		if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
+			// user has just logged in
+		}
+		
+		if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+			// user has logged in using remember_me cookie
+		}
+        */
+
+		// do some other magic here
+		$user = $event->getAuthenticationToken()->getUser();
+
+        $er = $this->em->getRepository('GizmoCapoBundle:EventLog');
+
+        if ($user->getId() === null) {
+            $log_line_txt = 'New user ' . $user->getUsername() . ' successfully logged in';
+        } else {
+            $log_line_txt = 'Successful login for user ' . $user->getId() . ' (' . $user->getUsername() . ')';
+        }
+
+        $this->log(get_class($this), 'onSecurityInteractiveLogin', '', $log_line_txt);
     }
 }

@@ -6,25 +6,24 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.1.*",
-        "doctrine/orm": ">=2.2.3,<2.4-dev",
-        "doctrine/doctrine-bundle": "1.0.*",
-        "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "twig/extensions": "1.0.*",
-        "symfony/assetic-bundle": "2.1.*",
-        "symfony/swiftmailer-bundle": "2.1.*",
-        "symfony/monolog-bundle": "2.1.*",
-        "sensio/distribution-bundle": "2.1.*",
-        "sensio/framework-extra-bundle": "2.1.*",
-        "sensio/generator-bundle": "2.1.*",
+        "symfony/symfony": "2.4.*@dev",
+        "doctrine/orm": "2.5.*@dev",
+        "doctrine/doctrine-bundle": "1.2.*@dev",
+        "doctrine/doctrine-fixtures-bundle": "2.2.*@dev",
+        "twig/extensions": "1.0.*@dev",
+        "symfony/assetic-bundle": "2.4.*@dev",
+        "symfony/swiftmailer-bundle": "2.2.*@dev",
+        "symfony/monolog-bundle": "2.4.*@dev",
+        "sensio/distribution-bundle": "2.3.*@dev",
+        "sensio/framework-extra-bundle": "3.0.*@dev",
+        "sensio/generator-bundle": "2.3.*@dev",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
-        "fr3d/ldap-bundle": "1.6.*@dev",
-        "jms/security-extra-bundle": "1.2.*",
-        "jms/di-extra-bundle": "1.1.*",
-        "jquery": "1.8.*",
-        "underscorejs": "1.4.4",
+        "jms/security-extra-bundle": "1.5.*",
+        "jms/di-extra-bundle": "1.4.*@dev",
+        "components/jquery": "1.10.*@dev",
+        "components/underscore": "dev-master",
         "twitter/bootstrap": "2.3.2",
-        "select2": "3.2",
+        "ivaynberg/select2": "dev-master",
         "spinjs": "1.2.*",
         "jscrolljs": "1.2"
     },
@@ -51,6 +50,17 @@
         {
             "type": "package",
             "package": {
+                "version": "2.3.2",
+                "name": "twitter/bootstrap",
+                "dist": {
+                    "url": "http://getbootstrap.com/2.3.2/assets/bootstrap.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
                 "name": "spinjs",
                 "version": "1.2.7",
                 "dist": {
@@ -67,50 +77,6 @@
                 "dist": {
                     "url": "https://raw.github.com/pklauzinski/jscroll/master/jquery.jscroll.min.js",
                     "type": "file"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "jquery",
-                "version": "1.8.3",
-                "dist": {
-                    "url": "http://code.jquery.com/jquery-1.8.3.min.js",
-                    "type": "file"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "underscorejs",
-                "version": "1.4.4",
-                "dist": {
-                    "url": "http://documentcloud.github.com/underscore/underscore-min.js",
-                    "type": "file"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "version": "2.3.2",
-                "name": "twitter/bootstrap",
-                "dist": {
-                    "url": "http://getbootstrap.com/2.3.2/assets/bootstrap.zip",
-                    "type": "zip"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "version": "3.2",
-                "name": "select2",
-                "dist": {
-                    "url": "https://github.com/ivaynberg/select2/archive/release-3.2.zip",
-                    "type": "zip"
                 }
             }
         }]

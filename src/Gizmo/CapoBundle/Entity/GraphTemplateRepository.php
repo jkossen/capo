@@ -33,7 +33,7 @@ class GraphTemplateRepository extends BaseEntityRepository
         $qb = $this->_getStdQueryBuilder($data);
         $q = $qb['q'];
 
-        $q->select('distinct(e.name)');
+        $q->select('distinct(e.name) as name');
         $q->join('e.cacti_instance', 'c');
 
         $q->where('1 = 1');

@@ -1,8 +1,8 @@
 {
-    "name": "symfony/framework-standard-edition",
-    "license": "MIT",
+    "name": "jkossen/capo",
+    "license": "GPL-3.0+",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "Webbased frontend and API for multiple Cacti instances",
     "autoload": {
         "psr-0": { "": "src/" }
     },

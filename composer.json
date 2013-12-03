@@ -18,6 +18,7 @@
         "sensio/framework-extra-bundle": "3.0.*@dev",
         "sensio/generator-bundle": "2.3.*@dev",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
+        "fr3d/ldap-bundle": "2.0.*@dev",
         "jms/security-extra-bundle": "1.5.*",
         "jms/di-extra-bundle": "1.4.*@dev",
         "components/jquery": "1.10.*@dev",

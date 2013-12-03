@@ -52,11 +52,10 @@ doctrine:
         auto_mapping: true
 
 fr3d_ldap:
-    client:
+    driver:
         host:         "%ldap_host%"
         useStartTls:  false # Enable TLS negotiation. Optional
         port:         389    # Optional
-        version:        3    # Optional
         username:    "%ldap_user%"
         password:    "%ldap_password%"
 #       username:     foo    # Optional

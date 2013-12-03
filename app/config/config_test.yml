@@ -32,7 +32,7 @@ security:
             pattern: ^nonexistant/
 
 fr3d_ldap:
-    client: ~
+    driver: ~
     user: ~
     service: ~
 

@@ -1,27 +1,30 @@
 {
     "name": "symfony/framework-standard-edition",
+    "license": "MIT",
+    "type": "project",
     "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
         "psr-0": { "": "src/" }
     },
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.4.*@dev",
-        "doctrine/orm": "2.5.*@dev",
-        "doctrine/doctrine-bundle": "1.2.*@dev",
-        "doctrine/doctrine-fixtures-bundle": "2.2.*@dev",
-        "twig/extensions": "1.0.*@dev",
-        "symfony/assetic-bundle": "2.4.*@dev",
-        "symfony/swiftmailer-bundle": "2.2.*@dev",
-        "symfony/monolog-bundle": "2.4.*@dev",
-        "sensio/distribution-bundle": "2.3.*@dev",
-        "sensio/framework-extra-bundle": "3.0.*@dev",
-        "sensio/generator-bundle": "2.3.*@dev",
-        "friendsofsymfony/user-bundle": "2.0.*@dev",
-        "fr3d/ldap-bundle": "2.0.*@dev",
+        "symfony/symfony": "2.3.*",
+        "doctrine/orm": ">=2.2.3,<2.4-dev",
+        "doctrine/doctrine-bundle": "1.2.*",
+        "doctrine/doctrine-fixtures-bundle": "dev-master",
+        "twig/extensions": "1.0.*",
+        "symfony/assetic-bundle": "2.3.*",
+        "symfony/swiftmailer-bundle": "2.3.*",
+        "symfony/monolog-bundle": "2.3.*",
+        "sensio/distribution-bundle": "2.3.*",
+        "sensio/framework-extra-bundle": "2.3.*",
+        "sensio/generator-bundle": "2.3.*",
+        "incenteev/composer-parameter-handler": "~2.0",
+        "friendsofsymfony/user-bundle": "2.0.*",
+        "fr3d/ldap-bundle": "2.0.*",
         "jms/security-extra-bundle": "1.5.*",
-        "jms/di-extra-bundle": "1.4.*@dev",
-        "components/jquery": "1.10.*@dev",
+        "jms/di-extra-bundle": "1.4.*",
+        "components/jquery": "1.10.*",
         "components/underscore": "dev-master",
         "twitter/bootstrap": "2.3.2",
         "ivaynberg/select2": "dev-master",
@@ -30,55 +33,67 @@
     },
     "scripts": {
         "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ],
         "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ]
     },
+    "config": {
+        "bin-dir": "bin"
+    },
     "minimum-stability": "dev",
     "extra": {
         "symfony-app-dir": "app",
-        "symfony-web-dir": "web"
+        "symfony-web-dir": "web",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        },
+        "branch-alias": {
+            "dev-master": "2.3-dev"
+        }
     },
     "repositories": [
-        {
+    {
             "type": "package",
             "package": {
-                "version": "2.3.2",
-                "name": "twitter/bootstrap",
-                "dist": {
-                    "url": "http://getbootstrap.com/2.3.2/assets/bootstrap.zip",
-                    "type": "zip"
-                }
+            "version": "2.3.2",
+            "name": "twitter/bootstrap",
+            "dist": {
+                "url": "http://getbootstrap.com/2.3.2/assets/bootstrap.zip",
+                "type": "zip"
             }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "spinjs",
-                "version": "1.2.7",
-                "dist": {
-                    "url": "http://fgnass.github.com/spin.js/dist/spin.min.js",
-                    "type": "file"
-                }
+        }
+    },
+    {
+        "type": "package",
+        "package": {
+            "name": "spinjs",
+            "version": "1.2.7",
+            "dist": {
+                "url": "http://fgnass.github.com/spin.js/dist/spin.min.js",
+                "type": "file"
             }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "jscrolljs",
-                "version": "1.2",
-                "dist": {
-                    "url": "https://raw.github.com/pklauzinski/jscroll/master/jquery.jscroll.min.js",
-                    "type": "file"
-                }
+        }
+    },
+    {
+        "type": "package",
+        "package": {
+            "name": "jscrolljs",
+            "version": "1.2",
+            "dist": {
+                "url": "https://raw.github.com/pklauzinski/jscroll/master/jquery.jscroll.min.js",
+                "type": "file"
             }
-        }]
+        }
+    }]
 }
+

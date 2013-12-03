@@ -8,7 +8,7 @@
 
         {% stylesheets output='css/styles.css' filter='cssrewrite'
         '../vendor/twitter/bootstrap/css/bootstrap.min.css'
-        '../vendor/select2/select2.css'
+        '../vendor/ivaynberg/select2/select2.css'
         'bundles/gizmocapo/css/capo.css'
         %}
         <link rel="stylesheet" href="{{ asset_url }}">
@@ -48,10 +48,10 @@
             {% block contents %}{% endblock %}
         </div><!-- /.container -->
         {% javascripts filter=''
-        '../vendor/jquery/jquery-1.8.3.min.js'
-        '../vendor/underscorejs/underscore-min.js'
+        '../vendor/components/jquery/jquery.min.js'
+        '../vendor/components/underscore/underscore-min.js'
         '../vendor/twitter/bootstrap/js/bootstrap.min.js'
-        '../vendor/select2/select2.min.js'
+        '../vendor/ivaynberg/select2/select2.js'
         '../vendor/spinjs/spin.min.js'
         '../vendor/jscrolljs/jquery.jscroll.min.js'
         'bundles/gizmocapo/js/capo.js'

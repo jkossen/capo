@@ -573,7 +573,8 @@ CAPO.graphs = CAPO.graphs || {};
         enable_graph_results();
         enable_search_input();
         enable_graph_selections_select();
-
+        $('#selection-loading-indicator').hide();
+        
         // Prevent submitting the search form on enter
         $('#search-form').on('submit', function(event) {
             event.preventDefault();
@@ -583,11 +584,51 @@ CAPO.graphs = CAPO.graphs || {};
             event.preventDefault();
             _rra_id = $(this).val();
 
-            $('.graph-img').each(function() {
-                var graph_id = parseInt(this.id.split('-').pop());
-                this.src = ns.get('base_url') + 'api/show_graph/' +
-                    graph_id + '/' + _rra_id + '/'
-            });
+            var spinner_opts = ns.spinner_opts;
+            spinner_opts.top = '8px';
+            spinner_opts.left = '-10px';
+
+            if ($('.graph-img').length > 0) {
+                $('#selection-loading').spin(spinner_opts);
+
+                var cur_img = 0
+                $('.graph-img').each(function() {
+                    var graph_id = parseInt(this.id.split('-').pop());
+                    this.src = ns.get('base_url') + 'api/show_graph/' +
+                        graph_id + '/' + _rra_id + '/';
+                    
+                    $(this).load(function() {
+                        cur_img++;
+                        if (cur_img == $('.graph-img').length) {
+                            $('#selection-loading').stopspin();
+                        }
+                    });
+                });
+            }
+        });
+
+        $('#btn-refresh-graphs').on('click', function(event) {
+            event.preventDefault();
+
+            var spinner_opts = ns.spinner_opts;
+            spinner_opts.top = '8px';
+            spinner_opts.left = '-10px';
+
+            if ($('.graph-img').length > 0) {
+                $('#selection-loading').spin(spinner_opts);
+                var cur_img = 0
+                $('.graph-img').each(function() {
+                    var graph_id = parseInt(this.id.split('-').pop());
+                    this.src = ns.get('base_url') + 'api/show_graph/' +
+                        graph_id + '/' + _rra_id + '/?' +  new Date().getTime();
+                    $(this).load(function() {
+                    cur_img++;
+                        if (cur_img == $('.graph-img').length) {
+                            $('#selection-loading').stopspin();
+                        }
+                    });
+                });
+            }
         });
 
         // Event handler for the toggle search box button

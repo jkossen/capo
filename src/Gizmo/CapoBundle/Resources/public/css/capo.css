@@ -122,3 +122,12 @@ th.active {
 td.group-edit-cacti-instances {
     padding-left: 25px;
 }
+
+.thumbnails li {
+    margin-left: 5px;
+}
+
+.container-fluid {
+    padding-left: 10px;
+    padding-right: 10px;
+}

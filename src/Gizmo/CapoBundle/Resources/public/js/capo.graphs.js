@@ -74,6 +74,19 @@ CAPO.graphs = CAPO.graphs || {};
             }));
     };
 
+    // ensure equal height for the selected graph items
+    function equal_height(group) {
+        var tallest = 0;
+        group.each(function() {
+            var thisHeight = $(this).height();
+            if(thisHeight > tallest) {
+                tallest = thisHeight;
+            }
+        });
+
+        $('.thumbnail').each(function() { $(this).height(tallest + 30); });
+    }
+
     // Export the graph selection to PDF
     var pdf_graph_selection = function() {
         var graphs = _.map(
@@ -512,6 +525,10 @@ CAPO.graphs = CAPO.graphs || {};
                 'graph_name': graph.title_cache
             }));
         }
+
+        $('#graph-' + graph_id).load(function() {
+            equal_height($('.graph-img'));
+        });
     };
 
     // Delete graph from selection
@@ -541,6 +558,8 @@ CAPO.graphs = CAPO.graphs || {};
             $('#graph-selections-select-1').select2('data', null);
             $('.current_selection').attr({'class': 'selected'});
         }
+
+        equal_height($('.graph-img'));
     };
 
     // Add all resulting graphs to selection

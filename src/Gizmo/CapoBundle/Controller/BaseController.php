@@ -237,6 +237,7 @@ abstract class BaseController extends Controller
      *
      * @param Array $array_input
      * @param $format format to encode to
+     * @param $code HTTP response code
      *
      * @return Response encoded response
      */
@@ -245,7 +246,7 @@ abstract class BaseController extends Controller
         if ($format === 'xml') {
             $xml = $this->get('xml_conversion');
             $xml->parseArray($array_input);
-            return new Response($xml->toString());
+            return new Response($xml->toString(), $code);
         } else {
             return new JsonResponse($array_input, $code);
         }

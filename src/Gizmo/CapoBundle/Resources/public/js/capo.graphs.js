@@ -593,7 +593,7 @@ CAPO.graphs = CAPO.graphs || {};
         enable_search_input();
         enable_graph_selections_select();
         $('#selection-loading-indicator').hide();
-        
+
         // Prevent submitting the search form on enter
         $('#search-form').on('submit', function(event) {
             event.preventDefault();
@@ -615,7 +615,7 @@ CAPO.graphs = CAPO.graphs || {};
                     var graph_id = parseInt(this.id.split('-').pop());
                     this.src = ns.get('base_url') + 'api/show_graph/' +
                         graph_id + '/' + _rra_id + '/';
-                    
+
                     $(this).load(function() {
                         cur_img++;
                         if (cur_img == $('.graph-img').length) {

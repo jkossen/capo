@@ -73,30 +73,30 @@ CAPO.html = CAPO.html || {};
     }
 
     var cacti_instance_edit_name = function() {
-        var tpl = 
+        var tpl =
             '<input id="<%= id %>" type="text" name="cacti_name" value="<%= name %>">';
-        
+
         return _.template(tpl);
     };
 
     var cacti_instance_show_name = function() {
-        var tpl = 
+        var tpl =
             '<a id="<%= id %>" href="#"><%= name %></a>';
-        
+
         return _.template(tpl);
     };
 
     var cacti_instance_edit_base_url = function() {
-        var tpl = 
+        var tpl =
             '<input id="<%= id %>" type="text" name="cacti_url" value="<%= base_url %>">';
-        
+
         return _.template(tpl);
     };
 
     var cacti_instance_show_base_url = function() {
-        var tpl = 
+        var tpl =
             '<a id="<%= id %>" href="#"><%= base_url %></a>';
-        
+
         return _.template(tpl);
     };
 
@@ -120,7 +120,7 @@ CAPO.html = CAPO.html || {};
             '<a id="<%= btn_id %>" class="btn btn-<%= btn_class %>">' +
             '<i class="icon-<%= icon_class %> icon-white"></i>' +
             '</a>';
-        
+
         return _.template(tpl);
     };
 
@@ -140,14 +140,14 @@ CAPO.html = CAPO.html || {};
     var group_show_name = function() {
         var tpl =
             '<a id="<%= id %>" href="#"><%= name %></a>';
-        
+
         return _.template(tpl);
     };
 
     var group_edit_name = function() {
         var tpl =
             '<input id="<%= id %>" type="text" name="group_name" value="<%= name %>">';
-        
+
         return _.template(tpl);
     };
 
@@ -156,7 +156,7 @@ CAPO.html = CAPO.html || {};
             '<a id="<%= btn_id %>" class="btn btn-<%= btn_class %>">' +
             '<i class="icon-<%= icon_class %> icon-white"></i>' +
             '</a>';
-        
+
         return _.template(tpl);
     };
 
@@ -187,35 +187,35 @@ CAPO.html = CAPO.html || {};
             '<td class="actions"><a id="btn-edit-access-<%= id %>" href="#">edit access</a></td>' +
             '<td id="col-account-active-<%= id %>" class="active">&nbsp;</td>' +
             '</tr>';
- 
+
         return _.template(tpl);
     };
 
     var api_account_show_username = function() {
         var tpl =
             '<a id="<%= id %>" href="#"><%= name %></a>';
-        
+
         return _.template(tpl);
     };
 
     var api_account_edit_username = function() {
         var tpl =
             '<input id="<%= id %>" type="text" name="account_name" value="<%= name %>">';
-        
+
         return _.template(tpl);
     };
 
     var api_account_show_secret = function() {
         var tpl =
             '<a id="<%= id %>" href="#">********</a>';
-        
+
         return _.template(tpl);
     };
 
     var api_account_edit_secret = function() {
         var tpl =
             '<input id="<%= id %>" type="text" name="account_secret" value="<%= secret %>">';
-        
+
         return _.template(tpl);
     };
 
@@ -224,7 +224,7 @@ CAPO.html = CAPO.html || {};
             '<a id="<%= btn_id %>" class="btn btn-<%= btn_class %>">' +
             '<i class="icon-<%= icon_class %> icon-white"></i>' +
             '</a>';
-        
+
         return _.template(tpl);
     };
 
@@ -291,7 +291,7 @@ CAPO.html = CAPO.html || {};
             'id': '<%= graph_link_id %>',
             'graph_name': '<%= graph_name %>'
         });
-        
+
         var tpl =
             '<tr id="row-graph-<%= graph_id %>" class="' + class_selected + ' <%=class_selection%>">' +
             '<td id="col-cacti-instance-<%= graph_id%>" class="cacti-instance"><%= ci_name %></td>' +
@@ -306,7 +306,7 @@ CAPO.html = CAPO.html || {};
 
     // Graph link
     var graph_link_selected = function() {
-        var tpl = 
+        var tpl =
             '<span id="<%= id %>"><%= graph_name %></span>';
 
         return _.template(tpl);
@@ -322,7 +322,7 @@ CAPO.html = CAPO.html || {};
 
     // The 'add all graphs to selection' link
     var select_all_graphs = function() {
-        var tpl = 
+        var tpl =
             '<a id="<%= id %>" href="#">add all to selection</a>';
 
         return _.template(tpl);
@@ -340,7 +340,7 @@ CAPO.html = CAPO.html || {};
 
     // The html for an item in the graph selection
     var selected_graph_item = function() {
-        var tpl = 
+        var tpl =
             '<li id="graph-selected-<%= graph_id %>" class="graph-item">' +
             '<div class="thumbnail">' +
             '<a href="#" class="pull-right btn-deselect-graph" id="deselect-btn-<%= graph_id %>">&times;</a>' +
@@ -355,7 +355,7 @@ CAPO.html = CAPO.html || {};
     // The html for an item in the weather map selection
     var selected_wmap_item = function() {
 
-        var tpl = 
+        var tpl =
             '<li id="wmap-selected-<%= wmap_id %>" class="wmap-item">' +
             '<div class="thumbnail">' +
             '<a href="#" class="pull-right btn-deselect-graph" id="deselect-btn-<%= wmap_id %>">&times;</a>' +
@@ -377,7 +377,7 @@ CAPO.html = CAPO.html || {};
     };
 
     var graph_selection_to_pdf_form = function() {
-        var tpl = 
+        var tpl =
             '<form action="<%= action %>" method="post" id="<%= form_id %>">' +
             '<input type="hidden" id="input-graphs-selected" name="graphs_selected">' +
             '<input type="hidden" id="input-rra-id" name="rra_id">' +
@@ -387,7 +387,7 @@ CAPO.html = CAPO.html || {};
     };
 
     var saved_selection_list_item = function() {
-        var tpl = 
+        var tpl =
             '<tr>' +
             '<td><%= ci_name %></td>' +
             '<td><a href="<%= graph_url %>"><%= graph_title %></a></td>' +

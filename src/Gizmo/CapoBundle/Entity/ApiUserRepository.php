@@ -103,8 +103,7 @@ class ApiUserRepository extends BaseEntityRepository
 
         $total = $this->_getResultCount($q);
 
-        $q->select(array('e', 'c'));
-        $q->leftJoin('e.cacti_instances', 'c');
+        $q->select(array('e'));
         $q->addOrderBy('e.username', 'asc');
         $q->setFirstResult($qb['first_result']);
         $q->setMaxResults($qb['limit']);

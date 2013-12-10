@@ -67,23 +67,32 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
         load_results(true);
     };
 
-    var load_available_cacti_instances = function(account) {
+    var load_cacti_instances = function(account, available) {
+        var el = '#api-account-' + account.id + '-ci-select_selected';
+        var data = {
+            page: _scroller.page,
+            page_limit: _scroller.per_page
+        };
+
+        if (available) {
+            data['exclude_api_account_id'] = account.id;
+            el = '#api-account-' + account.id + '-ci-select_deselected';
+        } else {
+            data['api_account_id'] = account.id;
+        }
+
         $.ajax({
             url: ns.get('base_url') + 'api/admin/get_cacti_instances/',
             type: ns.get('request_method'),
             dataType: 'json',
-            data: {
-                page: _scroller.page,
-                page_limit: _scroller.per_page,
-                exclude_api_account_id: account.id
-            },
+            data: data,
             success: function(response, textStatus, jqXHR) {
                 $.each(response.cacti_instances, function(index, ci) {
                     $('<option>').attr({
                         'value': ci.id
                     })
                     .text(ci.name)
-                    .appendTo($('#api-account-' + account.id + '-ci-select_deselected'));
+                    .appendTo($(el));
                 });
             }
         });
@@ -97,15 +106,8 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
                 'id': account.id
             }));
 
-        $.each(account.cacti_instances, function(index, ci) {
-            $('<option>').attr({
-                'value': ci.id
-            })
-            .text(ci.name)
-            .appendTo($('#api-account-' + account.id + '-ci-select_selected'));
-        });
-
-        load_available_cacti_instances(account);
+        load_cacti_instances(account, false);
+        load_cacti_instances(account, true);
 
         $('#btn-edit-access-' + account.id).unbind('click')
             .on('click', function(event) {

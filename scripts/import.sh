@@ -12,7 +12,7 @@ if [ -z "$BASE_URL" ]; then
     exit 1
 fi
 
-/usr/bin/wget -O "$TMPFILE" --post-data="$(cat $POSTFILE)" "$URL"
+/usr/bin/wget -t 1 --timeout 120 -O "$TMPFILE" --post-data="$(cat $POSTFILE)" "$URL"
 
 if [ $? != 0 ]; then
 	echo "ERROR: failed to retrieve $URL" >&2

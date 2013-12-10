@@ -158,6 +158,8 @@ class AdminApiController extends BaseController
         $form = Array(
             Array('page_limit', 'integer'),
             Array('page', 'integer'),
+            Array('group_id', 'integer'),
+            Array('api_account_id', 'integer'),
             Array('exclude_group_id', 'integer'),
             Array('exclude_api_account_id', 'integer'),
             Array('format', 'text')
@@ -168,8 +170,29 @@ class AdminApiController extends BaseController
 
         $em = $this->getDoctrine()->getManager();
 
-        $exclude_query = false;
+        $include_query = false;
         
+        if (intval($data['group_id']) > 0) {
+            $data['include_id'] = $data['group_id'];
+            $include_query = $em->getRepository('GizmoCapoBundle:Group')
+                                ->getCactiInstanceIdsQuery(
+                                    Array('id' => $data['group_id'])
+                                );
+
+            // no cacti instances for this group
+            if (!$include_query) {
+                $include_query = Array('-1');
+            }
+        } elseif (intval($data['api_account_id']) > 0) {
+            $data['include_id'] = $data['api_account_id'];
+            $include_query = $em->getRepository('GizmoCapoBundle:ApiUser')
+                                ->getCactiInstanceIdsQuery(
+                                    Array('id' => $data['api_account_id'])
+            );
+        }
+
+        $exclude_query = false;
+
         if (intval($data['exclude_group_id']) > 0) {
             $data['exclude_id'] = $data['exclude_group_id'];
             $exclude_query = $em->getRepository('GizmoCapoBundle:Group')
@@ -184,10 +207,9 @@ class AdminApiController extends BaseController
             );
         }
 
-
         $cacti_instances = $em
             ->getRepository('GizmoCapoBundle:CactiInstance')
-            ->getCactiInstances($data, $exclude_query);
+            ->getCactiInstances($data, $include_query, $exclude_query);
 
         return $this->_encoded_response($cacti_instances, $format);
     }

@@ -70,27 +70,36 @@ CAPO.settings.groups = CAPO.settings.groups || {};
         load_results(true);
     };
 
-    var load_available_cacti_instances = function(group) {
+    var load_cacti_instances = function(group, available) {
+        var el = '#group_' + group.id + '_ci_select_selected';
+        var data = {
+            page: _scroller.page,
+            page_limit: _scroller.per_page,
+        };
+
+        if (available) {
+            data['exclude_group_id'] = group.id;
+            el = '#group_' + group.id + '_ci_select_deselected';
+        } else {
+            data['group_id'] = group.id;
+        }
+
         $.ajax({
             url: ns.get('base_url') + 'api/admin/get_cacti_instances/',
             type: ns.get('request_method'),
             dataType: 'json',
-            data: {
-                page: _scroller.page,
-                page_limit: _scroller.per_page,
-                exclude_group_id: group.id
-            },
+            data: data,
             success: function(response, textStatus, jqXHR) {
                 $.each(response.cacti_instances, function(index, ci) {
                     $('<option>').attr({
                         'value': ci.id
                     })
                     .text(ci.name)
-                    .appendTo($('#group_' + group.id + '_ci_select_deselected'));
+                    .appendTo($(el));
                 });
             }
         });
-    }
+    };
 
     var group_show_edit_cacti_instances_row = function(group) {
         var row_id = 'group-edit-cacti-instances-' + group.id;
@@ -100,15 +109,8 @@ CAPO.settings.groups = CAPO.settings.groups || {};
                 'id': group.id
             }));
 
-        $.each(group.cacti_instances, function(index, ci) {
-            $('<option>').attr({
-                'value': ci.id
-            })
-            .text(ci.name)
-            .appendTo($('#group_' + group.id + '_ci_select_selected'));
-        });
-
-        load_available_cacti_instances(group);
+        load_cacti_instances(group, false);
+        load_cacti_instances(group, true);
 
         $('#btn-edit-access-' + group.id).unbind('click')
             .on('click', function(event) {

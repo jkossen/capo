@@ -101,7 +101,7 @@ class CactiInstanceRepository extends BaseEntityRepository
      *
      * @return Array array of Cacti instances
      */
-    public function getCactiInstances(Array $data, $exclude_query = false, $user_is_admin = false)
+    public function getCactiInstances(Array $data, $include_query = false, $exclude_query = false, $user_is_admin = false)
     {
         $qb = $this->_getStdQueryBuilder($data);
         $q = $qb['q'];
@@ -119,9 +119,22 @@ class CactiInstanceRepository extends BaseEntityRepository
             $q->andWhere('e.active = 1');
         }
 
+        if ($include_query) {
+            if (is_array($include_query)) {
+                $q->andWhere($q->expr()->in('e.id', $include_query));
+            } else {
+                $q->andWhere($q->expr()->in('e.id', $include_query->getDQL()));
+            $q->setParameter('id', $data['include_id']);
+            }
+        }
+
         if ($exclude_query) {
-            $q->andWhere($q->expr()->notIn('e.id', $exclude_query->getDQL()));
-            $q->setParameter('id', $data['exclude_id']);
+            if (is_array($exclude_query)) {
+                $q->andWhere($q->expr()->notIn('e.id', $exclude_query));
+            } else {
+                $q->andWhere($q->expr()->notIn('e.id', $exclude_query->getDQL()));
+                $q->setParameter('id', $data['exclude_id']);
+            }
         }
 
         $total = $this->_getResultCount($q);

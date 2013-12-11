@@ -170,8 +170,9 @@ abstract class BaseController extends Controller
      */
     protected function _log_event($str_function, $str_args, $message=null)
     {
+        $access_control_enabled = $this->_access_control_enabled();
         $logger = $this->get('event_logger');
-        $logger->log(get_class($this), $str_function, $str_args, $message);
+        $logger->log(get_class($this), $str_function, $str_args, $message, $access_control_enabled);
     }
 
     /**

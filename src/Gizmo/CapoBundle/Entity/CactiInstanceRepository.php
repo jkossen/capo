@@ -124,7 +124,7 @@ class CactiInstanceRepository extends BaseEntityRepository
                 $q->andWhere($q->expr()->in('e.id', $include_query));
             } else {
                 $q->andWhere($q->expr()->in('e.id', $include_query->getDQL()));
-            $q->setParameter('id', $data['include_id']);
+                $q->setParameter('id', $data['include_id']);
             }
         }
 

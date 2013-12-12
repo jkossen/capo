@@ -21,7 +21,6 @@ namespace Gizmo\CapoBundle\Tests\Entity;
 
 use Gizmo\CapoBundle\Tests\UnitTestCase;
 use Gizmo\CapoBundle\Entity\User;
-use Gizmo\CapoBundle\Entity\CactiInstance;
 
 class UserTest extends UnitTestCase
 {
@@ -51,41 +50,4 @@ class UserTest extends UnitTestCase
         $result = $e->getUsername();
         $this->assertSame($expected, $result);
     }
-/*
-    public function testCactiInstances()
-    {
-        $e = new User();
-        $c1 = new CactiInstance();
-        $c1->setName('cacti-instance-1');
-        $c2 = new CactiInstance();
-        $c2->setName('cacti-instance-2');
-        $c3 = new CactiInstance();
-        $c3->setName('cacti-instance-3');
-
-        $e->addCactiInstance($c1);
-        $e->addCactiInstance($c2);
-        $e->addCactiInstance($c3);
-
-        $expected = 3;
-        $result = count($e->getCactiInstances());
-
-        $this->assertSame($expected, $result);
-
-        $e->removeCactiInstance($c2);
-
-        $expected = 2;
-        $result = count($e->getCactiInstances());
-
-        $this->assertSame($expected, $result);
-
-        $e->removeCactiInstance($c1);
-
-        $expected = $c3->getName();
-        $result = $e->getCactiInstances();
-
-        $result = $result->current()->getName();
-
-        $this->assertSame($expected, $result);
-    }
-*/
 }

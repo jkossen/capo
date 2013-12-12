@@ -28,6 +28,7 @@ use Gizmo\CapoBundle\Entity\GraphTemplate;
 use Gizmo\CapoBundle\Entity\Host;
 use Gizmo\CapoBundle\Entity\Group;
 use Gizmo\CapoBundle\Entity\User;
+use Gizmo\CapoBundle\Entity\ApiUser;
 use Gizmo\CapoBundle\Entity\GraphSelection;
 use Gizmo\CapoBundle\Entity\EventLog;
 use Gizmo\CapoBundle\Entity\Weathermap;
@@ -71,6 +72,24 @@ class FixtureLoader implements FixtureInterface
             $users[] = $u;
         }
 
+        $apiusers = Array();
+        $apiusers_desc = Array(
+            0 => Array('testapiuser1', 'dhnqwjdjqwiojdioqwjiodjqwiojiodjqwo', true),
+            1 => Array('testapiuser2', 'djqwiodjioqwjiodjqwodqojdoijqwiojo', true),
+            2 => Array('testapiuser3', 'dqi90iqwdmklfji123jrlkewqjfkl', false),
+            3 => Array('testapiuser4', 'vmd,lfvmopkweopfkweopkpwekkwekfkwe;kfewk;fkwekfpwekpkwepokopewk;', true)
+        );
+
+        foreach ($apiusers_desc as $ud) {
+            $u = new ApiUser;
+            $u->setUserName($ud[0]);
+            $u->setPassword($ud[1]);
+            $u->setActive($ud[2]);
+
+            $manager->persist($u);
+            $apiusers[] = $u;
+        }
+
         $cis = Array();
         $cis_desc = Array(
             0 => Array('cacti_instance_test_01', 'http://cacti-instance-test-01.local/', 1),
@@ -97,6 +116,29 @@ class FixtureLoader implements FixtureInterface
             $manager->persist($c);
             $cis[] = $c;
         }
+
+        // assign some cacti instances to groups
+        $groups[0]->addCactiInstance($cis[2]);
+        $groups[0]->addCactiInstance($cis[3]);
+        $groups[0]->addCactiInstance($cis[4]);
+        $groups[1]->addCactiInstance($cis[3]);
+        $groups[1]->addCactiInstance($cis[4]);
+        $groups[1]->addCactiInstance($cis[5]);
+        $groups[1]->addCactiInstance($cis[6]);
+
+        $manager->persist($groups[0]);
+        $manager->persist($groups[1]);
+
+        $apiusers[0]->addCactiInstance($cis[2]);
+        $apiusers[0]->addCactiInstance($cis[3]);
+        $apiusers[0]->addCactiInstance($cis[4]);
+        $apiusers[1]->addCactiInstance($cis[3]);
+        $apiusers[1]->addCactiInstance($cis[4]);
+        $apiusers[1]->addCactiInstance($cis[5]);
+        $apiusers[1]->addCactiInstance($cis[6]);
+
+        $manager->persist($apiusers[0]);
+        $manager->persist($apiusers[1]);
 
         $hosts = Array();
         $hosts_desc = Array(

@@ -38,6 +38,19 @@ class AdminApiControllerTest extends FunctionalTestCase
     }
 
     /**
+     * Test retrieving apiaccounts
+     */
+    public function testGetApiAccountsAction()
+    {
+        $options = Array(
+            'url' => '/api/admin/get_api_accounts/',
+            'content_indicator' => 'api_accounts'
+        );
+
+        $this->api_retrieve_call($options);
+    }
+
+    /**
      * Test retrieving groups
      */
     public function testGetGroupsAction()
@@ -58,6 +71,66 @@ class AdminApiControllerTest extends FunctionalTestCase
         $options = Array(
             'url' => '/api/admin/get_cacti_instances/',
             'content_indicator' => 'cacti_instances'
+        );
+
+        $this->api_retrieve_call($options);
+
+        // test with group_id
+        $options['data'] = Array(
+            'group_id' => 1
+        );
+
+        $this->api_retrieve_call($options);
+
+        // test with nonexisting group_id
+        $options['data'] = Array(
+            'group_id' => 99999
+        );
+        $options['zero_result'] = true;
+
+        $this->api_retrieve_call($options);
+
+        // test with exclude_group_id
+        $options['data'] = Array(
+            'exclude_group_id' => 1
+        );
+        $options['zero_result'] = false;
+
+        $this->api_retrieve_call($options);
+
+        // test with nonexisting exclude_group_id
+        $options['data'] = Array(
+            'exclude_group_id' => 99999
+        );
+
+        $this->api_retrieve_call($options);
+
+        // test with api_account_id
+        $options['data'] = Array(
+            'api_account_id' => 1
+        );
+
+        $this->api_retrieve_call($options);
+
+        // test with nonexisting api_account_id
+        $options['data'] = Array(
+            'api_account_id' => 9999
+        );
+        $options['zero_result'] = true;
+
+        $this->api_retrieve_call($options);
+
+        // test with exclude_api_account_id
+        $options['data'] = Array(
+            'exclude_api_account_id' => 1
+        );
+        $options['zero_result'] = false;
+
+        $this->api_retrieve_call($options);
+
+        // test with nonexisting exclude_api_account_id
+        $options['data'] = Array(
+            'exclude_api_account_id' => 9999
         );
 
         $this->api_retrieve_call($options);
@@ -165,6 +238,94 @@ class AdminApiControllerTest extends FunctionalTestCase
     }
 
     /**
+     * Test granting access to cacti instance
+     */
+    public function testEnableCactiInstanceForApiUserAction()
+    {
+        $options = Array(
+            'url' => '/api/admin/enable_cacti_instance_for_api_user/',
+            'data' => Array(
+                'cacti_instance_id' => 1,
+                'api_user_id' => 1
+            )
+        );
+
+        $this->api_action_ok($options);
+
+        // no group_id
+        $options['data'] = Array(
+            'cacti_instance_id' => 1,
+        );
+
+        $this->api_action_error($options);
+
+        // nonexistant group_id
+        $options['data'] = Array(
+            'cacti_instance_id' => 1,
+            'api_user_id' => 99999
+        );
+
+        $this->api_action_error($options);
+
+        // no cacti_instance_id
+        $options['data'] = Array(
+            'api_user_id' => 1
+        );
+
+        $this->api_action_error($options);
+
+        // nonexistant cacti_instance_id
+        $options['data'] = Array(
+            'cacti_instance_id' => 99999,
+            'api_user_id' => 1
+        );
+
+        $this->api_action_error($options);
+    }
+
+    /**
+     * Test revoking access to cacti instance
+     */
+    public function testDisableCactiInstanceForApiUserAction()
+    {
+        $options = Array(
+            'url' => '/api/admin/disable_cacti_instance_for_api_user/',
+            'data' => Array(
+                'cacti_instance_id' => 1,
+                'api_user_id' => 1
+            )
+        );
+
+        $this->api_action_ok($options);
+
+        $options['data'] = Array(
+            'cacti_instance_id' => 1,
+        );
+
+        $this->api_action_error($options);
+
+        $options['data'] = Array(
+            'cacti_instance_id' => 1,
+            'api_user_id' => 99999
+        );
+
+        $this->api_action_error($options);
+
+        $options['data'] = Array(
+            'api_user_id' => 1,
+        );
+
+        $this->api_action_error($options);
+
+        $options['data'] = Array(
+            'cacti_instance_id' => 99999,
+            'api_user_id' => 1
+        );
+
+        $this->api_action_error($options);
+    }
+
+    /**
      * Test creating new Groups
      */
     public function testCreateGroupAction()
@@ -195,6 +356,36 @@ class AdminApiControllerTest extends FunctionalTestCase
         $this->api_action_error($options);
     }
 
+    /**
+     * Test creating new ApiUsers
+     */
+    public function testCreateApiUserAction()
+    {
+        $options = Array(
+            'url' => '/api/admin/api_user/create/',
+            'data' => Array(
+                'username' => 'test-apiusername'
+            )
+        );
+
+        $decoded = $this->api_action_ok($options);
+        $this->assertGreaterThan(0, $decoded->api_user_id);
+
+        // try to create another with the same username
+        $options['data'] = array('username' => 'test-apiusername');
+
+        $this->api_action_error($options);
+
+        // try to create another without username
+        $options['data'] = array();
+
+        $this->api_action_error($options);
+
+        // try to create another with an empty username
+        $options['data'] = array('username' => '');
+
+        $this->api_action_error($options);
+    }
 
     /**
      * Test creating new Cacti Instances
@@ -461,7 +652,7 @@ class AdminApiControllerTest extends FunctionalTestCase
             'url' => '/api/admin/user/update/',
             'data' => Array(
                 'id' => 1,
-                'enabled' => 0,
+                'username' => 'testuser-renamed',
             )
         );
 
@@ -478,6 +669,35 @@ class AdminApiControllerTest extends FunctionalTestCase
         $options['data'] = Array(
             'id' => 99999,
             'enabled' => 0,
+        );
+
+        $this->api_action_error($options);
+    }
+
+    public function testUpdateApiUserAction()
+    {
+        // change name
+        $options = Array(
+            'url' => '/api/admin/api_user/update/',
+            'data' => Array(
+                'id' => 1,
+                'username' => 'testapiuser1-renamed',
+            )
+        );
+
+        $this->api_action_ok($options);
+
+        // without id
+        $options['data'] = Array(
+            'active' => 0,
+        );
+
+        $this->api_action_error($options);
+
+        // nonexistant id
+        $options['data'] = Array(
+            'id' => 99999,
+            'active' => 0,
         );
 
         $this->api_action_error($options);

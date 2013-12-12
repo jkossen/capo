@@ -179,7 +179,7 @@ class AdminApiController extends BaseController
                                     Array('id' => $data['group_id'])
                                 );
 
-            // no cacti instances for this group
+            // no cacti instances for this group or nonexistant group
             if (!$include_query) {
                 $include_query = Array('-1');
             }
@@ -189,6 +189,10 @@ class AdminApiController extends BaseController
                                 ->getCactiInstanceIdsQuery(
                                     Array('id' => $data['api_account_id'])
             );
+            // no cacti instances for this apiuser or nonexistant apiuser
+            if (!$include_query) {
+                $include_query = Array('-1');
+            }
         }
 
         $exclude_query = false;

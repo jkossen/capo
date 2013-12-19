@@ -25,27 +25,27 @@ use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 
 class EventLogService
 {
-	/** @var \Symfony\Component\Security\Core\SecurityContext */
-	private $securityContext;
+    /** @var \Symfony\Component\Security\Core\SecurityContext */
+    private $securityContext;
 
-	/** @var \Doctrine\ORM\EntityManager */
-	private $em;
+    /** @var \Doctrine\ORM\EntityManager */
+    private $em;
 
     /** @var bool */
     private $enabled;
 
-	/**
-	 * Constructor
-	 * 
-	 * @param Doctrine        $doctrine
+    /**
+     * Constructor
+     * 
+     * @param Doctrine        $doctrine
      * @param bool            $enabled
-	 */
-	public function __construct(SecurityContext $securityContext, Doctrine $doctrine, $enabled = false)
-	{
-		$this->securityContext = $securityContext;
+     */
+    public function __construct(SecurityContext $securityContext, Doctrine $doctrine, $enabled = false)
+    {
+        $this->securityContext = $securityContext;
         $this->em = $doctrine->getEntityManager();
         $this->enabled = $enabled;
-	}
+    }
 
     /**
      * Create an event log message
@@ -82,25 +82,25 @@ class EventLogService
         } catch (\Exception $e) { } // ignore errors with logging
     }
 
-	/**
-	 * Do the magic.
-	 * 
-	 * @param InteractiveLoginEvent $event
-	 */
-	public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
-	{
+    /**
+     * Do the magic.
+     * 
+     * @param InteractiveLoginEvent $event
+     */
+    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
+    {
         /*
-		if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
-			// user has just logged in
-		}
-		
-		if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-			// user has logged in using remember_me cookie
-		}
+          if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
+          // user has just logged in
+          }
+        
+          if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+          // user has logged in using remember_me cookie
+          }
         */
 
-		// do some other magic here
-		$user = $event->getAuthenticationToken()->getUser();
+        // do some other magic here
+        $user = $event->getAuthenticationToken()->getUser();
 
         $er = $this->em->getRepository('GizmoCapoBundle:EventLog');
 

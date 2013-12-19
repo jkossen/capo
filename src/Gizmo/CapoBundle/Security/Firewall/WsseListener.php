@@ -31,6 +31,7 @@ class WsseListener implements ListenerInterface
 {
     protected $securityContext;
     protected $authenticationManager;
+    protected $logger;
 
     public function __construct(SecurityContextInterface $securityContext, AuthenticationManagerInterface $authenticationManager)
     {
@@ -57,10 +58,12 @@ class WsseListener implements ListenerInterface
         try {
             $authToken = $this->authenticationManager->authenticate($token);
             $this->securityContext->setToken($authToken);
+            $this->logger->log(get_class($this), 'handle', '', 'API call by authenticated API user ' . $matches[1]);
 
             return;
         } catch (AuthenticationException $failed) {
             // ... you might log something here
+            $this->logger->log(get_class($this), 'handle', '', 'Authentication failure for API user ' . $matches[1] . '. Bad username or password?', false);
 
             // To deny the authentication clear the token. This will redirect to the login page.
             // Make sure to only clear your token, not those of other authentication listeners.
@@ -75,11 +78,19 @@ class WsseListener implements ListenerInterface
             $response->setStatusCode(403);
             $event->setResponse($response);
 
+            return;
         }
+
+        $this->logger->log(get_class($this), 'handle', '', 'Failed API call for API user ' . $matches[1], false);
 
         // By default deny authorization
         $response = new Response();
         $response->setStatusCode(403);
         $event->setResponse($response);
+    }
+
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
     }
 }

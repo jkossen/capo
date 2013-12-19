@@ -39,4 +39,12 @@ class WsseUserToken extends AbstractToken
     {
         return '';
     }
+
+    public function eraseCredentials()
+    {
+        /*
+          By default, Symfony wants to erase all plaintext passwords.
+          Don't do that here, API users have plaintext API passwords as key.
+        */
+    }
 }

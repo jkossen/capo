@@ -74,7 +74,7 @@ class EventLogRepository extends BaseEntityRepository
     public function createEventLog($user, $controller, $function, $arguments, $message)
     {
         $obj = new EventLog();
-        if ($user) {
+        if (is_object($user)) {
             $user_id = ($user->getId() === null) ? 0 : $user->getId();
             $obj->setUserId($user_id);
             $obj->setUserName($user->getUserName());

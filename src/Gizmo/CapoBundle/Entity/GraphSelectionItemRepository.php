@@ -24,16 +24,21 @@ namespace Gizmo\CapoBundle\Entity;
  */
 class GraphSelectionItemRepository extends BaseEntityRepository
 {
+    /**
+     * Check and fix the item numbering of items in a graph selection
+     *
+     * @param Array $data
+     */
     protected function _fixItemNumbering(Array $data)
     {
-        $graph_selection_id = abs(intval($data['graph_selection_id']));
+        $item_id = abs(intval($data['item_id']));
+
+        $item = $this->findOneBy(array('id' => $item_id));
+        $gs = $item->getGraphSelection();
 
         $qb = $this->_getStdQueryBuilder($data);
         $q = $qb['q'];
         $q2 = clone($q);
-
-        $item = $this->findOneBy(array('graph_selection' => $graph_selection_id));
-        $gs = $item->getGraphSelection();
 
         // check if current user owns this graph selection
         if ($gs->getUser()->getId() != $data['capo_user_id']) {
@@ -43,14 +48,14 @@ class GraphSelectionItemRepository extends BaseEntityRepository
         $need_renumbering = false;
 
         $q->select('count(e.id)');
-        $q->where('e.graph_selection = ' . $graph_selection_id);
+        $q->where('e.graph_selection = ' . $gs->getId());
         $query = $q->getQuery();
         $res = $query->getSingleResult();
         $max_itemnr = intval($res[1]);
 
         // check if there are itemnr's smaller than 1, there should not be
         $q->select('count(e.id)');
-        $q->where('e.graph_selection = ' . $graph_selection_id);
+        $q->where('e.graph_selection = ' . $gs->getId());
         $q->andWhere('e.itemnr < 1');
         $query = $q->getQuery();
         $res = $query->getSingleResult();
@@ -63,7 +68,7 @@ class GraphSelectionItemRepository extends BaseEntityRepository
         // it should be the same
         if (! $need_renumbering) {
             $q->select('count(distinct e.itemnr)');
-            $q->where('e.graph_selection = ' . $graph_selection_id);
+            $q->where('e.graph_selection = ' . $gs->getId());
             $query = $q->getQuery();
             $res = $query->getSingleResult();
             $itemnr_distinct_count = intval($res[1]);
@@ -76,7 +81,7 @@ class GraphSelectionItemRepository extends BaseEntityRepository
         // check if highest itemnr is higher than max_itemnr, it should not be
         if (! $need_renumbering) {
             $q->select('max(e.itemnr)');
-            $q->where('e.graph_selection = ' . $graph_selection_id);
+            $q->where('e.graph_selection = ' . $gs->getId());
             $query = $q->getQuery();
             $res = $query->getSingleResult();
             $itemnr_highest = intval($res[1]);
@@ -88,7 +93,7 @@ class GraphSelectionItemRepository extends BaseEntityRepository
 
         if ($need_renumbering) {
             $q->select('e');
-            $q->where('e.graph_selection = ' . $graph_selection_id);
+            $q->where('e.graph_selection = ' . $gs->getId());
             $q->addOrderBy('e.itemnr');
             $q->addOrderBy('e.id');
             $query = $q->getQuery();
@@ -105,6 +110,9 @@ class GraphSelectionItemRepository extends BaseEntityRepository
         }
     }
 
+    /**
+     * Reposition an item in a graph selection
+     */
     public function repositionItem(Array $data)
     {
         $item_id = abs(intval($data['item_id']));
@@ -129,7 +137,6 @@ class GraphSelectionItemRepository extends BaseEntityRepository
         }
 
         // Check and if needed fix the item numbering of this selection
-        $data['graph_selection_id'] = $gs->getId();
         $this->_fixItemNumbering($data);
 
         $max_itemnr = 1;

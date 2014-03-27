@@ -313,6 +313,53 @@ class ApiController extends BaseController
     }
 
     /**
+     * Reposition graph selection item
+     *
+     * @return Response encoded response
+     */
+    public function changeGraphSelectionItemItemNrAction()
+    {
+        $form = Array(
+            Array('item_id', 'integer'),
+            Array('new_pos', 'integer'),
+            Array('format', 'text')
+        );
+
+        $data = $this->_get_request_data($form);
+        $format = $this->_get_supported_format($data['format']);
+
+        if (empty($data['item_id'])) {
+            return $this->_api_fail(
+                'Failed to reposition graph selection item: no item_id given',
+                $format);
+        }
+
+        if (empty($data['new_pos'])) {
+            return $this->_api_fail(
+                'Failed to reposition graph selection item: no new_pos given',
+                $format);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $obj = $em->getRepository('GizmoCapoBundle:GraphSelectionItem')
+                  ->repositionItem($data);
+
+        if ($obj) {
+            $em->persist($obj);
+            $em->flush();
+            
+            $this->_log_event(__FUNCTION__,
+                              'graph_selection_item_id:' . $data['item_id'] . ', ' . 'new_pos:' . $data['new_pos']);
+
+            return $this->_encoded_response(array('result' => 'OK'), $format);
+        } else {
+            return $this->_api_fail(
+                'No such graph selection item',
+                $format);
+        }
+    }
+
+    /**
      * Get JSON encoded array of Cacti graphs
      *
      * Results are filtered based on GET or POST input data

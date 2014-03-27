@@ -151,6 +151,30 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
         load_selection_graphs(true);
     };
 
+    var change_pos = function(item_id) {
+        $('.select-pos').prop('disabled', 'disabled');
+
+        $.ajax({
+            url: ns.get('base_url') + 'api/graph_selection/item/reposition/',
+            type: ns.get('request_method'),
+            dataType: 'json',
+            data: {
+                item_id: item_id,
+                new_pos: $('#select-pos-' + item_id).val()
+            },
+            success: function(response, textStatus, jqXHR) {
+                load_selection_graphs(true);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                var ret = $.parseJSON(jqXHR.responseText);
+                show_error(jqXHR.status + ' ' + errorThrown +
+                   '. ' + ret.message
+                );
+                load_selection_graphs(true);
+            }
+        });
+    }
+
     // Load a set of cacti instance search results
     var load_selection_graphs = function(clear) {
         $.ajax({
@@ -163,8 +187,6 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
                 graph_selection_id: $('#saved_selections_select').val(),
             },
             success: function(response, textStatus, jqXHR) {
-                _scroller.total = response.graphs_total;
-
                 if (clear) {
                     _scroller.reset();
                     _scroller.total = (response.graph_selection_items_total);
@@ -178,13 +200,26 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
                                var graph_url = item.graph.cacti_instance.base_url +
                                    'graph.php?local_graph_id=' +
                                    item.graph.graph_local_id;
+
+                               var options = '';
+                               for (var i=1;i<parseInt(response.graph_selection_items_total)+1;i++) {
+                                   var selected = (i == item.itemnr) ? 'selected="selected"' : '';
+                                   options += '<option value="' + i + '" ' + selected + '>' + i + '</option>';
+                               }
                                
                                $('#results_list')
                                    .append(tpl_saved_selection_list_item({
+                                       'item_id': item.id,
                                        'ci_name': item.graph.cacti_instance.name,
                                        'graph_url': item.graph_url,
-                                       'graph_title': item.graph.title_cache
+                                       'graph_title': item.graph.title_cache,
+                                       'pos_options': options
                                    }));
+
+                               $('#select-pos-' + item.id).on('change', function(event) {
+                                   event.preventDefault();
+                                   change_pos(item.id);
+                               });
                            });
                 }
 

@@ -97,6 +97,9 @@ gizmo_capo_api_disable_graph_selection:
 gizmo_capo_api_rename_graph_selection:
     pattern: /api/rename_graph_selection/
     defaults: { _controller: GizmoCapoBundle:Api:renameGraphSelection}
+gizmo_capo_api_change_graph_selection_item_itemnr:
+    pattern: /api/graph_selection/item/reposition/
+    defaults: { _controller: GizmoCapoBundle:Api:changeGraphSelectionItemItemNr}
 gizmo_capo_api_get_graph_titles:
     pattern: /api/get_graph_titles/
     defaults: { _controller: GizmoCapoBundle:Api:getGraphTitles}

@@ -389,8 +389,9 @@ CAPO.html = CAPO.html || {};
     var saved_selection_list_item = function() {
         var tpl =
             '<tr>' +
-            '<td><%= ci_name %></td>' +
-            '<td><a href="<%= graph_url %>"><%= graph_title %></a></td>' +
+            '<td class="cacti-instance"><%= ci_name %></td>' +
+            '<td class="graph"><a href="<%= graph_url %>"><%= graph_title %></a></td>' +
+            '<td class="position"><select name="position" class="select-pos" id="select-pos-<%= item_id %>"><%= pos_options %></select></td>' +
             '</tr>';
 
         return _.template(tpl);

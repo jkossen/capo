@@ -117,7 +117,7 @@ CAPO.settings.event_log = CAPO.settings.event_log || {};
                 var filter_1_cur = $('#filter_1').val();
                 if ((filter_1_cur.length === 0 && filter_1_prev.length !== 0) ||
                    (filter_1_cur !== filter_1_prev && filter_1_cur.length >= 2)) {
-                        refresh_eventlog();
+                        refresh_results();
                         filter_1_prev = filter_1_cur;
                 }
             }, 500);

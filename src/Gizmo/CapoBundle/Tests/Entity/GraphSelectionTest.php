@@ -67,14 +67,17 @@ class GraphSelectionTest extends UnitTestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testGraphs()
+    public function testGraphSelectionItems()
     {
         $e = new GraphSelection();
         $g1 = new Graph();
+        $g1->setId(1);
         $g1->setTitleCache('graph-1');
         $g2 = new Graph();
+        $g2->setId(2);
         $g2->setTitleCache('graph-2');
         $g3 = new Graph();
+        $g3->setId(3);
         $g3->setTitleCache('graph-3');
 
         $e->addGraph($g1);
@@ -82,23 +85,23 @@ class GraphSelectionTest extends UnitTestCase
         $e->addGraph($g3);
 
         $expected = 3;
-        $result = count($e->getGraphs());
+        $result = count($e->getGraphSelectionItems());
 
         $this->assertSame($expected, $result);
 
         $e->removeGraph($g2);
 
         $expected = 2;
-        $result = count($e->getGraphs());
+        $result = count($e->getGraphSelectionItems());
 
         $this->assertEquals($expected, $result);
 
         $e->removeGraph($g1);
 
         $expected = $g3->getTitleCache();
-        $result = $e->getGraphs();
+        $result = $e->getGraphSelectionItems();
 
-        $result = $result->current()->getTitleCache();
+        $result = $result->current()->getGraph()->getTitleCache();
 
         $this->assertEquals($expected, $result);
     }    

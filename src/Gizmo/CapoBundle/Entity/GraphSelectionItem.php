@@ -54,11 +54,13 @@ class GraphSelectionItem
 
     /**
      * @ORM\ManyToOne(targetEntity="GraphSelection", inversedBy="graph_selection_items")
+     * @ORM\JoinColumn(name="graph_selection_id", referencedColumnName="id", onDelete="cascade")
      */
     protected $graph_selection;
 
     /**
      * @ORM\ManyToOne(targetEntity="Graph", inversedBy="graph_selection_items")
+     * @ORM\JoinColumn(name="graph_id", referencedColumnName="id", onDelete="cascade")
      */
     protected $graph;
 

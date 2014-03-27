@@ -390,8 +390,8 @@ class ApiControllerTest extends FunctionalTestCase
         $options = Array(
             'url' => '/api/get_graph_selection_graphs/',
             'data' => array('graph_selection_id' => 1),
-            'content_indicator' => 'graph_selection',
-            'total_indicator' => 'graphs_total'
+            'content_indicator' => 'graph_selection_items',
+            'total_indicator' => 'graph_selection_items_total'
         );
 
         $this->api_retrieve_call($options);

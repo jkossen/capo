@@ -203,7 +203,7 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
 
                                var options = '';
                                for (var i=1;i<parseInt(response.graph_selection_items_total)+1;i++) {
-                                   var selected = (i == item.itemnr) ? 'selected="selected"' : '';
+                                   var selected = (i == index+1) ? 'selected="selected"' : '';
                                    options += '<option value="' + i + '" ' + selected + '>' + i + '</option>';
                                }
                                

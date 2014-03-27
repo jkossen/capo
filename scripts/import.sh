@@ -8,6 +8,7 @@ cd "$WDIR"
 TMPFILE=$(/bin/mktemp /tmp/capo.XXXXXXXX)
 BASE_URL="$1"
 URL="${BASE_URL}capo_export.php"
+DBHOST="$(grep database_host ../app/config/parameters.yml |awk '{print $2}' |sed -e 's/"//g')"
 DBUSER="$(grep database_user ../app/config/parameters.yml |awk '{print $2}' |sed -e 's/"//g')"
 DB="$(grep database_name ../app/config/parameters.yml |awk '{print $2}' |sed -e 's/"//g')"
 DBPASS="$(grep database_password ../app/config/parameters.yml |awk '{print $2}' |sed -e 's/"//g')"
@@ -45,7 +46,7 @@ retrieve_data() {
 
 integrate_data() {
     if [ -s "$TMPFILE" ]; then
-	    mysql -u $DBUSER --password="$DBPASS" $DB < $TMPFILE
+	    mysql -h "$DBHOST" -u "$DBUSER" --password="$DBPASS" $DB < $TMPFILE
 
 	    if [ $? != 0 ]; then
 		    exit_err "ERROR: mysql import failed" 1
@@ -53,7 +54,7 @@ integrate_data() {
             IMPORT_DATE=$(date +"%Y-%m-%d %H:%M:%S")
             SQL="UPDATE cacti_instance SET import_date = '$IMPORT_DATE', queue_import = 0 WHERE base_url = '$BASE_URL'"
 
-            mysql -u $DBUSER --password="$DBPASS" $DB -e "$SQL"
+            mysql -h "$DBHOST" -u "$DBUSER" --password="$DBPASS" $DB -e "$SQL"
 	    fi
     else
 	    exit_err "ERROR: size of SQL file $TMPFILE is 0" 1

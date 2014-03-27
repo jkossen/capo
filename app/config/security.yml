@@ -29,7 +29,20 @@ security:
         fos_userbundle:
             id: fos_user.user_manager
 
+        #apiuser_provider:
+        #    id: gizmo_capobundle.apiuser_manager
+
+        apiuser_provider:
+            entity:
+                class: Gizmo\CapoBundle\Entity\ApiUser
+                property: username
+
     firewalls:
+        wsse_secured:
+            pattern: /srv/.*
+            wsse: true
+            provider: apiuser_provider
+
         main:
             pattern:    ^/
             #fr3d_ldap:  ~
@@ -39,10 +52,12 @@ security:
                  use_referer: true
             logout:     true
             anonymous:  true
+            provider: chain_provider
 
         login:
             pattern:  ^/login$
             security: false
+
 
 #        secured_area:
 #            pattern:    ^/

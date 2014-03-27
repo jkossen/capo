@@ -93,10 +93,9 @@ class Graph
     protected $title_cache;
 
     /**
-     * @ORM\ManyToMany(targetEntity="GraphSelection", inversedBy="graphs")
-     * @ORM\JoinTable(name="graph_selections_graphs")
+     * @ORM\OneToMany(targetEntity="GraphSelectionItem", mappedBy="graph", cascade={"persist"})
      */
-    protected $graph_selections;
+    protected $graph_selection_items;
 
     public function __construct()
     {
@@ -262,19 +261,5 @@ class Graph
     public function getTitleCache()
     {
         return $this->title_cache;
-    }
-
-    /**
-     * Add Graph Selection to graph
-     *
-     * @param GraphSelection $graph_selection
-     *
-     * @return Graph
-     */
-    public function addGraphSelection(GraphSelection $graph_selection)
-    {
-        $this->graph_selections[] = $graph_selection;
-
-        return $this;
     }
 }

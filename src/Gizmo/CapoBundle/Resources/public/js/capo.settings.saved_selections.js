@@ -166,78 +166,30 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
                 _scroller.total = response.graphs_total;
 
                 if (clear) {
+                    _scroller.reset();
+                    _scroller.total = (response.graph_selection_items_total);
                     $('#results').scrollTop(0);
                     $('#results_list').empty();
                 }
 
-                $.each(response.graph_selection[0].graphs,
-                       function(index, graph) {
-                           var graph_url = graph.cacti_instance.base_url +
-                               'graph.php?local_graph_id=' +
-                               graph.graph_local_id;
-
-                           $('#results_list')
-                               .append(tpl_saved_selection_list_item({
-                                   'ci_name': graph.cacti_instance.name,
-                                   'graph_url': graph_url,
-                                   'graph_title': graph.title_cache
-                               }));
-                       });
+                if (response.graph_selection_items.length > 0) {
+                    $.each(response.graph_selection_items[0].graph_selection_items,
+                           function(index, item) {
+                               var graph_url = item.graph.cacti_instance.base_url +
+                                   'graph.php?local_graph_id=' +
+                                   item.graph.graph_local_id;
+                               
+                               $('#results_list')
+                                   .append(tpl_saved_selection_list_item({
+                                       'ci_name': item.graph.cacti_instance.name,
+                                       'graph_url': item.graph_url,
+                                       'graph_title': item.graph.title_cache
+                                   }));
+                           });
+                }
 
                 $('#result_count')
                     .html('matches: ' + _scroller.total);
-                _scroller.unlock();
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                _scroller.unlock();
-                var ret = $.parseJSON(jqXHR.responseText);
-                show_error(jqXHR.status + ' ' + errorThrown +
-                   '. ' + ret.message
-                );
-            }
-        });
-    };
-
-    var refresh_results = function() {
-        _scroller.reset();
-        load_results(true);
-    };
-
-    // Load a set of cacti instance search results
-    var load_results = function(clear) {
-        $.ajax({
-            url: ns.get('base_url') + 'api/admin/get_event_log/',
-            type: ns.get('request_method'),
-            dataType: 'json',
-            data: {
-                page: _scroller.page,
-                page_limit: _scroller.per_page,
-                q: $('#filter_1').val(),
-            },
-            success: function(response, textStatus, jqXHR) {
-                _scroller.total = response.loglines_total;
-
-                if (clear) {
-                    $('#results').scrollTop(0);
-                    $('#results_list').empty();
-                }
-
-                $.each(response.loglines, function(index, logline) {
-                    var custom_data = JSON.parse(logline.custom_data);
-                    $('#results_list').append(
-                        tpl_eventlog_list_item({
-                            'date': logline.event_date.date,
-                            'username': logline.user_name,
-                            'userid': logline.user_id,
-                            'client_ip': logline.client_ip,
-                            'request_uri': logline.request_uri,
-                            'message': custom_data.message
-                        })
-                    );
-                });
-
-                $('#result_count')
-                .html('matches: ' + _scroller.total);
                 _scroller.unlock();
             },
             error: function(jqXHR, textStatus, errorThrown) {

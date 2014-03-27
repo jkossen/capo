@@ -118,11 +118,11 @@ class ApiController extends BaseController
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
-        $graphs = $em
+        $items = $em
             ->getRepository('GizmoCapoBundle:GraphSelection')
-            ->getGraphs($data, true);
+            ->getItems($data, true);
 
-        return $this->_encoded_response($graphs, $format);
+        return $this->_encoded_response($items, $format);
     }
 
     /**
@@ -202,7 +202,7 @@ class ApiController extends BaseController
                 $format);
         }
 
-        $obj = $repo->createGraphSelection($data['name'], $user, $graphs);
+        $obj = $repo->createGraphSelection($data['name'], $user, $graphs, $graph_ids);
 
         $current_selections = $repo->getGraphSelections($data, true);
         $nr_of_selections = $current_selections['graph_selections_total'];

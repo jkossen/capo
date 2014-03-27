@@ -108,19 +108,20 @@ class GraphSelectionRepository extends BaseEntityRepository
     }
 
     /**
-     * Get graph id's from graph selection
+     * Get selection items from graph selection
      *
      * @param Array $data array of filters
      *
-     * @return Array array of graph id's
+     * @return Array array of graph selection items
      */
-    public function getGraphs(Array $data, $as_array = false)
+    public function getItems(Array $data, $as_array = false)
     {
         $qb = $this->_getStdQueryBuilder($data);
         $q = $qb['q'];
 
-        $q->select(array('e', 'g', 'c'));
-        $q->join('e.graphs', 'g');
+        $q->select(array('e', 'i', 'g', 'c'));
+        $q->join('e.graph_selection_items', 'i');
+        $q->join('i.graph', 'g');
         $q->join('g.cacti_instance', 'c');
         $q->where('1 = 1');
         
@@ -134,15 +135,15 @@ class GraphSelectionRepository extends BaseEntityRepository
         $q->setFirstResult($qb['first_result']);
         $q->setMaxResults($qb['limit']);
 
-        $q->addOrderBy('g.title_cache', 'ASC');
+        $q->addOrderBy('i.itemnr', 'ASC');
 
         $query = $q->getQuery();
 
         $array_result = ($as_array) ? $query->getArrayResult() : $query->getResult();
 
         return array(
-            'graphs_total' => $total,
-            'graph_selection' => $array_result
+            'graph_selection_items_total' => $total,
+            'graph_selection_items' => $array_result
         );
     }
 
@@ -152,18 +153,23 @@ class GraphSelectionRepository extends BaseEntityRepository
      * @param string $name
      * @param int $user
      * @param Array graphs
+     * @param Array order_array order of graphs
      *
      * @return GraphSelection
      */
-    public function createGraphSelection($name, $user, $graphs)
+    public function createGraphSelection($name, $user, $graphs, $order_array)
     {
         $obj = new GraphSelection();
         $obj->setName($name);
         $obj->setUser($user);
         $obj->setCreated(new \DateTime(date('r')));
 
-        foreach ($graphs as $graph) {
-            $obj->addGraph($graph);
+        foreach ($order_array as $graph_id) {
+            foreach ($graphs as $graph) {
+                if ($graph->getId() == $graph_id) {
+                    $obj->addGraph($graph);
+                }
+            }
         }
 
         return $obj;

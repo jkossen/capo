@@ -364,12 +364,12 @@ CAPO.graphs = CAPO.graphs || {};
             },
             success: function(response, textStatus, jqXHR) {
                 deselect_all_graphs();
-                if (response.graph_selection.length > 0) {
-                    $.each(response.graph_selection[0].graphs,
-                           function(index, graph) {
-                               _graph_pool[graph.id] = graph;
-                               _cur_saved_selection.push(graph.id);
-                               select_graph(graph.id);
+                if (response.graph_selection_items.length > 0) {
+                    $.each(response.graph_selection_items[0].graph_selection_items,
+                           function(index, item) {
+                               _graph_pool[item.graph.id] = item.graph;
+                               _cur_saved_selection.push(item.graph.id);
+                               select_graph(item.graph.id);
                            });
                 }
             },

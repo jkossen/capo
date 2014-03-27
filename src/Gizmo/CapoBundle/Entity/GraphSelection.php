@@ -56,10 +56,9 @@ class GraphSelection
     protected $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Graph", mappedBy="graph_selections")
-     * @ORM\JoinTable(name="graph_selections_graphs")
+     * @ORM\OneToMany(targetEntity="GraphSelectionItem", mappedBy="graph_selection", cascade={"persist"})
      */
-    protected $graphs;
+    protected $graph_selection_items;
 
     /**
      * @var \DateTime $created
@@ -74,10 +73,10 @@ class GraphSelection
      * @ORM\Column(name="active", type="boolean")
      */
     protected $active = True;
-
+    
     public function __construct()
     {
-        $this->graphs = new ArrayCollection();
+        $this->graph_selection_items = new ArrayCollection();
     }
 
     /**
@@ -197,38 +196,80 @@ class GraphSelection
     }
 
     /**
-     * Get graphs
+     * Get graph selection items
      *
      * @return ArrayCollection
      */
-    public function getGraphs()
+    public function getGraphSelectionItems()
     {
-        return $this->graphs;
+        return $this->graph_selection_items;
     }
 
     /**
-     * Add Graph
+     * Add GraphSelectionItem
      *
-     * @param $graph graph to add
+     * @param $graph_selection_item GraphSelectionItem to add
      * @return GraphSelection
      */
-    public function addGraph($graph)
+    public function addGraphSelectionItem($graph_selection_item)
     {
-        $graph->addGraphSelection($this);
-        $this->graphs[] = $graph;
+        $this->graph_selection_items[] = $graph_selection_item;
 
         return $this;
     }
 
     /**
-     * Remove Graph
+     * Remove GraphSelectionItem
      *
-     * @param $graph graph to remove
+     * @param $graph_selection_item GraphSelectionItem to remove
+     * @return GraphSelection
+     */
+    public function removeGraphSelectionItem($graph_selection_item)
+    {
+        $this->graph_selection_items->removeElement($graph_selection_item);
+
+        return $this;
+    }
+
+    /**
+     * Add Graph to selection
+     *
+     * @param $graph Graph to add
+     * @return GraphSelection
+     */
+    public function addGraph($graph)
+    {
+        // only add graph if it's not in the selection already
+        foreach ($this->graph_selection_items as $item) {
+            if ($item->getGraph()->getId() === $graph->getId()) {
+                return $this;
+            }
+        }
+
+        $item = new GraphSelectionItem();
+        $item->setItemNr($this->graph_selection_items->count());
+        $item->setGraphSelection($this);
+        $item->setGraph($graph);
+        
+        $this->graph_selection_items[] = $item;
+
+        return $this;
+    }
+
+    /**
+     * Remove Graph from selection
+     *
+     * @param $graph Graph to remove
      * @return GraphSelection
      */
     public function removeGraph($graph)
     {
-        $this->graphs->removeElement($graph);
+        foreach ($this->graph_selection_items as $item) {
+            if ($item->getGraph()->getId() === $graph->getId()) {
+                $this->graph_selection_items->removeElement($item);
+                return $this;
+            }
+        }
 
         return $this;
     }

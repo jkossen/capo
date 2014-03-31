@@ -9,6 +9,8 @@ services:
     wsse.security.authentication.listener:
         class:  Gizmo\CapoBundle\Security\Firewall\WsseListener
         arguments: ["@security.context", "@security.authentication.manager"]
+        calls:
+          - [ setLogger, [@event_logger] ]
 
     pdf_exporter:
         class:  Gizmo\CapoBundle\Services\PDFService

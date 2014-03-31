@@ -26,37 +26,6 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class SecurityController extends BaseController
 {
-    /**
-     * Create an event log message
-     */
-    protected function _log_event($str_function, $str_args, $message=null)
-    {
-        if ($this->container->getParameter('enable_eventlog') !== 'yes') {
-            return;
-        }
-
-        $em = $this->getDoctrine()->getManager();
-        $er = $em->getRepository('GizmoCapoBundle:EventLog');
-        $msg = get_class($this) . ':' . $str_function . ':' . $str_args;
-
-        if ($message !== null) {
-            $msg = $message;
-        }
-
-        $log_line = $er->createEventLog(
-            false,
-            get_class($this),
-            $str_function,
-            $str_args,
-            $msg
-        );
-
-        try {
-            $em->persist($log_line);
-            $em->flush();
-        } catch (\Exception $e) { } // ignore errors with logging
-    }
-
     public function loginAction(Request $request)
     {
         /** @var $session \Symfony\Component\HttpFoundation\Session\Session */

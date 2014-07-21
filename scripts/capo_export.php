@@ -202,48 +202,6 @@ VALUES
 }
 
 /**
- * Clean up removed data
- */
-
-// delete old graphs
-$sql = '
-DELETE g FROM graph g
-LEFT JOIN tmp_graph tmp ON g.graph_local_id = tmp.graph_local_id
-WHERE g.cacti_instance_id = @ci_id
-AND tmp.graph_local_id IS NULL;
-';
-print $sql . "\n";
-
-// delete old graph templates
-$sql = '
-DELETE gt FROM graph_template gt
-LEFT JOIN tmp_graph_template tmp ON gt.orig_id = tmp.orig_id
-WHERE gt.cacti_instance_id = @ci_id
-AND tmp.orig_id IS NULL;
-';
-print $sql . "\n";
-
-// delete old hosts
-$sql = '
-DELETE h FROM host h
-LEFT JOIN tmp_host tmp ON h.orig_id = tmp.orig_id
-WHERE h.cacti_instance_id = @ci_id
-AND tmp.orig_id IS NULL;
-';
-
-print $sql . "\n";
-
-// delete old weathermaps
-$sql = '
-DELETE w FROM weathermap w
-LEFT JOIN tmp_weathermap tmp ON w.orig_id = tmp.orig_id
-WHERE w.cacti_instance_id = @ci_id
-AND tmp.orig_id IS NULL;
-';
-
-print $sql . "\n";
-
-/**
  * Insert / update new data
  */
 
@@ -311,3 +269,47 @@ ON DUPLICATE KEY UPDATE
     title_cache=VALUES(title_cache);';
 
 print $sql . "\n";
+
+/**
+ * Clean up removed data
+ */
+
+// delete old graphs
+$sql = '
+DELETE g FROM graph g
+LEFT JOIN tmp_graph tmp ON g.graph_local_id = tmp.graph_local_id
+WHERE g.cacti_instance_id = @ci_id
+AND tmp.graph_local_id IS NULL;
+';
+print $sql . "\n";
+
+// delete old graph templates
+$sql = '
+DELETE gt FROM graph_template gt
+LEFT JOIN tmp_graph_template tmp ON gt.orig_id = tmp.orig_id
+WHERE gt.cacti_instance_id = @ci_id
+AND tmp.orig_id IS NULL;
+';
+print $sql . "\n";
+
+// delete old hosts
+$sql = '
+DELETE h FROM host h
+LEFT JOIN tmp_host tmp ON h.orig_id = tmp.orig_id
+WHERE h.cacti_instance_id = @ci_id
+AND tmp.orig_id IS NULL;
+';
+
+print $sql . "\n";
+
+// delete old weathermaps
+$sql = '
+DELETE w FROM weathermap w
+LEFT JOIN tmp_weathermap tmp ON w.orig_id = tmp.orig_id
+WHERE w.cacti_instance_id = @ci_id
+AND tmp.orig_id IS NULL;
+';
+
+print $sql . "\n";
+
+

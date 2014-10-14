@@ -4,6 +4,8 @@ Capo - Cacti portal
 A JSON API and HTML5 frontend for querying multiple Cacti installations and
 displaying graphs
 
+![Image](../blob/master/doc/screenshots/capo1.png?raw=true)
+
 - Search with a single query through multiple Cacti installations
 - Display graphs from different Cacti installations next to eachother
 - Export graphs and graph selections to PDF

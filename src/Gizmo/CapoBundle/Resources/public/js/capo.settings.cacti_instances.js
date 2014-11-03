@@ -181,7 +181,7 @@ CAPO.settings.cacti_instances = CAPO.settings.cacti_instances || {};
                 $.each(response.cacti_instances, function(index, cacti_instance) {
                     var d = cacti_instance.import_date.date
                         .replace(/[-,:\s]/g, ',').split(',');
-                    var import_date = Date.UTC(d[0], d[1], d[2], d[3], d[4]);
+                    var import_date = Date.UTC(d[0], d[1]-1, d[2], d[3], d[4]);
                     var import_date_class = 'import_date';
                     var queue_btn_class = 'success';
                     var activate_btn_class = 'success';

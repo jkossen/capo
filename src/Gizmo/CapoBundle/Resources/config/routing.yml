@@ -181,6 +181,9 @@ gizmo_capo_api_admin_update_user:
     pattern: /api/admin/user/update/
     defaults: { _controller: GizmoCapoBundle:AdminApi:updateUser}
 
+gizmo_capo_api_external_get_cacti_instances:
+    pattern: /srv/get_cacti_instances/
+    defaults: { _controller: GizmoCapoBundle:Api:getCactiInstances}
 gizmo_capo_api_external_get_graphs:
     pattern: /srv/get_graphs/
     defaults: { _controller: GizmoCapoBundle:Api:getGraphs}

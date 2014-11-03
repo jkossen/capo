@@ -36,7 +36,7 @@ class EventLogService
 
     /**
      * Constructor
-     *
+     * 
      * @param Doctrine        $doctrine
      * @param bool            $enabled
      */
@@ -93,7 +93,7 @@ class EventLogService
           if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
           // user has just logged in
           }
-
+        
           if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
           // user has logged in using remember_me cookie
           }

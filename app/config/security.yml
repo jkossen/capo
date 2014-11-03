@@ -45,7 +45,7 @@ security:
 
         main:
             pattern:    ^/
-            #fr3d_ldap:  ~
+            fr3d_ldap:  ~
             form_login:
             #    always_use_default_target_path: false
             #    default_target_path: /profile

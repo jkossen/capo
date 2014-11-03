@@ -31,7 +31,7 @@ var CAPO = CAPO || {};
 
     var init = function(cfg) {
         $.extend(_cfg, cfg);
-        enable_loading_spinner();
+        enable_ajax_spinner();
     };
 
     var get = function(key) {
@@ -42,7 +42,7 @@ var CAPO = CAPO || {};
         _cfg[key] = value;
     };
 
-    var spinner_opts = {
+    var ajax_spinner_opts = {
         lines: 11, // The number of lines to draw
         length: 4, // The length of each line
         width: 2, // The line thickness
@@ -60,20 +60,46 @@ var CAPO = CAPO || {};
         left: '10px' // Left position relative to parent in px
     };
 
+    var selection_spinner_opts = {
+        lines: 11, // The number of lines to draw
+        length: 4, // The length of each line
+        width: 2, // The line thickness
+        radius: 5, // The radius of the inner circle
+        corners: 1, // Corner roundness (0..1)
+        rotate: 0, // The rotation offset
+        color: '#000000', // #rgb or #rrggbb
+        speed: 1, // Rounds per second
+        trail: 60, // Afterglow percentage
+        shadow: false, // Whether to render a shadow
+        hwaccel: false, // Whether to use hardware acceleration
+        className: 'spinner', // The CSS class to assign to the spinner
+        zIndex: 2e9, // The z-index (defaults to 2000000000)
+        top: '8px', // Top position relative to parent in px
+        left: '-10px' // Left position relative to parent in px
+    };
+    
     // Show a spinner when an ajax call is running
-    var enable_loading_spinner = function() {
+    var enable_ajax_spinner = function() {
 
         // Show the loading spinner when AJAX requests run
         $('#loading-div')
             .ajaxStart(function() {
                 $('#search_is_loading').toggle();
-                $('#loading-div').spin(ns.spinner_opts);
+                $('#loading-div').spin(ajax_spinner_opts);
             })
             .ajaxStop(function() {
                 $('#search_is_loading').toggle();
                 $('#loading-div').stopspin();
             });
     };
+
+    var start_selection_spinner = function() {
+        $('#selection-loading').spin(selection_spinner_opts);
+    }
+
+    var stop_selection_spinner = function() {
+        $('#selection-loading').stopspin();
+    }
 
     // Create object and event handler for infinite scrollable containers
     var create_infinite_scroller = function(element, fn_load) {
@@ -147,7 +173,8 @@ var CAPO = CAPO || {};
 
     // Export public functions
     ns.init = init;
-    ns.spinner_opts = spinner_opts;
+    ns.start_selection_spinner = start_selection_spinner;
+    ns.stop_selection_spinner = stop_selection_spinner;
     ns.get = get;
     ns.set = set;
     ns.create_infinite_scroller = create_infinite_scroller;

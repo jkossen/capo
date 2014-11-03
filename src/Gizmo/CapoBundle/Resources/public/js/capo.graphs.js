@@ -353,6 +353,8 @@ CAPO.graphs = CAPO.graphs || {};
             return;
         }
 
+        ns.start_selection_spinner();
+        
         $.ajax({
             url: ns.get('base_url') + 'api/get_graph_selection_graphs/',
             type: ns.get('request_method'),
@@ -365,15 +367,29 @@ CAPO.graphs = CAPO.graphs || {};
             success: function(response, textStatus, jqXHR) {
                 deselect_all_graphs();
                 if (response.graph_selection_items.length > 0) {
+                    var nr_of_loaded = 0;
+                    var nr_of_graphs = response.graph_selection_items[0].graph_selection_items.length;
+
                     $.each(response.graph_selection_items[0].graph_selection_items,
                            function(index, item) {
                                _graph_pool[item.graph.id] = item.graph;
                                _cur_saved_selection.push(item.graph.id);
                                select_graph(item.graph.id);
+
+                               $('#graph-' + item.graph.id).load(function() {
+                                   nr_of_loaded++;
+
+                                   if (nr_of_loaded == nr_of_graphs) {
+                                       ns.stop_selection_spinner();
+                                   }
+                               });
                            });
+                } else {
+                    ns.stop_selection_spinner();
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
+                ns.stop_selection_spinner();
                 show_error(jqXHR.status + ' ' + errorThrown +
                            '. Unable to fetch graphs.'
                           );
@@ -603,12 +619,8 @@ CAPO.graphs = CAPO.graphs || {};
             event.preventDefault();
             _rra_id = $(this).val();
 
-            var spinner_opts = ns.spinner_opts;
-            spinner_opts.top = '8px';
-            spinner_opts.left = '-10px';
-
             if ($('.graph-img').length > 0) {
-                $('#selection-loading').spin(spinner_opts);
+                ns.start_selection_spinner();
 
                 var cur_img = 0
                 $('.graph-img').each(function() {
@@ -619,7 +631,7 @@ CAPO.graphs = CAPO.graphs || {};
                     $(this).load(function() {
                         cur_img++;
                         if (cur_img == $('.graph-img').length) {
-                            $('#selection-loading').stopspin();
+                            ns.stop_selection_spinner();
                         }
                     });
                 });
@@ -629,21 +641,17 @@ CAPO.graphs = CAPO.graphs || {};
         $('#btn-refresh-graphs').on('click', function(event) {
             event.preventDefault();
 
-            var spinner_opts = ns.spinner_opts;
-            spinner_opts.top = '8px';
-            spinner_opts.left = '-10px';
-
             if ($('.graph-img').length > 0) {
-                $('#selection-loading').spin(spinner_opts);
+                ns.start_selection_spinner();
                 var cur_img = 0
                 $('.graph-img').each(function() {
                     var graph_id = parseInt(this.id.split('-').pop());
                     this.src = ns.get('base_url') + 'api/show_graph/' +
                         graph_id + '/' + _rra_id + '/?' +  new Date().getTime();
                     $(this).load(function() {
-                    cur_img++;
+                        cur_img++;
                         if (cur_img == $('.graph-img').length) {
-                            $('#selection-loading').stopspin();
+                            ns.stop_selection_spinner();
                         }
                     });
                 });
@@ -670,6 +678,7 @@ CAPO.graphs = CAPO.graphs || {};
         // Event handler for the deselect all graphs button
         $('#deselect-all-graphs').on('click', function(event) {
             event.preventDefault();
+            ns.stop_selection_spinner();            
             deselect_all_graphs();
         });
     };

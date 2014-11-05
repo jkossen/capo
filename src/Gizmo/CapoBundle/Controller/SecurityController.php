@@ -69,11 +69,10 @@ class SecurityController extends BaseController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
+
     protected function renderLogin(array $data)
     {
-        $template = sprintf('FOSUserBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
-
-        return $this->container->get('templating')->renderResponse($template, $data);
+        return $this->render('FOSUserBundle:Security:login.html.twig', $data);
     }
 
     public function checkAction()

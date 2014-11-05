@@ -3,7 +3,9 @@
 {% block subtitle %} - weathermaps{% endblock %}
 
 {% block extrabuttons %}
-<a class="btn btn-warning pull-right" id="btn-toggle-search">hide search box</a>
+    <form class="navbar-form navbar-right">
+        <button type="button" class="btn btn-warning" id="btn-toggle-search">hide search box</button>
+    </form>
 {% endblock %}
 
 {% block contents %}
@@ -17,7 +19,7 @@
                     <div class="controls">
                         <div class="input-prepend">
                             <form class="form-inline" id="search-form">
-                            <span class="add-on" id="search-icon"><i class="icon-search"></i></span>
+                            <span class="add-on" id="search-icon"><span class="glyphicon glyphicon-search"></i></span>
                             <input id="filter_1" type="text" placeholder="Search" value="{{ data.q }}">
                             </form>
                         </div><!-- /.input-prepend -->
@@ -40,7 +42,7 @@
                     </tbody>
                 </table>
             </div>
-            <p class="muted" id="result_count"></p>
+            <p class="text-muted" id="result_count"></p>
         </form>
         {% else %}
             <div style="text-align: center;">
@@ -53,15 +55,15 @@
 {% if privileges.user_has_access %}
 <div class="row-fluid">
     <h3>Selection</h3>
-    <div class="navbar">
+    <nav class="navbar navbar-default">
         <div class="navbar-inner">
-            <ul class="nav">
+            <ul class="nav navbar-nav">
                 <li><form class="navbar-form"><label class="checkbox"><input type="checkbox" name="activate_slideshow" id="slideshow_activator"> slideshow</label></form></li>
                 <li class="divider-vertical"></li>
                 <li><form class="navbar-form"><label class="checkbox"><input type="checkbox" name="activate_autorefresh" id="autorefresh_activator"> autorefresh</label></form></li>
             </ul>
         </div>
-    </div>
+    </nav>
 </div>
     
 <div id="wmap-selection-container" class="row-fluid">

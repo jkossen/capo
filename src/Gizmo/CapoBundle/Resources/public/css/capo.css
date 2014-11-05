@@ -21,6 +21,10 @@
     border-radius: 6px 6px 6px 6px;
 }
 
+.navbar-brand img {
+    margin-top: -5px;
+}
+
 td.cacti-instance, th.cacti-instance {
     width: 150px;
 }
@@ -35,12 +39,6 @@ td.actions, th.actions {
 
 #select_all_graphs {
     margin-left: 10px;
-}
-
-.logo-icon {
-    padding: 6px;
-    padding-left: 10px;
-    padding-right: 15px;
 }
 
 .btn-deselect-graph {
@@ -60,38 +58,8 @@ tr.current_selection {
     background-color: #d3fff1;
 }
 
-.selectionbar li {
-    line-height: 30px;
-}
-
-.selectionbar .select2-container {
-    margin-top: 1px;
-}
-
 .stale {
     color: #ff0000;
-}
-
-#search-form {
-    margin-bottom: 0px;
-    margin-right: 20px;
-}
-
-#search-icon {
-    border-radius: 14px 0px 0px 14px;
-}
-
-#search-container {
-    width: 100%;
-}
-
-#main_navbar .navbar-inner {
-    padding-left: 0px;
-}
-
-#filter_1 {
-    border-radius: 0px 14px 14px 0px;
-    width: 600px;
 }
 
 #results {
@@ -115,19 +83,12 @@ th.active {
     width: 100px;
 }
 
-.graph_selections_select {
-    margin-top: 3px;
-}
-
 td.group-edit-cacti-instances {
     padding-left: 25px;
 }
 
-.thumbnails li {
-    margin-left: 5px;
-}
-
-.container-fluid {
-    padding-left: 10px;
-    padding-right: 10px;
+.graph-selected {
+    min-width: 760px;
+    padding-left: 0px;
+    padding-right: 0px;
 }

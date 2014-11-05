@@ -49,8 +49,8 @@ CAPO.html = CAPO.html || {};
             '<strong><%= title_selected %>:</strong><br>' +
             '<select class="capo_multiselect" id="<%= id %>_selected" size="10"></select></div>' +
             '<div class="btn-group pull-left" style="margin-top:75px;padding: 10px;">' +
-            '<button class="btn" id="<%= id %>_btn_select"><i class="icon-chevron-left"></i></button>' +
-            '<button class="btn" id="<%= id %>_btn_deselect"><i class="icon-chevron-right"></i></button>' +
+            '<button class="btn" id="<%= id %>_btn_select"><span class="glyphicon glyphicon-chevron-left"></span></button>' +
+            '<button class="btn" id="<%= id %>_btn_deselect"><span class="glyphicon glyphicon-chevron-right"></span></button>' +
             '</div><div class="pull-left"><strong><%= title_deselected %>:</strong><br>' +
             '<select class="capo_multiselect" id="<%= id %>_deselected" size="10"></select>' +
             '</div></div>';
@@ -65,8 +65,8 @@ CAPO.html = CAPO.html || {};
             '<td class="cacti-instance" id="col-name-<%= id %>"></td>' +
             '<td class="base_url" id="col-base-url-<%= id %>"></td>' +
             '<td class="<%= import_date_class %>"><%= import_date %></td>' +
-            '<td class="queue_import"><a id="btn-queue-ci-<%= id %>" class="btn btn-<%= queue_btn_class %>"><i id="icon-queue-ci-<%= id %>" class="icon-<%= queue_icon %> icon-white"></i></a></td>' +
-            '<td class="active"><a id="btn-activate-ci-<%= id %>" class="btn btn-<%= activate_btn_class %>"><i id="icon-activate-ci-<%= id %>" class="icon-<%= activate_icon %> icon-white"></i></a></td>' +
+            '<td class="queue_import"><a id="btn-queue-ci-<%= id %>" class="btn btn-<%= queue_btn_class %>"><span id="icon-queue-ci-<%= id %>" class="glyphicon glyphicon-<%= queue_icon %> icon-white"></span></a></td>' +
+            '<td class="active"><a id="btn-activate-ci-<%= id %>" class="btn btn-<%= activate_btn_class %>"><span id="icon-activate-ci-<%= id %>" class="glyphicon glyphicon-<%= activate_icon %> icon-white"></span></a></td>' +
             '</tr>';
 
         return _.template(tpl);
@@ -118,7 +118,7 @@ CAPO.html = CAPO.html || {};
     var col_user_is_active = function() {
         var tpl =
             '<a id="<%= btn_id %>" class="btn btn-<%= btn_class %>">' +
-            '<i class="icon-<%= icon_class %> icon-white"></i>' +
+            '<span class="glyphicon glyphicon-<%= icon_class %> icon-white"></span>' +
             '</a>';
 
         return _.template(tpl);
@@ -154,7 +154,7 @@ CAPO.html = CAPO.html || {};
     var col_group_is_active = function() {
         var tpl =
             '<a id="<%= btn_id %>" class="btn btn-<%= btn_class %>">' +
-            '<i class="icon-<%= icon_class %> icon-white"></i>' +
+            '<span class="glyphicon glyphicon-<%= icon_class %> icon-white"></span>' +
             '</a>';
 
         return _.template(tpl);
@@ -222,7 +222,7 @@ CAPO.html = CAPO.html || {};
     var col_api_account_is_active = function() {
         var tpl =
             '<a id="<%= btn_id %>" class="btn btn-<%= btn_class %>">' +
-            '<i class="icon-<%= icon_class %> icon-white"></i>' +
+            '<span class="glyphicon glyphicon-<%= icon_class %> icon-white"></span>' +
             '</a>';
 
         return _.template(tpl);
@@ -298,7 +298,7 @@ CAPO.html = CAPO.html || {};
             '<td>' + graph_link + '</td>' +
             '<td class="actions">' +
             '<a href="#" id="export-graph-pdf-<%= graph_id %>" class="export-single-graph-icon">' +
-            '<i class="icon-print" id="export-single-graph-pdf-icon-<%= graph_id %>"></i>' +
+            '<span class="glyphicon glyphicon-print" id="export-single-graph-pdf-icon-<%= graph_id %>"></span>' +
             '</a></td></tr>';
 
         return _.template(tpl);
@@ -341,13 +341,13 @@ CAPO.html = CAPO.html || {};
     // The html for an item in the graph selection
     var selected_graph_item = function() {
         var tpl =
-            '<li id="graph-selected-<%= graph_id %>" class="graph-item">' +
+            '<div class="col-sm-6 col-md-6 graph-selected" id="graph-selected-<%= graph_id %>">' +
             '<div class="thumbnail">' +
             '<a href="#" class="pull-right btn-deselect-graph" id="deselect-btn-<%= graph_id %>">&times;</a>' +
             '<a href="<%= hlink_uri %>" title="<%= hlink_title %>" target="_blank">' +
             '<p class="graph-description"><%= ci_name %> - <%= graph_name %></p>' +
             '<img id="graph-<%= graph_id %>" class="graph-img" src="<%= hlink_img %>" alt="<%= graph_name %>">' +
-            '</a></div>';
+            '</a></div></div>';
 
         return _.template(tpl);
     };
@@ -356,7 +356,6 @@ CAPO.html = CAPO.html || {};
     var selected_wmap_item = function() {
 
         var tpl =
-            '<li id="wmap-selected-<%= wmap_id %>" class="wmap-item">' +
             '<div class="thumbnail">' +
             '<a href="#" class="pull-right btn-deselect-graph" id="deselect-btn-<%= wmap_id %>">&times;</a>' +
             '<a href="<%= hlink_uri %>" title="<%= hlink_title %>" target="_blank">' +

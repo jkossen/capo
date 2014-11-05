@@ -44,7 +44,7 @@ abstract class FunctionalTestCase extends WebTestCase {
     {
         $this->client = static::createClient();
         $container = static::$kernel->getContainer();
-        $this->entityManager = $container->get('doctrine')->getEntityManager();
+        $this->entityManager = $container->get('doctrine')->getManager();
     }
 
     protected function api_retrieve_call(Array $options_override) //$url, $content_indicator, $total_indicator = null, $data = array())

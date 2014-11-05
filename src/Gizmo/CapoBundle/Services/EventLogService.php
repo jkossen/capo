@@ -43,7 +43,7 @@ class EventLogService
     public function __construct(SecurityContext $securityContext, Doctrine $doctrine, $enabled = false)
     {
         $this->securityContext = $securityContext;
-        $this->em = $doctrine->getEntityManager();
+        $this->em = $doctrine->getManager();
         $this->enabled = $enabled;
     }
 

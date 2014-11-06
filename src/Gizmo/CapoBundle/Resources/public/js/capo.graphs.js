@@ -590,7 +590,7 @@ CAPO.graphs = CAPO.graphs || {};
 
     // Delete all graphs from selection
     var deselect_all_graphs = function() {
-        if ($('#selected-graphs_list:first').attr('id ') == 'selected-graphs-placeholder') {
+        if ($('#selected-graphs-list:first').attr('id ') == 'selected-graphs-placeholder') {
             return;
         }
 

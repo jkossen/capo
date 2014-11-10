@@ -77,7 +77,7 @@
             "name": "spinjs",
             "version": "2.0.1",
             "dist": {
-                "url": "http://fgnass.github.io/spin.js/spin.min.js"
+                "url": "http://fgnass.github.io/spin.js/spin.min.js",
                 "type": "file"
             }
         }

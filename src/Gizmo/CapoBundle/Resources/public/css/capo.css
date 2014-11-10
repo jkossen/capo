@@ -92,3 +92,19 @@ td.group-edit-cacti-instances {
     padding-left: 0px;
     padding-right: 0px;
 }
+
+#loading-div {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    float:right;
+}
+
+.navbar-toggle {
+    right: 25px;
+}
+
+.capo-navbar-right {
+    margin-right: 0px;
+    right: 20px;
+}

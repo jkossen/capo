@@ -28,7 +28,7 @@
         "components/underscore": "dev-master",
         "twitter/bootstrap": "3.3.0",
         "ivaynberg/select2": ">=3.5.1,<3.6.0",
-        "spinjs": "1.2.*",
+        "spinjs": "2.0.1",
         "select2-bootstrap": "1.4.1",
         "jscrolljs": "1.2"
     },
@@ -75,9 +75,9 @@
         "type": "package",
         "package": {
             "name": "spinjs",
-            "version": "1.2.7",
+            "version": "2.0.1",
             "dist": {
-                "url": "http://fgnass.github.com/spin.js/dist/spin.min.js",
+                "url": "http://fgnass.github.io/spin.js/spin.min.js"
                 "type": "file"
             }
         }

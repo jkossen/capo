@@ -13,18 +13,18 @@
             <li class="pull-right"><a href="{{ path('gizmo_capo_settings_groups') }}">Groups</a></li>
             <li class="pull-right"><a href="{{ path('gizmo_capo_settings_users') }}">Users</a></li>
         </ul>
-        <div class="container pull-left">
-            <div class="control-group">
-                <div class="controls">
-                    <form class="navbar-form form-search" id="search-form">
-                        <div class="input-prepend" style="width:90%">
-                            <span class="add-on" style="border-radius: 14px 0px 0px 14px;"><i class="icon-search"></i></span>
-                            <input id="filter_1" type="text" placeholder="Search">
-                        </div><!-- /.input-prepend -->
-                    </form>
-                </div><!-- /.controls -->
-            </div><!-- /.control-group -->
-        </div><!-- /.container -->
+
+        <p>
+            <form role="form" class="form-horizontal" id="search-form">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </span>
+                    <input id="filter_1" type="text" placeholder="Search" class="form-control">
+                </div><!-- /.input-prepend -->
+            </form>
+        </p>
+        
         <div id="results" class="settings">
             <table class="table table-hover">
                 <thead>

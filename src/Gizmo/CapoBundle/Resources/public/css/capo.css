@@ -45,9 +45,10 @@ td.actions, th.actions {
     margin-top: -8px;
 }
 
-p.graph-description {
+h3.graph-description {
     font-size: 10px;
-    margin: 0 0 2px;
+    text-align: center;
+    margin-top: 0px;
 }
 
 tr.selected {
@@ -93,6 +94,14 @@ td.group-edit-cacti-instances {
     padding-right: 0px;
 }
 
+.graph-selected .thumbnail {
+    border: 0;
+}
+
+.graph-selected .actions {
+    text-align: center;
+}
+
 #loading-div {
     position: relative;
     top: 0px;
@@ -107,4 +116,12 @@ td.group-edit-cacti-instances {
 .capo-navbar-right {
     margin-right: 0px;
     right: 20px;
+}
+
+td.actions a:link {
+    color: #777;
+}
+
+td.actions a:hover {
+    color: #333;
 }

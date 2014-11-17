@@ -38,10 +38,10 @@
                     {% if data is defined %}
                         <ul class="nav navbar-nav">
                             {% block navitems %}
-                                <li {% if data.active_page == "graphs" %}class="active"{% endif %}><a href="{{ path('gizmo_capo_homepage') }}"><span class="glyphicon glyphicon-signal"></span> graphs</a></li>
+                                <li {% if data.active_page == "graphs" %}class="active"{% endif %}><a href="{{ path('gizmo_capo_homepage') }}"><span class="glyphicon glyphicon-stats"></span> graphs</a></li>
                                 <li {% if data.active_page == "weathermaps" %}class="active"{% endif %}><a href="{{ path('gizmo_capo_weathermaps') }}"><span class="glyphicon glyphicon-picture"></span> weathermaps</a></li>
                                 <li {% if data.active_page == "settings" %}class="active"{% endif %}><a href="{{ path('gizmo_capo_settings_index') }}"><span class="glyphicon glyphicon-wrench"></span> settings</a></li>
-                                <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-ban-circle"></i> logout</a></li>
+                                <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-user"></span> logout</a></li>
                             {% endblock %}
                         </ul>
                     {% endif %}

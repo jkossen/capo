@@ -341,13 +341,15 @@ CAPO.html = CAPO.html || {};
     // The html for an item in the graph selection
     var selected_graph_item = function() {
         var tpl =
-            '<div class="col-sm-6 col-md-6 graph-selected" id="graph-selected-<%= graph_id %>">' +
+            '<div class="col-xs-6 graph-selected" id="graph-selected-<%= graph_id %>">' +
             '<div class="thumbnail">' +
-            '<a href="#" class="pull-right btn-deselect-graph" id="deselect-btn-<%= graph_id %>">&times;</a>' +
             '<a href="<%= hlink_uri %>" title="<%= hlink_title %>" target="_blank">' +
-            '<p class="graph-description"><%= ci_name %> - <%= graph_name %></p>' +
             '<img id="graph-<%= graph_id %>" class="graph-img" src="<%= hlink_img %>" alt="<%= graph_name %>">' +
-            '</a></div></div>';
+            '</a>' +
+            '<div class="caption">' +
+            '<h3 class="graph-description"><%= ci_name %> - <%= graph_name %></h3>' +
+            '<div class="actions"><button type="button" class="btn btn-danger btn-deselect-graph" id="deselect-btn-<%= graph_id %>">close</button></div>' +
+            '<div class="clearfix"></div></div></div></div>';
 
         return _.template(tpl);
     };
@@ -356,7 +358,7 @@ CAPO.html = CAPO.html || {};
     var selected_wmap_item = function() {
 
         var tpl =
-            '<div class="thumbnail">' +
+            '<div class="thumbnail" id="wmap-selected-<%= wmap_id %>">' +
             '<a href="#" class="pull-right btn-deselect-graph" id="deselect-btn-<%= wmap_id %>">&times;</a>' +
             '<a href="<%= hlink_uri %>" title="<%= hlink_title %>" target="_blank">' +
             '<p class="wmap-description"><%= ci_name %> - <%= wmap_name %></p>' +

@@ -348,6 +348,7 @@ CAPO.weathermaps = CAPO.weathermaps || {};
 
         $('#slideshow_activator').on('change', function(event) {
             if (_slideshow == false) {
+
                 _slideshow = true;
                 hide_all_wmaps();
                 next_slide();

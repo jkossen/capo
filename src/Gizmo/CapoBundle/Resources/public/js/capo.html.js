@@ -66,7 +66,7 @@ CAPO.html = CAPO.html || {};
             '<td class="base_url" id="col-base-url-<%= id %>"></td>' +
             '<td class="<%= import_date_class %>"><%= import_date %></td>' +
             '<td class="queue_import"><a id="btn-queue-ci-<%= id %>" class="btn btn-<%= queue_btn_class %>"><span id="icon-queue-ci-<%= id %>" class="glyphicon glyphicon-<%= queue_icon %> icon-white"></span></a></td>' +
-            '<td class="active"><a id="btn-activate-ci-<%= id %>" class="btn btn-<%= activate_btn_class %>"><span id="icon-activate-ci-<%= id %>" class="glyphicon glyphicon-<%= activate_icon %> icon-white"></span></a></td>' +
+            '<td class="status-active"><a id="btn-activate-ci-<%= id %>" class="btn btn-<%= activate_btn_class %>"><span id="icon-activate-ci-<%= id %>" class="glyphicon glyphicon-<%= activate_icon %> icon-white"></span></a></td>' +
             '</tr>';
 
         return _.template(tpl);
@@ -109,7 +109,7 @@ CAPO.html = CAPO.html || {};
             '<td class="group" id="col-group-<%= id %>">' +
             '<input type="hidden" id="group_<%= id %>" value="<%= group_id %>">' +
             '</td>' +
-            '<td class="active" id="col-user-active-<%= id %>"></td>' +
+            '<td class="status-active" id="col-user-active-<%= id %>"></td>' +
             '</tr>';
 
         return _.template(tpl);
@@ -131,7 +131,7 @@ CAPO.html = CAPO.html || {};
             '<tr id="group_<%= id %>">' +
             '<td id="col-groupname-<%= id %>" class="groupname"></td>' +
             '<td class="actions"><a id="btn-edit-access-<%= id %>" href="#">edit access</a></td>' +
-            '<td id="col-group-active-<%= id %>" class="active"></td>' +
+            '<td id="col-group-active-<%= id %>" class="status-active"></td>' +
             '</tr>';
 
         return _.template(tpl);
@@ -185,7 +185,7 @@ CAPO.html = CAPO.html || {};
             '<td id="col-account-name-<%= id %>" class="account-name">&nbsp;</td>' +
             '<td id="col-account-secret-<%= id %>">&nbsp;</td>' +
             '<td class="actions"><a id="btn-edit-access-<%= id %>" href="#">edit access</a></td>' +
-            '<td id="col-account-active-<%= id %>" class="active">&nbsp;</td>' +
+            '<td id="col-account-active-<%= id %>" class="status-active">&nbsp;</td>' +
             '</tr>';
 
         return _.template(tpl);

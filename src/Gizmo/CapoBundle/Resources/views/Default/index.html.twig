@@ -17,24 +17,22 @@
             <div id="search-container">
                 <div class="control-group">
                     <div class="controls">
-                        <div class="input-prepend">
-                            <form role="form" class="form-horizontal" id="search-form">
-                                <div class="col-sm-6">
-                                    <div class="input-group">
-                                        <span class="input-group-addon" id="search-icon">
-                                            <span class="glyphicon glyphicon-search"></span>
-                                        </span>
-                                        <input id="filter_1" type="text" placeholder="Search" value="{{ data.q }}" class="form-control">
-                                    </div>
+                        <form role="form" class="form-horizontal" id="search-form">
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="search-icon">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </span>
+                                    <input id="filter_1" type="text" placeholder="Search" value="{{ data.q }}" class="form-control">
                                 </div>
-                            </form>
-                        </div><!-- /.input-prepend -->
+                            </div>
+                        </form>
                         <div style="margin-top: 15px;margin-bottom:15px;" class="col-sm-12">
                             <form role="form" class="form-inline" id="form-capo-selectors">
                                 <div class="form-group">
-                                    <input type="hidden" class="bigdrop cacti_instance_select" id="cacti_instance_select_1"/>
-                                    <input type="hidden" class="bigdrop graph_template_select" id="template_select_1"/>
-                                    <input type="hidden" class="bigdrop host_select" id="host_select_1"/>
+                                    <input type="hidden" class="bigdrop cacti_instance_select" id="cacti_instance_select_1">
+                                    <input type="hidden" class="bigdrop graph_template_select" id="template_select_1">
+                                    <input type="hidden" class="bigdrop host_select" id="host_select_1">
                                 </div>
                             </form>
                         </div>
@@ -92,7 +90,7 @@
             <div class="col-md-6">
             <form role="form" class="navbar-form form-horizontal pull-right">
                 <input class="form-control" type="text" name="graph_selection_name" id="graph_selection_name" placeholder="Name" />
-                <a class="btn btn-default" id="btn_save_graph_selection"><span class="glyphicon glyphicon-star"></span> Save</a>
+                <a class="btn btn-default" id="btn_save_graph_selection"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
                 <input type="hidden" class="bigdrop graph_selections_select" id="graph-selections-select-1"/>
             </form>
             </div>

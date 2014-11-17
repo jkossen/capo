@@ -3,7 +3,7 @@
 {% block subtitle %} - weathermaps{% endblock %}
 
 {% block extrabuttons %}
-    <form class="navbar-form navbar-right">
+    <form class="navbar-form">
         <button type="button" class="btn btn-warning" id="btn-toggle-search">hide search box</button>
     </form>
 {% endblock %}
@@ -14,36 +14,42 @@
     <div class="well well-large" id="search_box">
         {% if privileges.user_has_access %}
         <h3>Search <small id="search_is_loading" style="display:none;">(loading ...)</small></h3>
-            <div class="container" id="search-container">
-                <div class="control-group">
-                    <div class="controls">
-                        <div class="input-prepend">
-                            <form class="form-inline" id="search-form">
-                            <span class="add-on" id="search-icon"><span class="glyphicon glyphicon-search"></i></span>
-                            <input id="filter_1" type="text" placeholder="Search" value="{{ data.q }}">
-                            </form>
-                        </div><!-- /.input-prepend -->
-                        <form class="form-horizontal" id="form-capo-selectors">
-                        <fieldset>
-                            <input type="hidden" class="bigdrop cacti_instance_select" id="cacti_instance_select_1"/>
-                        </fieldset>
+        <div id="search-container">
+            <div class="control-group">
+                <div class="controls">
+                    <form role="form" class="form-horizontal" id="search-form">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="search-icon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </span>
+                                <input id="filter_1" type="text" placeholder="Search" value="{{ data.q }}" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                    <div style="margin-top: 15px;margin-bottom:15px;" class="col-sm-12">
+                        <form role="form" class="form-inline" id="form-capo-selectors">
+                            <div class="form-group">
+                                <input type="hidden" class="bigdrop cacti_instance_select" id="cacti_instance_select_1">
+                            </div>
                         </form>
-                    </div><!-- /.controls -->
-                </div><!-- /.control-group -->
+                    </div>
+                </div><!-- /.controls -->
+            </div><!-- /.control-group -->
 
-            </div><!-- /.container -->
-            <div id="results">
-                <table class="table table-hover">
-                    <thead>
-                        <tr><th class="cacti-instance">Cacti Instance</th><th class="wmap">Weathermap</th></tr>
-                    </thead>
-                    <tbody id="results_list">
-                        <tr><td class="cacti-instance"></td><td class="wmap"></td></tr>
+        </div><!-- /.container -->
+        <div id="results">
+            <table class="table table-hover">
+                <thead>
+                    <tr><th class="cacti-instance">Cacti Instance</th><th class="wmap">Weathermap</th></tr>
+                </thead>
+                <tbody id="results_list">
+                    <tr><td class="cacti-instance"></td><td class="wmap"></td></tr>
                     </tbody>
-                </table>
-            </div>
-            <p class="text-muted" id="result_count"></p>
-        </form>
+            </table>
+        </div>
+        <p class="text-muted" id="result_count"></p>
+
         {% else %}
             <div style="text-align: center;">
             <h4 class="error">Successfully logged in, but your group does not have access to any Cacti instances yet.</h4>

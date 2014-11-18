@@ -16,18 +16,18 @@
             <li class="pull-right"><a href="{{ path('gizmo_capo_settings_users') }}">Users</a></li>
             {% endif %}
         </ul>
-        <div class="container pull-left">
-            <form class="form-horizontal">
-            <input type="hidden" class="bigdrop saved_selections_select" id="saved_selections_select"/>
+
+        <p>
+            <form role="form" class="form-inline">
+                <input type="hidden" class="bigdrop saved_selections_select" id="saved_selections_select"/>
+                <button type="button" class="btn btn-danger" style="margin-left: 25px;" id="btn_delete_saved_selection"><span class="glyphicon glyphicon-remove"></span> delete graph selection</button>
                 <div class="input-append">
-                    <input type="text" id="graph-selection-new-name" placeholder="New name">
-                    <a class="btn" id="btn-rename-graph-selection">Rename</a>
+                    <input type="text" id="graph-selection-new-name" placeholder="New name" class="form-control">
+                    <button type="button" class="btn btn-default" id="btn-rename-graph-selection">Rename</button>
                 </div>
             </form>
-        </div>
-        <div class="container" id="saved_selections_actions">
-            <a class="btn btn-danger" style="margin-left: 25px;" id="btn_delete_saved_selection"><i class="icon-remove icon-white"></i> delete graph selection</a>
-        </div>
+        </p>
+        
         <div id="results" class="settings">
             <table class="table table-hover">
                 <thead>

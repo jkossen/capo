@@ -13,32 +13,35 @@
             <li class="pull-right"><a href="{{ path('gizmo_capo_settings_groups') }}">Groups</a></li>
             <li class="pull-right"><a href="{{ path('gizmo_capo_settings_users') }}">Users</a></li>
         </ul>
-        <div class="container pull-left" style="width:100%;margin-bottom: 10px;">
-            <div class="control-group">
-                <div class="controls">
-                    <form class="navbar-form form-search pull-left" id="search-form">
-                        <div class="input-prepend" style="width:90%">
-                            <span class="add-on" style="border-radius: 14px 0px 0px 14px;"><i class="icon-search"></i></span>
-                            <input id="filter_1" type="text" placeholder="Search">
-                        </div><!-- /.input-prepend -->
-                    </form>
-                    <div class="control-group pull-left" style="padding-top:15px;">
-                        <label class="checkbox" for="active_accounts_only"><input type="checkbox" name="active_accounts_only" id="active_accounts_only" value="0" checked="checked"> active accounts only</label>
-                    </div>
-                    <form class="navbar-form pull-right" id="add-account-form" style="margin-left: 50px;">
-                        <input type="text" value="" placeholder="Username" id="new-account-name">
-                        <input type="submit" value="Add account" class="btn">
-                    </form>
-                </div><!-- /.controls -->
-            </div><!-- /.control-group -->
-        </div><!-- /.container -->
+        <p>
+            <form role="form" class="form-inline pull-left" id="search-form">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </span>
+                    <input id="filter_1" type="text" placeholder="Search" class="form-control">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="active_accounts_only" id="active_accounts_only" value="0" checked="checked"> active accounts only
+                    </label>
+                </div>
+            </form>
+            <form role="form" class="form-inline pull-right" id="add-account-form">
+                <input type="text" value="" placeholder="Username" id="new-account-name" class="form-control">
+                <button type="submit" class="btn btn-default">Add account</button>
+            </form>
+
+            <div class="clearfix"></div>
+        </p>
+
         <div id="results" class="settings">
             <table class="table table-hover">
                 <thead>
-                    <tr><th class="username">Username</th><th class="secret">Secret</th><th class="actions">Actions</th><th class="active">Active</th></tr>
+                    <tr><th class="username">Username</th><th class="secret">Secret</th><th class="actions">Actions</th><th class="status-active">Active</th></tr>
                 </thead>
                 <tbody id="results_list">
-                    <tr><td class="username"></td><td class="secret"></td><td class="actions"></td><td class="active"></td></tr>
+                    <tr><td class="username"></td><td class="secret"></td><td class="actions"></td><td class="status-active"></td></tr>
                 </tbody>
             </table>
         </div>

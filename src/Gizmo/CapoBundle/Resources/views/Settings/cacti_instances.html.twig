@@ -13,30 +13,31 @@
             <li class="pull-right"><a href="{{ path('gizmo_capo_settings_groups') }}">Groups</a></li>
             <li class="pull-right"><a href="{{ path('gizmo_capo_settings_users') }}">Users</a></li>
         </ul>
-        <div class="container" style="width:100%;margin-bottom: 10px;">
-            <div class="control-group">
-                <div class="controls">
-                    <form class="navbar-form form-search pull-left" id="search-form">
-                        <div class="input-prepend" style="width:90%">
-                            <span class="add-on" style="border-radius: 14px 0px 0px 14px;"><i class="icon-search"></i></span>
-                            <input id="filter_1" type="text" placeholder="Search">
-                        </div><!-- /.input-prepend -->
-                    </form>
-                    <form class="navbar-form pull-right" id="add-cacti-instance-form">
-                        <input type="text" value="" placeholder="Name" id="new-cacti-instance-name">
-                        <input type="text" value="" placeholder="Base URL" id="new-cacti-instance-url">
-                        <input type="submit" value="Add" class="btn">
-                    </form>
-                </div><!-- /.controls -->
-            </div><!-- /.control-group -->
-        </div><!-- /.container -->
+
+        <p>
+            <form role="form" class="form-inline pull-left" id="search-form">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </span>
+                    <input id="filter_1" type="text" placeholder="Search" class="form-control">
+                </div><!-- /.input-prepend -->
+            </form>
+            <form role="form" class="form-inline pull-right" id="add-cacti-instance-form">
+                <input type="text" value="" placeholder="Name" id="new-cacti-instance-name" class="form-control">
+                <input type="text" value="" placeholder="Base URL" id="new-cacti-instance-url" class="form-control">
+                <button type="submit" class="btn btn-default">Add</button>
+            </form>
+            <div class="clearfix"></div>
+        </p>
+
         <div id="results" class="settings">
             <table class="table table-hover">
                 <thead>
                     <tr><th class="cacti-instance">Cacti Instance</th><th class="url">Base URL</th><th>Import date</th><th>Queue Import</th><th>Active</th></tr>
                 </thead>
                 <tbody id="results_list">
-                    <tr><td class="cacti-instance"></td><td class="url"></td><td class="import_date"></td><td class="queue_import"></td><td class="active"></td></tr>
+                    <tr><td class="cacti-instance"></td><td class="url"></td><td class="import_date"></td><td class="queue_import"></td><td class="status-active"></td></tr>
                 </tbody>
             </table>
         </div>

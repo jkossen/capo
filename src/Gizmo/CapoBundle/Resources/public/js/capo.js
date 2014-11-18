@@ -49,6 +49,7 @@ var CAPO = CAPO || {};
         radius: 5, // The radius of the inner circle
         corners: 1, // Corner roundness (0..1)
         rotate: 0, // The rotation offset
+        direction: 1, // 1: clockwise, -1: counterclockwise
         color: '#000000', // #rgb or #rrggbb
         speed: 1, // Rounds per second
         trail: 60, // Afterglow percentage
@@ -56,8 +57,8 @@ var CAPO = CAPO || {};
         hwaccel: false, // Whether to use hardware acceleration
         className: 'spinner', // The CSS class to assign to the spinner
         zIndex: 2e9, // The z-index (defaults to 2000000000)
-        top: '8px', // Top position relative to parent in px
-        left: '10px' // Left position relative to parent in px
+        top: '-25px', // Top position relative to parent in px
+        left: '-10px' // Left position relative to parent in px
     };
 
     var selection_spinner_opts = {
@@ -67,6 +68,7 @@ var CAPO = CAPO || {};
         radius: 5, // The radius of the inner circle
         corners: 1, // Corner roundness (0..1)
         rotate: 0, // The rotation offset
+        direction: 1, // 1: clockwise, -1: counterclockwise
         color: '#000000', // #rgb or #rrggbb
         speed: 1, // Rounds per second
         trail: 60, // Afterglow percentage
@@ -74,15 +76,15 @@ var CAPO = CAPO || {};
         hwaccel: false, // Whether to use hardware acceleration
         className: 'spinner', // The CSS class to assign to the spinner
         zIndex: 2e9, // The z-index (defaults to 2000000000)
-        top: '8px', // Top position relative to parent in px
-        left: '-10px' // Left position relative to parent in px
+        top: '25px', // Top position relative to parent in px
+        left: '25px' // Left position relative to parent in px
     };
     
     // Show a spinner when an ajax call is running
     var enable_ajax_spinner = function() {
 
         // Show the loading spinner when AJAX requests run
-        $('#loading-div')
+        $(document)
             .ajaxStart(function() {
                 $('#search_is_loading').toggle();
                 $('#loading-div').spin(ajax_spinner_opts);

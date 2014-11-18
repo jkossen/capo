@@ -16,9 +16,20 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+body {
+    background: url('/bundles/gizmocapo/images/capo_back.png');
+    background-repeat: no-repeat;
+}
+
 #graphs {
     border: 1px solid #E3E3E3;
     border-radius: 6px 6px 6px 6px;
+}
+
+.navbar-brand img {
+    margin-top: -5px;
+    width: 30px;
+    height: 30px;
 }
 
 td.cacti-instance, th.cacti-instance {
@@ -37,19 +48,14 @@ td.actions, th.actions {
     margin-left: 10px;
 }
 
-.logo-icon {
-    padding: 6px;
-    padding-left: 10px;
-    padding-right: 15px;
-}
-
 .btn-deselect-graph {
     margin-top: -8px;
 }
 
-p.graph-description {
+h3.graph-description {
     font-size: 10px;
-    margin: 0 0 2px;
+    text-align: center;
+    margin-top: 0px;
 }
 
 tr.selected {
@@ -60,38 +66,8 @@ tr.current_selection {
     background-color: #d3fff1;
 }
 
-.selectionbar li {
-    line-height: 30px;
-}
-
-.selectionbar .select2-container {
-    margin-top: 1px;
-}
-
 .stale {
     color: #ff0000;
-}
-
-#search-form {
-    margin-bottom: 0px;
-    margin-right: 20px;
-}
-
-#search-icon {
-    border-radius: 14px 0px 0px 14px;
-}
-
-#search-container {
-    width: 100%;
-}
-
-#main_navbar .navbar-inner {
-    padding-left: 0px;
-}
-
-#filter_1 {
-    border-radius: 0px 14px 14px 0px;
-    width: 600px;
 }
 
 #results {
@@ -111,23 +87,60 @@ ul.wmaps {
     list-style: none;
 }
 
-th.active {
+th.status-active {
     width: 100px;
-}
-
-.graph_selections_select {
-    margin-top: 3px;
 }
 
 td.group-edit-cacti-instances {
     padding-left: 25px;
 }
 
-.thumbnails li {
-    margin-left: 5px;
+.graph-selected {
+    min-width: 760px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
-.container-fluid {
-    padding-left: 10px;
-    padding-right: 10px;
+.graph-selected .thumbnail {
+    border: 0;
+}
+
+.graph-selected .actions {
+    text-align: center;
+}
+
+#loading-div {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    float:right;
+}
+
+.navbar-toggle {
+    right: 25px;
+}
+
+.capo-navbar-right {
+    margin-right: 0px;
+    right: 20px;
+}
+
+td.actions a:link {
+    color: #777;
+}
+
+td.actions a:hover {
+    color: #333;
+}
+
+#top_container {
+    background: rgba(255,255,255,0.4);
+}
+
+.well {
+    background: rgba(240,240,240,0.4);    
+}
+
+.thumbnail {
+    background: none;
 }

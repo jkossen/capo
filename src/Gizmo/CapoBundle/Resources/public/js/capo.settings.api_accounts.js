@@ -40,7 +40,7 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
     var tpl_error_msg = ns.html.msg_container('error');
 
     var show_error = function(msg) {
-        return $('#error_container').append(
+        return $('#error-container').append(
             tpl_error_msg({
                 'msg': msg
             }));

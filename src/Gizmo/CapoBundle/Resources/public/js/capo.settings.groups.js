@@ -38,7 +38,7 @@ CAPO.settings.groups = CAPO.settings.groups || {};
     var tpl_groups_cacti_instances_list_item = ns.html.groups_cacti_instances_list_item();
 
     var show_error = function(msg) {
-        return $('#error_container').append(
+        return $('#error-container').append(
             tpl_error_msg({
                 'msg': msg
             }));
@@ -54,7 +54,7 @@ CAPO.settings.groups = CAPO.settings.groups || {};
         enable_results();
         enable_add_group_form();
 
-        $('#active_groups_only').on('change', function(event) {
+        $('#active-groups-only').on('change', function(event) {
             event.preventDefault();
             refresh_results();
         });
@@ -71,7 +71,7 @@ CAPO.settings.groups = CAPO.settings.groups || {};
     };
 
     var load_cacti_instances = function(group, available) {
-        var el = '#group_' + group.id + '_ci_select_selected';
+        var el = '#group-' + group.id + '-ci-select-selected';
         var data = {
             page: _scroller.page,
             page_limit: _scroller.per_page,
@@ -79,7 +79,7 @@ CAPO.settings.groups = CAPO.settings.groups || {};
 
         if (available) {
             data['exclude_group_id'] = group.id;
-            el = '#group_' + group.id + '_ci_select_deselected';
+            el = '#group-' + group.id + '-ci-select-deselected';
         } else {
             data['group_id'] = group.id;
         }
@@ -104,7 +104,7 @@ CAPO.settings.groups = CAPO.settings.groups || {};
     var group_show_edit_cacti_instances_row = function(group) {
         var row_id = 'group-edit-cacti-instances-' + group.id;
 
-        $('#group_' + group.id).after(
+        $('#group-' + group.id).after(
             tpl_groups_cacti_instances_list_item({
                 'id': group.id
             }));
@@ -119,18 +119,18 @@ CAPO.settings.groups = CAPO.settings.groups || {};
             });
 
         // event handler: remove selected nodeprop from node
-        $('#group_' + group.id +'_ci_select_btn_deselect').on('click', function(event) {
+        $('#group-' + group.id +'-ci-select-btn-deselect').on('click', function(event) {
             event.preventDefault();
-            var cacti_instance_id = $('#group_' + group.id + '_ci_select_selected option:selected').val();
+            var cacti_instance_id = $('#group-' + group.id + '-ci-select-selected option:selected').val();
             if (cacti_instance_id != undefined) {
                 disable_cacti_instance_for_group(group, cacti_instance_id);
             }
         });
 
         // event handler: add selected cacti_instance to node
-        $('#group_' + group.id +'_ci_select_btn_select').on('click', function(event) {
+        $('#group-' + group.id +'-ci-select-btn-select').on('click', function(event) {
             event.preventDefault();
-            var cacti_instance_id = $('#group_' + group.id + '_ci_select_deselected option:selected').val();
+            var cacti_instance_id = $('#group-' + group.id + '-ci-select-deselected option:selected').val();
             if (cacti_instance_id != undefined) {
                 enable_cacti_instance_for_group(group, cacti_instance_id);
             }
@@ -147,7 +147,7 @@ CAPO.settings.groups = CAPO.settings.groups || {};
                 page: _scroller.page,
                 page_limit: _scroller.per_page,
                 q: $('#filter_1').val(),
-                active_groups_only: $('#active_groups_only').is(':checked') ? 1 : 0
+                active_groups_only: $('#active-groups-only').is(':checked') ? 1 : 0
             },
             success: function(response, textStatus, jqXHR) {
                 _scroller.total = response.groups_total;
@@ -279,8 +279,8 @@ CAPO.settings.groups = CAPO.settings.groups || {};
             dataType: 'json',
             data: data,
             success: function(response, textStatus, jqXHR) {
-                $('#group_' + group.id + '_ci_select_selected').append(
-                    $('#group_' + group.id + '_ci_select_deselected option:selected'));
+                $('#group-' + group.id + '-ci-select-selected').append(
+                    $('#group-' + group.id + '-ci-select-deselected option:selected'));
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 var ret = $.parseJSON(jqXHR.responseText);
@@ -305,8 +305,8 @@ CAPO.settings.groups = CAPO.settings.groups || {};
             dataType: 'json',
             data: data,
             success: function(response, textStatus, jqXHR) {
-                $('#group_' + group.id + '_ci_select_deselected').append(
-                    $('#group_' + group.id + '_ci_select_selected option:selected'));
+                $('#group-' + group.id + '-ci-select-deselected').append(
+                    $('#group-' + group.id + '-ci-select-selected option:selected'));
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 var ret = $.parseJSON(jqXHR.responseText);

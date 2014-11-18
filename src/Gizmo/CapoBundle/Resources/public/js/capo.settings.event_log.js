@@ -34,7 +34,7 @@ CAPO.settings.event_log = CAPO.settings.event_log || {};
     var tpl_eventlog_list_item = ns.html.eventlog_list_item();
 
     var show_error = function(msg) {
-        return $('#error_container').append(
+        return $('#error-container').append(
             tpl_error_msg({
                 'msg': msg
             }));

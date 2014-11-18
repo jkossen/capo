@@ -38,7 +38,7 @@ CAPO.settings.cacti_instances = CAPO.settings.cacti_instances || {};
     var tpl_cacti_instance_edit_base_url = ns.html.cacti_instance_edit_base_url();
 
     var show_error = function(msg) {
-        return $('#error_container').append(
+        return $('#error-container').append(
             tpl_error_msg({
                 'msg': msg
             }));

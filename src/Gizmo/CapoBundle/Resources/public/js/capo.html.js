@@ -44,15 +44,15 @@ CAPO.html = CAPO.html || {};
     };
 
     var multi_select = function() {
-        var tpl = '<div class="pull-left capo_multiselect">' +
+        var tpl = '<div class="pull-left capo-multiselect">' +
             '<div class="pull-left">' +
             '<strong><%= title_selected %>:</strong><br>' +
-            '<select class="capo_multiselect" id="<%= id %>_selected" size="10"></select></div>' +
+            '<select class="capo-multiselect form-control" id="<%= id %>-selected" size="10"></select></div>' +
             '<div class="btn-group pull-left" style="margin-top:75px;padding: 10px;">' +
-            '<button class="btn" id="<%= id %>_btn_select"><span class="glyphicon glyphicon-chevron-left"></span></button>' +
-            '<button class="btn" id="<%= id %>_btn_deselect"><span class="glyphicon glyphicon-chevron-right"></span></button>' +
+            '<button class="btn btn-primary" id="<%= id %>-btn-select"><span class="glyphicon glyphicon-chevron-left"></span></button>' +
+            '<button class="btn btn-primary" id="<%= id %>-btn-deselect"><span class="glyphicon glyphicon-chevron-right"></span></button>' +
             '</div><div class="pull-left"><strong><%= title_deselected %>:</strong><br>' +
-            '<select class="capo_multiselect" id="<%= id %>_deselected" size="10"></select>' +
+            '<select class="capo-multiselect form-control" id="<%= id %>-deselected" size="10"></select>' +
             '</div></div>';
 
         return _.template(tpl);
@@ -63,9 +63,9 @@ CAPO.html = CAPO.html || {};
         var tpl =
             '<tr>' +
             '<td class="cacti-instance" id="col-name-<%= id %>"></td>' +
-            '<td class="base_url" id="col-base-url-<%= id %>"></td>' +
+            '<td class="base-url" id="col-base-url-<%= id %>"></td>' +
             '<td class="<%= import_date_class %>"><%= import_date %></td>' +
-            '<td class="queue_import"><a id="btn-queue-ci-<%= id %>" class="btn btn-<%= queue_btn_class %>"><span id="icon-queue-ci-<%= id %>" class="glyphicon glyphicon-<%= queue_icon %> icon-white"></span></a></td>' +
+            '<td class="queue-import"><a id="btn-queue-ci-<%= id %>" class="btn btn-<%= queue_btn_class %>"><span id="icon-queue-ci-<%= id %>" class="glyphicon glyphicon-<%= queue_icon %> icon-white"></span></a></td>' +
             '<td class="status-active"><a id="btn-activate-ci-<%= id %>" class="btn btn-<%= activate_btn_class %>"><span id="icon-activate-ci-<%= id %>" class="glyphicon glyphicon-<%= activate_icon %> icon-white"></span></a></td>' +
             '</tr>';
 
@@ -103,11 +103,11 @@ CAPO.html = CAPO.html || {};
     // A User result row
     var users_result_list_item = function() {
         var tpl =
-            '<tr id="user_<%= id %>">' +
+            '<tr id="user-<%= id %>">' +
             '<td class="username"><%= name %></td>' +
             '<td class="lastlogin"><%= last_login %></td>' +
             '<td class="group" id="col-group-<%= id %>">' +
-            '<input type="hidden" id="group_<%= id %>" value="<%= group_id %>">' +
+            '<input type="hidden" id="group-<%= id %>" value="<%= group_id %>">' +
             '</td>' +
             '<td class="status-active" id="col-user-active-<%= id %>"></td>' +
             '</tr>';
@@ -128,7 +128,7 @@ CAPO.html = CAPO.html || {};
     var groups_result_list_item = function() {
 
         var tpl =
-            '<tr id="group_<%= id %>">' +
+            '<tr id="group-<%= id %>">' +
             '<td id="col-groupname-<%= id %>" class="groupname"></td>' +
             '<td class="actions"><a id="btn-edit-access-<%= id %>" href="#">edit access</a></td>' +
             '<td id="col-group-active-<%= id %>" class="status-active"></td>' +
@@ -163,7 +163,7 @@ CAPO.html = CAPO.html || {};
     var groups_cacti_instances_list_item = function() {
         var tpl_multiselect = multi_select();
         var ms = tpl_multiselect({
-            'id': 'group_<%= id %>_ci_select',
+            'id': 'group-<%= id %>-ci-select',
             'title_selected': 'has access to',
             'title_deselected':'has no access to'
         });
@@ -265,7 +265,7 @@ CAPO.html = CAPO.html || {};
 
     var wmap_link_selected = function() {
         var tpl =
-            '<span id="wmap_link_<%= wmap_id %>"><%= wmap_name %></span>';
+            '<span id="wmap-link-<%= wmap_id %>"><%= wmap_name %></span>';
 
         return _.template(tpl);
     }
@@ -273,7 +273,7 @@ CAPO.html = CAPO.html || {};
     // Weathermap link
     var wmap_link_deselected = function() {
         var tpl =
-            '<a id="wmap-link-<%= wmap_id %>" class="wmap_link" href="#"><%= wmap_name %></a>';
+            '<a id="wmap-link-<%= wmap_id %>" class="wmap-link" href="#"><%= wmap_name %></a>';
 
         return _.template(tpl);
     };
@@ -315,7 +315,7 @@ CAPO.html = CAPO.html || {};
     // Graph link
     var graph_link_deselected = function() {
         var tpl =
-            '<a class="graph_link" href="#" id="<%= id %>"><%= graph_name %></a>';
+            '<a class="graph-link" href="#" id="<%= id %>"><%= graph_name %></a>';
 
         return _.template(tpl);
     };

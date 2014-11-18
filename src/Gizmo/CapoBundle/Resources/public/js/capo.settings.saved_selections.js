@@ -34,7 +34,7 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
     var tpl_saved_selection_list_item = ns.html.saved_selection_list_item();
 
     var show_error = function(msg) {
-        return $('#error_container').append(
+        return $('#error-container').append(
             tpl_error_msg({
                 'msg': msg
             }));

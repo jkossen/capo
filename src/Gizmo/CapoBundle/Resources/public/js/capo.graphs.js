@@ -68,7 +68,7 @@ CAPO.graphs = CAPO.graphs || {};
     //
 
     var show_error = function(msg) {
-        $('#error_container')
+        $('#error-container')
             .append(tpl_error_msg({
                 'message': msg
             }));
@@ -661,7 +661,7 @@ CAPO.graphs = CAPO.graphs || {};
         // Event handler for the toggle search box button
         $('#btn-toggle-search').on('click', function(event) {
             event.preventDefault();
-            $('#search_box').slideToggle(100);
+            $('#search-box').slideToggle(100);
             var showhide = 'show search box';
             if ($('#btn-toggle-search').html() === 'show search box') {
                 showhide = 'hide search box';

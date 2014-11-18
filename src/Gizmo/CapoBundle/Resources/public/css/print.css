@@ -16,14 +16,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#search_box {
+#search-box {
     display: none;
 }
 
-#top_container {
+#top-container {
     width: 600px;
 }
 
-#main_navbar {
+#main-navbar {
     display: none;
 }

@@ -35,7 +35,7 @@ CAPO.settings.users = CAPO.settings.users || {};
     var tpl_col_user_is_active = ns.html.col_user_is_active();
 
     var show_error = function(msg) {
-        return $('#error_container').append(
+        return $('#error-container').append(
             tpl_error_msg({
                 'msg': msg
             }));
@@ -140,7 +140,7 @@ CAPO.settings.users = CAPO.settings.users || {};
     };
 
     var user_groupselect = function(user) {
-        return $('#group_' + user.id).select2({
+        return $('#group-' + user.id).select2({
             placeholder: 'Select group',
             allowClear: false,
             width: '350px',
@@ -182,7 +182,7 @@ CAPO.settings.users = CAPO.settings.users || {};
     var change_group_for_user = function(user) {
         var data = {
             'user_id': user.id,
-            'group_id': $('#group_' + user.id).val()
+            'group_id': $('#group-' + user.id).val()
         };
 
         var url = ns.get('base_url') + 'api/admin/user/change_group/';
@@ -193,7 +193,7 @@ CAPO.settings.users = CAPO.settings.users || {};
             dataType: 'json',
             data: data,
             success: function(response, textStatus, jqXHR) {
-                $('#td_group_' + user.id).animateHighlight();
+                $('#col-group-' + user.id).animateHighlight();
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 var ret = $.parseJSON(jqXHR.responseText);

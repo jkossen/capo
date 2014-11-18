@@ -16,6 +16,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+body {
+    background: url('/bundles/gizmocapo/images/capo_back.png');
+    background-repeat: no-repeat;
+}
+
 #graphs {
     border: 1px solid #E3E3E3;
     border-radius: 6px 6px 6px 6px;
@@ -23,6 +28,8 @@
 
 .navbar-brand img {
     margin-top: -5px;
+    width: 30px;
+    height: 30px;
 }
 
 td.cacti-instance, th.cacti-instance {
@@ -124,4 +131,16 @@ td.actions a:link {
 
 td.actions a:hover {
     color: #333;
+}
+
+#top_container {
+    background: rgba(255,255,255,0.4);
+}
+
+.well {
+    background: rgba(240,240,240,0.4);    
+}
+
+.thumbnail {
+    background: none;
 }

@@ -62,16 +62,32 @@
 <div class="row-fluid">
     <h3>Selection</h3>
     <nav class="navbar navbar-default">
-        <div class="navbar-inner">
-            <ul class="nav navbar-nav">
-                <li><form class="navbar-form"><label class="checkbox"><input type="checkbox" name="activate_slideshow" id="slideshow_activator"> slideshow</label></form></li>
-                <li class="divider-vertical"></li>
-                <li><form class="navbar-form"><label class="checkbox"><input type="checkbox" name="activate_autorefresh" id="autorefresh_activator"> autorefresh</label></form></li>
-            </ul>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#selectedbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        <div class="navbar-inner collapse navbar-collapse" id="selectedbar-collapse">
+            <form class="navbar-form" role="form">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="activate_slideshow" id="slideshow_activator"> slideshow
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="activate_autorefresh" id="autorefresh_activator"> autorefresh
+                        </label>
+                    </div>
+                </div>
+            </form>
         </div>
     </nav>
 </div>
-    
+
 <div id="wmap-selection-container" class="row-fluid">
     <ul class="wmaps" id="selected_wmaps_list">
         <li class="span12" id="selected_wmaps_placeholder">

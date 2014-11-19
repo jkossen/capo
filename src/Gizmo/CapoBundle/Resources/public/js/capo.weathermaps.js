@@ -127,7 +127,7 @@ CAPO.weathermaps = CAPO.weathermaps || {};
         if (wmap.id in _selected_wmaps) {
             delete _selected_wmaps[wmap.id];
         } else {
-            show_error('Tried to deselect a not-selected weathermap.');
+            ns.show_error('Tried to deselect a not-selected weathermap.');
         }
     };
 
@@ -288,7 +288,7 @@ CAPO.weathermaps = CAPO.weathermaps || {};
                     // 200 probably means the user was logged out
                     location.reload();
                 } else {
-                    show_error(jqXHR.status + ' ' + errorThrown +
+                    ns.show_error(jqXHR.status + ' ' + errorThrown +
                         '. Unable to fetch results.'
                     );
                 }

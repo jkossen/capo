@@ -30,15 +30,7 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
     //
     // Load required HTML templates
     //
-    var tpl_error_msg = ns.html.msg_container('error');
     var tpl_saved_selection_list_item = ns.html.saved_selection_list_item();
-
-    var show_error = function(msg) {
-        return $('#error-container').append(
-            tpl_error_msg({
-                'msg': msg
-            }));
-    };
 
     var init = function() {
         enable_saved_selections_select();
@@ -113,7 +105,7 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
                         $('#results_list').empty();
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        show_error('Unable to delete');
+                        ns.show_error('Unable to delete');
                     }
                 });
             }
@@ -140,7 +132,7 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
                     $('#results_list').empty();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    show_error('Unable to rename');
+                    ns.show_error('Unable to rename');
                 }
             });
         });
@@ -167,7 +159,7 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 var ret = $.parseJSON(jqXHR.responseText);
-                show_error(jqXHR.status + ' ' + errorThrown +
+                ns.show_error(jqXHR.status + ' ' + errorThrown +
                    '. ' + ret.message
                 );
                 load_selection_graphs(true);
@@ -230,7 +222,7 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
             error: function(jqXHR, textStatus, errorThrown) {
                 _scroller.unlock();
                 var ret = $.parseJSON(jqXHR.responseText);
-                show_error(jqXHR.status + ' ' + errorThrown +
+                ns.show_error(jqXHR.status + ' ' + errorThrown +
                    '. ' + ret.message
                 );
             }

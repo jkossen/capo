@@ -30,19 +30,11 @@ CAPO.settings.groups = CAPO.settings.groups || {};
     //
     // Load required HTML templates
     //
-    var tpl_error_msg = ns.html.msg_container('error');
     var tpl_groups_result_list_item = ns.html.groups_result_list_item();
     var tpl_col_group_is_active = ns.html.col_group_is_active();
     var tpl_group_show_name = ns.html.group_show_name();
     var tpl_group_edit_name = ns.html.group_edit_name();
     var tpl_groups_cacti_instances_list_item = ns.html.groups_cacti_instances_list_item();
-
-    var show_error = function(msg) {
-        return $('#error-container').append(
-            tpl_error_msg({
-                'msg': msg
-            }));
-    };
 
     var init = function() {
         // Prevent submitting the search form on enter
@@ -181,7 +173,7 @@ CAPO.settings.groups = CAPO.settings.groups || {};
             error: function(jqXHR, textStatus, errorThrown) {
                 _scroller.unlock();
                 var ret = $.parseJSON(jqXHR.responseText);
-                show_error(jqXHR.status + ' ' + errorThrown +
+                ns.show_error(jqXHR.status + ' ' + errorThrown +
                    '. ' + ret.message
                 );
             }
@@ -284,7 +276,7 @@ CAPO.settings.groups = CAPO.settings.groups || {};
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 var ret = $.parseJSON(jqXHR.responseText);
-                show_error(jqXHR.status + ' ' + errorThrown +
+                ns.show_error(jqXHR.status + ' ' + errorThrown +
                    '. ' + ret.message
                 );
             }
@@ -310,7 +302,7 @@ CAPO.settings.groups = CAPO.settings.groups || {};
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 var ret = $.parseJSON(jqXHR.responseText);
-                show_error(jqXHR.status + ' ' + errorThrown +
+                ns.show_error(jqXHR.status + ' ' + errorThrown +
                    '. ' + ret.message
                 );
             }
@@ -334,7 +326,7 @@ CAPO.settings.groups = CAPO.settings.groups || {};
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 var ret = $.parseJSON(jqXHR.responseText);
-                show_error(jqXHR.status + ' ' + errorThrown +
+                ns.show_error(jqXHR.status + ' ' + errorThrown +
                    '. ' + ret.message
                 );
             }
@@ -361,7 +353,7 @@ CAPO.settings.groups = CAPO.settings.groups || {};
                         _scroller.unlock();
 
                         var ret = $.parseJSON(jqXHR.responseText);
-                        show_error(jqXHR.status + ' ' + errorThrown +
+                        ns.show_error(jqXHR.status + ' ' + errorThrown +
                             '. ' + ret.message
                         );
                     }

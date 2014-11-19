@@ -30,16 +30,8 @@ CAPO.settings.users = CAPO.settings.users || {};
     //
     // Load required HTML templates
     //
-    var tpl_error_msg = ns.html.msg_container('error');
     var tpl_users_result_list_item = ns.html.users_result_list_item();
     var tpl_col_user_is_active = ns.html.col_user_is_active();
-
-    var show_error = function(msg) {
-        return $('#error-container').append(
-            tpl_error_msg({
-                'msg': msg
-            }));
-    };
 
     var init = function() {
         // Prevent submitting the search form on enter
@@ -132,7 +124,7 @@ CAPO.settings.users = CAPO.settings.users || {};
             error: function(jqXHR, textStatus, errorThrown) {
                 _scroller.unlock();
                 var ret = $.parseJSON(jqXHR.responseText);
-                show_error(jqXHR.status + ' ' + errorThrown +
+                ns.show_error(jqXHR.status + ' ' + errorThrown +
                    '. ' + ret.message
                 );
             }
@@ -197,7 +189,7 @@ CAPO.settings.users = CAPO.settings.users || {};
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 var ret = $.parseJSON(jqXHR.responseText);
-                show_error(jqXHR.status + ' ' + errorThrown +
+                ns.show_error(jqXHR.status + ' ' + errorThrown +
                    '. ' + ret.message
                 );
             }
@@ -220,7 +212,7 @@ CAPO.settings.users = CAPO.settings.users || {};
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 var ret = $.parseJSON(jqXHR.responseText);
-                show_error(jqXHR.status + ' ' + errorThrown +
+                ns.show_error(jqXHR.status + ' ' + errorThrown +
                    '. ' + ret.message
                 );
             }

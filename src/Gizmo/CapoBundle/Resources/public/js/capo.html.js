@@ -24,25 +24,6 @@ CAPO.html = CAPO.html || {};
 (function(ns) {
     "use strict";
 
-    // Container to show messages to the user
-    var msg_container = function(msg_type) {
-        var tpl =
-            '<div class="alert alert-' + msg_type + '">' +
-            '<a class="close" data-dismiss="alert" href="#">&times;</a>';
-
-        var msg = '<p>'
-        if (msg_type === 'error') {
-            msg = msg + '<strong>ERROR:</strong> ';
-        } else if (msg_type === 'success') {
-            msg = msg + '<strong>SUCCESS:</strong> ';
-        } else {
-            msg = msg + '<strong>INFO:</strong ';
-        }
-        tpl = tpl + '<%= message %></p></div>';
-
-        return _.template(tpl);
-    };
-
     var multi_select = function() {
         var tpl = '<div class="pull-left capo-multiselect">' +
             '<div class="pull-left">' +
@@ -439,7 +420,6 @@ CAPO.html = CAPO.html || {};
     ns.html.selected_wmap_item = selected_wmap_item;
     ns.html.select_all_graphs = select_all_graphs;
     ns.html.select_all_max_warning = select_all_max_warning;
-    ns.html.msg_container = msg_container;
     ns.html.single_graph_to_pdf_form = single_graph_to_pdf_form;
     ns.html.graph_selection_to_pdf_form = graph_selection_to_pdf_form;
     ns.html.saved_selection_list_item = saved_selection_list_item;

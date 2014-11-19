@@ -30,19 +30,11 @@ CAPO.settings.cacti_instances = CAPO.settings.cacti_instances || {};
     //
     // Load required HTML templates
     //
-    var tpl_error_msg = ns.html.msg_container('error');
     var tpl_cacti_instance_result_list_item = ns.html.cacti_instance_result_list_item();
     var tpl_cacti_instance_show_name = ns.html.cacti_instance_show_name();
     var tpl_cacti_instance_edit_name = ns.html.cacti_instance_edit_name();
     var tpl_cacti_instance_show_base_url = ns.html.cacti_instance_show_base_url();
     var tpl_cacti_instance_edit_base_url = ns.html.cacti_instance_edit_base_url();
-
-    var show_error = function(msg) {
-        return $('#error_container').append(
-            tpl_error_msg({
-                'msg': msg
-            }));
-    };
 
     var init = function() {
         // Prevent submitting the search form on enter
@@ -263,7 +255,7 @@ CAPO.settings.cacti_instances = CAPO.settings.cacti_instances || {};
             error: function(jqXHR, textStatus, errorThrown) {
                 _scroller.unlock();
                 var ret = $.parseJSON(jqXHR.responseText);
-                show_error(jqXHR.status + ' ' + errorThrown +
+                ns.show_error(jqXHR.status + ' ' + errorThrown +
                    '. ' + ret.message
                 );
             }
@@ -289,7 +281,7 @@ CAPO.settings.cacti_instances = CAPO.settings.cacti_instances || {};
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 var ret = $.parseJSON(jqXHR.responseText);
-                show_error(jqXHR.status + ' ' + errorThrown +
+                ns.show_error(jqXHR.status + ' ' + errorThrown +
                    '. ' + ret.message
                 );
             }
@@ -317,7 +309,7 @@ CAPO.settings.cacti_instances = CAPO.settings.cacti_instances || {};
                         _scroller.unlock();
 
                         var ret = $.parseJSON(jqXHR.responseText);
-                        show_error(jqXHR.status + ' ' + errorThrown +
+                        ns.show_error(jqXHR.status + ' ' + errorThrown +
                             '. ' + ret.message
                         );
                     }

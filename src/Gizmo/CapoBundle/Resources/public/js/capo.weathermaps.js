@@ -127,7 +127,7 @@ CAPO.weathermaps = CAPO.weathermaps || {};
         if (wmap.id in _selected_wmaps) {
             delete _selected_wmaps[wmap.id];
         } else {
-            show_error('Tried to deselect a not-selected weathermap.');
+            ns.show_error('Tried to deselect a not-selected weathermap.');
         }
     };
 
@@ -288,7 +288,7 @@ CAPO.weathermaps = CAPO.weathermaps || {};
                     // 200 probably means the user was logged out
                     location.reload();
                 } else {
-                    show_error(jqXHR.status + ' ' + errorThrown +
+                    ns.show_error(jqXHR.status + ' ' + errorThrown +
                         '. Unable to fetch results.'
                     );
                 }
@@ -338,7 +338,7 @@ CAPO.weathermaps = CAPO.weathermaps || {};
         // Event handler for the toggle search box button
         $('#btn-toggle-search').on('click', function(event) {
             event.preventDefault();
-            $('#search_box').slideToggle(100);
+            $('#search-box').slideToggle(100);
             var showhide = 'show search box';
             if ($('#btn-toggle-search').html() === 'show search box') {
                 showhide = 'hide search box';

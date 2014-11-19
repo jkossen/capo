@@ -79,7 +79,22 @@ var CAPO = CAPO || {};
         top: '25px', // Top position relative to parent in px
         left: '25px' // Left position relative to parent in px
     };
-    
+
+    var show_error = function(msg) {
+        var tpl = '<div class="alert alert-danger" role="alert">' +
+            '<button type="button" class="close" data-dismiss="alert">' +
+            '<span aria-hidden="true">&times;</span>' +
+            '<span class="sr-only">Close</span></button>' +
+            '<p><strong>ERROR:</strong> <%= message %></p>';
+
+        var out = _.template(tpl);
+        
+        $('#error-container')
+            .append(out({
+                'message': msg
+            }));
+    };
+
     // Show a spinner when an ajax call is running
     var enable_ajax_spinner = function() {
 
@@ -175,6 +190,7 @@ var CAPO = CAPO || {};
 
     // Export public functions
     ns.init = init;
+    ns.show_error = show_error;
     ns.start_selection_spinner = start_selection_spinner;
     ns.stop_selection_spinner = stop_selection_spinner;
     ns.get = get;

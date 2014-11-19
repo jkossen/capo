@@ -30,15 +30,7 @@ CAPO.settings.event_log = CAPO.settings.event_log || {};
     //
     // Load required HTML templates
     //
-    var tpl_error_msg = ns.html.msg_container('error');
     var tpl_eventlog_list_item = ns.html.eventlog_list_item();
-
-    var show_error = function(msg) {
-        return $('#error_container').append(
-            tpl_error_msg({
-                'msg': msg
-            }));
-    };
 
     var init = function() {
         // Prevent submitting the search form on enter
@@ -99,7 +91,7 @@ CAPO.settings.event_log = CAPO.settings.event_log || {};
             error: function(jqXHR, textStatus, errorThrown) {
                 _scroller.unlock();
                 var ret = $.parseJSON(jqXHR.responseText);
-                show_error(jqXHR.status + ' ' + errorThrown +
+                ns.show_error(jqXHR.status + ' ' + errorThrown +
                    '. ' + ret.message
                 );
             }

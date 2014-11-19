@@ -56,7 +56,6 @@ CAPO.graphs = CAPO.graphs || {};
     var tpl_graph_result_list_item_deselected = ns.html.graph_result_list_item(false);
     var tpl_graph_selection_to_pdf_form = ns.html.graph_selection_to_pdf_form();
     var tpl_single_graph_to_pdf_form = ns.html.single_graph_to_pdf_form();
-    var tpl_error_msg = ns.html.msg_container('error');
     var tpl_select_all_graphs = ns.html.select_all_graphs();
     var tpl_select_all_max_warning = ns.html.select_all_max_warning();
     var tpl_selected_graph_item  = ns.html.selected_graph_item();
@@ -66,13 +65,6 @@ CAPO.graphs = CAPO.graphs || {};
     //
     // real work functions [tm]
     //
-
-    var show_error = function(msg) {
-        $('#error_container')
-            .append(tpl_error_msg({
-                'message': msg
-            }));
-    };
 
     // ensure equal height for the selected graph items
     function equal_height(group) {
@@ -229,7 +221,7 @@ CAPO.graphs = CAPO.graphs || {};
                         $('#graph_selection_name').val('');
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        show_error(jqXHR.status + ' ' + errorThrown +
+                        ns.show_error(jqXHR.status + ' ' + errorThrown +
                         '. Unable to save graph selection.'
                         );
                     }
@@ -390,9 +382,9 @@ CAPO.graphs = CAPO.graphs || {};
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 ns.stop_selection_spinner();
-                show_error(jqXHR.status + ' ' + errorThrown +
-                           '. Unable to fetch graphs.'
-                          );
+                ns.show_error(jqXHR.status + ' ' + errorThrown +
+                              '. Unable to fetch graphs.'
+                             );
             }
         });
     };
@@ -481,7 +473,7 @@ CAPO.graphs = CAPO.graphs || {};
                     // 200 probably means the user was logged out
                     location.reload();
                 } else {
-                    show_error(jqXHR.status + ' ' + errorThrown +
+                    ns.show_error(jqXHR.status + ' ' + errorThrown +
                         '. Unable to fetch results.'
                     );
                 }
@@ -661,7 +653,7 @@ CAPO.graphs = CAPO.graphs || {};
         // Event handler for the toggle search box button
         $('#btn-toggle-search').on('click', function(event) {
             event.preventDefault();
-            $('#search_box').slideToggle(100);
+            $('#search-box').slideToggle(100);
             var showhide = 'show search box';
             if ($('#btn-toggle-search').html() === 'show search box') {
                 showhide = 'hide search box';

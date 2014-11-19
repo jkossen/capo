@@ -127,7 +127,7 @@ CAPO.settings.groups = CAPO.settings.groups || {};
                 enable_cacti_instance_for_group(group, cacti_instance_id);
             }
         });
-    }
+    };
 
     // Load a set of user search results
     var load_results = function(clear) {

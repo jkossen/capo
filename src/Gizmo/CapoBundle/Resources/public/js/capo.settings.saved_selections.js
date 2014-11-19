@@ -165,7 +165,7 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
                 load_selection_graphs(true);
             }
         });
-    }
+    };
 
     // Load a set of cacti instance search results
     var load_selection_graphs = function(clear) {

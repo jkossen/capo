@@ -52,7 +52,7 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
             event.preventDefault();
             refresh_results();
         });        
-    }
+    };
 
     var refresh_results = function() {
         _scroller.reset();
@@ -88,7 +88,7 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
                 });
             }
         });
-    }
+    };
 
     var edit_cacti_instances_row = function(account) {
         var row_id = 'api-account-edit-cacti-instances-' + account.id;
@@ -124,7 +124,7 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
                 enable_cacti_instance_for_account(account, cacti_instance_id);
             }
         });
-    }
+    };
 
     // Load a set of user search results
     var load_results = function(clear) {

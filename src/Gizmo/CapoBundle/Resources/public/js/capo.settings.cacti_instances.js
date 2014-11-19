@@ -158,7 +158,7 @@ CAPO.settings.cacti_instances = CAPO.settings.cacti_instances || {};
             data: {
                 page: _scroller.page,
                 page_limit: _scroller.per_page,
-                q: $('#filter_1').val(),
+                q: $('#filter').val(),
                 active_only: 0
             },
             success: function(response, textStatus, jqXHR) {
@@ -166,7 +166,7 @@ CAPO.settings.cacti_instances = CAPO.settings.cacti_instances || {};
 
                 if (clear) {
                     $('#results').scrollTop(0);
-                    $('#results_list').empty();
+                    $('#results-list').empty();
                 }
 
                 var curtime = (new Date).getTime();
@@ -199,7 +199,7 @@ CAPO.settings.cacti_instances = CAPO.settings.cacti_instances || {};
                         activate_icon = 'remove';
                     }
 
-                    $('#results_list').append(
+                    $('#results-list').append(
                         tpl_cacti_instance_result_list_item({
                             'id': cacti_instance.id,
                             'name': cacti_instance.name,
@@ -248,8 +248,8 @@ CAPO.settings.cacti_instances = CAPO.settings.cacti_instances || {};
                     });
                 });
 
-                $('#result_count')
-                .html('matches: ' + _scroller.total);
+                $('#result-count')
+                    .html('matches: ' + _scroller.total);
                 _scroller.unlock();
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -320,17 +320,17 @@ CAPO.settings.cacti_instances = CAPO.settings.cacti_instances || {};
 
     // Refresh cacti instances results list when typing in the search input box
     var enable_search_cacti_instances_input = function() {
-        var filter_1_prev_len = 0;
-        var filter_1_prev = '';
+        var filter_prev_len = 0;
+        var filter_prev = '';
 
-        $('#filter_1').on('keyup', function(event) {
+        $('#filter').on('keyup', function(event) {
             event.preventDefault();
             ns.delay(function() {
-                var filter_1_cur = $('#filter_1').val();
-                if ((filter_1_cur.length === 0 && filter_1_prev.length !== 0) ||
-                   (filter_1_cur !== filter_1_prev && filter_1_cur.length >= 2)) {
+                var filter_cur = $('#filter').val();
+                if ((filter_cur.length === 0 && filter_prev.length !== 0) ||
+                   (filter_cur !== filter_prev && filter_cur.length >= 2)) {
                         refresh_results();
-                        filter_1_prev = filter_1_cur;
+                        filter_prev = filter_cur;
                 }
             }, 500);
         });

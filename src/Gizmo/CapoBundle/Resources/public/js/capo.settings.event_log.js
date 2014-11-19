@@ -60,19 +60,19 @@ CAPO.settings.event_log = CAPO.settings.event_log || {};
             data: {
                 page: _scroller.page,
                 page_limit: _scroller.per_page,
-                q: $('#filter_1').val(),
+                q: $('#filter').val(),
             },
             success: function(response, textStatus, jqXHR) {
                 _scroller.total = response.loglines_total;
 
                 if (clear) {
                     $('#results').scrollTop(0);
-                    $('#results_list').empty();
+                    $('#results-list').empty();
                 }
 
                 $.each(response.loglines, function(index, logline) {
                     var custom_data = JSON.parse(logline.custom_data);
-                    $('#results_list').append(
+                    $('#results-list').append(
                         tpl_eventlog_list_item({
                             'date': logline.event_date.date,
                             'username': logline.user_name,
@@ -84,8 +84,8 @@ CAPO.settings.event_log = CAPO.settings.event_log || {};
                     );
                 });
 
-                $('#result_count')
-                .html('matches: ' + _scroller.total);
+                $('#result-count')
+                    .html('matches: ' + _scroller.total);
                 _scroller.unlock();
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -100,17 +100,17 @@ CAPO.settings.event_log = CAPO.settings.event_log || {};
 
     // Refresh cacti instances results list when typing in the search input box
     var enable_search_event_log_input = function() {
-        var filter_1_prev_len = 0;
-        var filter_1_prev = '';
+        var filter_prev_len = 0;
+        var filter_prev = '';
 
-        $('#filter_1').on('keyup', function(event) {
+        $('#filter').on('keyup', function(event) {
             event.preventDefault();
             ns.delay(function() {
-                var filter_1_cur = $('#filter_1').val();
-                if ((filter_1_cur.length === 0 && filter_1_prev.length !== 0) ||
-                   (filter_1_cur !== filter_1_prev && filter_1_cur.length >= 2)) {
+                var filter_cur = $('#filter').val();
+                if ((filter_cur.length === 0 && filter_prev.length !== 0) ||
+                   (filter_cur !== filter_prev && filter_cur.length >= 2)) {
                         refresh_results();
-                        filter_1_prev = filter_1_cur;
+                        filter_prev = filter_cur;
                 }
             }, 500);
         });

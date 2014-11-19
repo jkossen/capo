@@ -45,7 +45,7 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
     };
 
     var enable_saved_selections_select = function() {
-        $('.saved_selections_select').select2({
+        $('.saved-selections-select').select2({
             placeholder: 'Select graph selection',
             allowClear: false,
             width: '350px',
@@ -84,10 +84,10 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
     };
 
     var enable_delete_saved_selection_btn = function() {
-        $('#btn_delete_saved_selection').on('click', function(event) {
+        $('#btn-delete-saved-selection').on('click', function(event) {
             event.preventDefault();
 
-            if ($('#saved_selections_select').val() === '') {
+            if ($('#saved-selections-select').val() === '') {
                 return;
             }
 
@@ -98,11 +98,11 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
                     type: ns.get('request_method'),
                     dataType: 'json',
                     data: {
-                        graph_selection: $('#saved_selections_select').val()
+                        graph_selection: $('#saved-selections-select').val()
                     },
                     success: function(response, textStatus, jqXHR) {
-                        $('#saved_selections_select').select2('data', null);
-                        $('#results_list').empty();
+                        $('#saved-selections-select').select2('data', null);
+                        $('#results-list').empty();
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         ns.show_error('Unable to delete');
@@ -115,7 +115,7 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
     var enable_rename_saved_selection_btn = function() {
         $('#btn-rename-graph-selection').on('click', function(event) {
             event.preventDefault();
-            if ($('#saved_selections_select').val() === '') {
+            if ($('#saved-selections-select').val() === '') {
                 return;
             }
             $.ajax({
@@ -123,13 +123,13 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
                 type: ns.get('request_method'),
                 dataType: 'json',
                 data: {
-                    graph_selection: $('#saved_selections_select').val(),
+                    graph_selection: $('#saved-selections-select').val(),
                     name: $('#graph-selection-new-name').val()
                 },
                 success: function(response, textStatus, jqXHR) {
-                    $('#saved_selections_select').select2('data', null);
+                    $('#saved-selections-select').select2('data', null);
                     $('#graph-selection-new-name').val('');
-                    $('#results_list').empty();
+                    $('#results-list').empty();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     ns.show_error('Unable to rename');
@@ -176,14 +176,14 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
             data: {
                 page: _scroller.page,
                 page_limit: _scroller.per_page,
-                graph_selection_id: $('#saved_selections_select').val(),
+                graph_selection_id: $('#saved-selections-select').val(),
             },
             success: function(response, textStatus, jqXHR) {
                 if (clear) {
                     _scroller.reset();
                     _scroller.total = (response.graph_selection_items_total);
                     $('#results').scrollTop(0);
-                    $('#results_list').empty();
+                    $('#results-list').empty();
                 }
 
                 if (response.graph_selection_items.length > 0) {
@@ -199,7 +199,7 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
                                    options += '<option value="' + i + '" ' + selected + '>' + i + '</option>';
                                }
                                
-                               $('#results_list')
+                               $('#results-list')
                                    .append(tpl_saved_selection_list_item({
                                        'item_id': item.id,
                                        'ci_name': item.graph.cacti_instance.name,
@@ -215,7 +215,7 @@ CAPO.settings.saved_selections = CAPO.settings.saved_selections || {};
                            });
                 }
 
-                $('#result_count')
+                $('#result-count')
                     .html('matches: ' + _scroller.total);
                 _scroller.unlock();
             },

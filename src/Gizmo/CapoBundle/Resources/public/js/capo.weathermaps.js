@@ -24,7 +24,7 @@ CAPO.weathermaps = CAPO.weathermaps || {};
 (function(ns) {
     "use strict";
     var _scroller = null;
-    var _filter_1_prev = '';
+    var _filter_prev = '';
     var _selected_wmaps = [];
     var _autorefresh = false;
     var _autorefresher;
@@ -50,7 +50,7 @@ CAPO.weathermaps = CAPO.weathermaps || {};
 
     // Enable the Cacti instances select box
     var enable_cacti_instance_select = function() {
-        $('.cacti_instance_select').select2({
+        $('.cacti-instance-select').select2({
             placeholder: 'Any cacti instance',
             allowClear: true,
             width: '300px',
@@ -89,11 +89,11 @@ CAPO.weathermaps = CAPO.weathermaps || {};
 
     // Add weathermap to selection
     var select_wmap = function(wmap) {
-        $('#selected_wmaps_placeholder').remove();
+        $('#selected-wmaps-placeholder').remove();
 
         var wmap_tpl = ns.html.selected_wmap_item();
 
-        $('#selected_wmaps_list').append(
+        $('#selected-wmaps-list').append(
             wmap_tpl({
                 'wmap_id': wmap.id,
                 'wmap_name': wmap.titlecache,
@@ -247,15 +247,15 @@ CAPO.weathermaps = CAPO.weathermaps || {};
             data: {
                 page: _scroller.page,
                 page_limit: _scroller.per_page,
-                cacti_instance: $('#cacti_instance_select_1').val(),
-                q: $('#filter_1').val()
+                cacti_instance: $('#cacti-instance-select').val(),
+                q: $('#filter').val()
             },
             success: function(response, textStatus, jqXHR) {
                 _scroller.total = response.weathermaps_total;
 
                 if (clear) {
                     $('#results').scrollTop(0);
-                    $('#results_list').empty();
+                    $('#results-list').empty();
                 }
 
                 $.each(response.weathermaps, function(index, wmap) {
@@ -267,7 +267,7 @@ CAPO.weathermaps = CAPO.weathermaps || {};
                         tpl_wmap_result_list_item = tpl_wmap_result_list_item_deselected;
                     }
 
-                    $('#results_list').append(
+                    $('#results-list').append(
                         tpl_wmap_result_list_item({
                             'ci_name': wmap.cacti_instance.name,
                             'wmap_id': wmap.id,
@@ -278,7 +278,7 @@ CAPO.weathermaps = CAPO.weathermaps || {};
                     enable_select_wmap_link(wmap);
                 });
 
-                $('#result_count').html('matches: ' + _scroller.total);
+                $('#result-count').html('matches: ' + _scroller.total);
 
                 _scroller.unlock();
             },
@@ -298,20 +298,20 @@ CAPO.weathermaps = CAPO.weathermaps || {};
 
     // Event handler for the search input
     var handle_search_input = function(fn_handler) {
-        var filter_1_cur = $('#filter_1').val();
+        var filter_cur = $('#filter').val();
 
         if  (
-            (filter_1_cur.length === 0 && _filter_1_prev.length !== 0) ||
-            (filter_1_cur !== _filter_1_prev && filter_1_cur.length >= 2)
+            (filter_cur.length === 0 && _filter_prev.length !== 0) ||
+            (filter_cur !== _filter_prev && filter_cur.length >= 2)
         ) {
             refresh_results();
-            _filter_1_prev = filter_1_cur;
+            _filter_prev = filter_cur;
         }
     };
 
     // Refresh weathermap results list when typing in the search input box
     var enable_search_input = function() {
-        $('#filter_1').on('keyup', function(event) {
+        $('#filter').on('keyup', function(event) {
             event.preventDefault();
             ns.delay(function() { handle_search_input(); }, 500);
         });
@@ -346,7 +346,7 @@ CAPO.weathermaps = CAPO.weathermaps || {};
             $('#btn-toggle-search').html(showhide);
         });
 
-        $('#slideshow_activator').on('change', function(event) {
+        $('#slideshow-activator').on('change', function(event) {
             if (_slideshow == false) {
 
                 _slideshow = true;
@@ -362,7 +362,7 @@ CAPO.weathermaps = CAPO.weathermaps || {};
             }
         });
 
-        $('#autorefresh_activator').on('change', function(event) {
+        $('#autorefresh-activator').on('change', function(event) {
             if (_autorefresh == false) {
                 _autorefresh = true;
                 _autorefresher = setInterval(function() {

@@ -13,7 +13,7 @@
     <div id="error-container"></div>
     <div class="well well-large" id="search-box">
         {% if privileges.user_has_access %}
-        <h3>Search <small id="search_is_loading" style="display:none;">(loading ...)</small></h3>
+        <h3>Search <small id="search-is-loading" style="display:none;">(loading ...)</small></h3>
         <div id="search-container">
             <div class="control-group">
                 <div class="controls">
@@ -23,14 +23,14 @@
                                 <span class="input-group-addon" id="search-icon">
                                     <span class="glyphicon glyphicon-search"></span>
                                 </span>
-                                <input id="filter_1" type="text" placeholder="Search" value="{{ data.q }}" class="form-control">
+                                <input id="filter" type="text" placeholder="Search" value="{{ data.q }}" class="form-control">
                             </div>
                         </div>
                     </form>
                     <div style="margin-top: 15px;margin-bottom:15px;" class="col-sm-12">
                         <form role="form" class="form-inline" id="form-capo-selectors">
                             <div class="form-group">
-                                <input type="hidden" class="bigdrop cacti_instance_select" id="cacti_instance_select_1">
+                                <input type="hidden" class="bigdrop cacti-instance-select" id="cacti-instance-select">
                             </div>
                         </form>
                     </div>
@@ -43,12 +43,12 @@
                 <thead>
                     <tr><th class="cacti-instance">Cacti Instance</th><th class="wmap">Weathermap</th></tr>
                 </thead>
-                <tbody id="results_list">
+                <tbody id="results-list">
                     <tr><td class="cacti-instance"></td><td class="wmap"></td></tr>
                     </tbody>
             </table>
         </div>
-        <p class="text-muted" id="result_count"></p>
+        <p class="text-muted" id="result-count"></p>
 
         {% else %}
             <div style="text-align: center;">
@@ -74,12 +74,12 @@
                 <div class="form-group">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="activate_slideshow" id="slideshow_activator"> slideshow
+                            <input type="checkbox" name="activate_slideshow" id="slideshow-activator"> slideshow
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="activate_autorefresh" id="autorefresh_activator"> autorefresh
+                            <input type="checkbox" name="activate_autorefresh" id="autorefresh-activator"> autorefresh
                         </label>
                     </div>
                 </div>
@@ -89,8 +89,8 @@
 </div>
 
 <div id="wmap-selection-container" class="row-fluid">
-    <ul class="wmaps" id="selected_wmaps_list">
-        <li class="span12" id="selected_wmaps_placeholder">
+    <ul class="wmaps" id="selected-wmaps-list">
+        <li class="span12" id="selected-wmaps-placeholder">
         <div class="thumbnail">
             <h3>no weathermaps selected yet</h3>
         </div>

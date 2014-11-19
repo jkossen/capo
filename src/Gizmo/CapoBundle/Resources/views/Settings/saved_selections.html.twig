@@ -19,8 +19,8 @@
 
         <p>
             <form role="form" class="form-inline">
-                <input type="hidden" class="bigdrop saved_selections_select" id="saved_selections_select"/>
-                <button type="button" class="btn btn-danger" style="margin-left: 25px;" id="btn_delete_saved_selection"><span class="glyphicon glyphicon-remove"></span> delete graph selection</button>
+                <input type="hidden" class="bigdrop saved-selections-select" id="saved-selections-select"/>
+                <button type="button" class="btn btn-danger" style="margin-left: 25px;" id="btn-delete-saved-selection"><span class="glyphicon glyphicon-remove"></span> delete graph selection</button>
                 <div class="input-append">
                     <input type="text" id="graph-selection-new-name" placeholder="New name" class="form-control">
                     <button type="button" class="btn btn-default" id="btn-rename-graph-selection">Rename</button>
@@ -33,12 +33,12 @@
                 <thead>
                     <tr><th class="cacti-instance">Cacti Instance</th><th class="graph">Graph</th><th>Position</th></tr>
                 </thead>
-                <tbody id="results_list">
+                <tbody id="results-list">
                     <tr><td class="cacti-instance"></td><td class="graph"></td><td class="position"></td></tr>
                 </tbody>
             </table>
         </div>
-        <p class="muted" id="result_count"></p>
+        <p class="muted" id="result-count"></p>
         {% else %}
             <div style="text-align: center;">
             <h4 class="error">Successfully logged in, but your group does not have access to any Cacti instances yet.</h4>

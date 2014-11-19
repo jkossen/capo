@@ -20,7 +20,7 @@
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-search"></span>
                     </span>
-                    <input id="filter_1" type="text" placeholder="Search" class="form-control">
+                    <input id="filter" type="text" placeholder="Search" class="form-control">
                 </div><!-- /.input-prepend -->
             </form>
         </p>
@@ -28,14 +28,14 @@
         <div id="results" class="settings">
             <table class="table table-hover">
                 <thead>
-                    <tr><th class="event_date">Event date</th><th class="user">User</th><th class="ip">IP</th><th class="uri">Uri</th><th class="message">Message</th></tr>
+                    <tr><th class="event-date">Event date</th><th class="user">User</th><th class="ip">IP</th><th class="uri">Uri</th><th class="message">Message</th></tr>
                 </thead>
-                <tbody id="results_list">
-                    <tr><td class="event_date"></td><td class="username"></td><td class="IP"></td><td class="uri"></td><td class="message">Message</td></tr>
+                <tbody id="results-list">
+                    <tr><td class="event-date"></td><td class="username"></td><td class="IP"></td><td class="uri"></td><td class="message">Message</td></tr>
                 </tbody>
             </table>
         </div>
-        <p class="muted" id="result_count"></p>
+        <p class="muted" id="result-count"></p>
     </div><!-- /.well -->
 </div><!-- /.row-fluid -->
 {% endblock %}

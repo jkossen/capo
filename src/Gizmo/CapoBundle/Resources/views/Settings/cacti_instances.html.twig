@@ -20,7 +20,7 @@
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-search"></span>
                     </span>
-                    <input id="filter_1" type="text" placeholder="Search" class="form-control">
+                    <input id="filter" type="text" placeholder="Search" class="form-control">
                 </div><!-- /.input-prepend -->
             </form>
             <form role="form" class="form-inline pull-right" id="add-cacti-instance-form">
@@ -36,12 +36,12 @@
                 <thead>
                     <tr><th class="cacti-instance">Cacti Instance</th><th class="url">Base URL</th><th>Import date</th><th>Queue Import</th><th>Active</th></tr>
                 </thead>
-                <tbody id="results_list">
+                <tbody id="results-list">
                     <tr><td class="cacti-instance"></td><td class="url"></td><td class="import-date"></td><td class="queue-import"></td><td class="status-active"></td></tr>
                 </tbody>
             </table>
         </div>
-        <p class="muted" id="result_count"></p>
+        <p class="muted" id="result-count"></p>
     </div><!-- /.well -->
 </div><!-- /.row-fluid -->
 {% endblock %}

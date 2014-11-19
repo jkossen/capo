@@ -19,11 +19,11 @@
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-search"></span>
                     </span>
-                    <input id="filter_1" type="text" placeholder="Search" class="form-control">
+                    <input id="filter" type="text" placeholder="Search" class="form-control">
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="active_accounts_only" id="active_accounts_only" value="0" checked="checked"> active accounts only
+                        <input type="checkbox" name="active_accounts_only" id="active-accounts-only" value="0" checked="checked"> active accounts only
                     </label>
                 </div>
             </form>
@@ -40,12 +40,12 @@
                 <thead>
                     <tr><th class="username">Username</th><th class="secret">Secret</th><th class="actions">Actions</th><th class="status-active">Active</th></tr>
                 </thead>
-                <tbody id="results_list">
+                <tbody id="results-list">
                     <tr><td class="username"></td><td class="secret"></td><td class="actions"></td><td class="status-active"></td></tr>
                 </tbody>
             </table>
         </div>
-        <p class="muted" id="result_count"></p>
+        <p class="muted" id="result-count"></p>
     </div><!-- /.well -->
 </div><!-- /.row-fluid -->
 {% endblock %}

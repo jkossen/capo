@@ -24,7 +24,7 @@ CAPO.graphs = CAPO.graphs || {};
 (function(ns) {
     "use strict";
     var _scroller = null;
-    var _filter_1_prev = '';
+    var _filter_prev = '';
     var _max_select_all = 25;
     var _graph_pool = [];
     var _cur_saved_selection = [];
@@ -123,7 +123,7 @@ CAPO.graphs = CAPO.graphs || {};
 
     // Enable the Cacti instances select box
     var enable_cacti_instance_select = function() {
-        $('.cacti_instance_select').select2({
+        $('.cacti-instance-select').select2({
             placeholder: 'Any cacti instance',
             allowClear: true,
             width: '300px',
@@ -162,7 +162,7 @@ CAPO.graphs = CAPO.graphs || {};
 
     // Enable the saved graph selections select box
     var enable_graph_selections_select = function() {
-        $('.graph_selections_select').select2({
+        $('.graph-selections-select').select2({
             placeholder: 'Load saved selection',
             allowClear: true,
             width: '350px',
@@ -198,9 +198,9 @@ CAPO.graphs = CAPO.graphs || {};
             load_saved_selection();
         });
 
-        $('#btn_save_graph_selection').on('click', function(event) {
+        $('#btn-save-graph-selection').on('click', function(event) {
             event.preventDefault();
-            var name = $('#graph_selection_name').val();
+            var name = $('#graph-selection-name').val();
             var graphs = [];
 
             $('#selected-graphs-list').children().each(function() {
@@ -218,7 +218,7 @@ CAPO.graphs = CAPO.graphs || {};
                         graphs: JSON.stringify(graphs)
                     },
                     success: function(response, textStatus, jqXHR) {
-                        $('#graph_selection_name').val('');
+                        $('#graph-selection-name').val('');
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         ns.show_error(jqXHR.status + ' ' + errorThrown +
@@ -232,7 +232,7 @@ CAPO.graphs = CAPO.graphs || {};
 
     // Enable the Graph templates select box
     var enable_graph_templates_select = function() {
-        $('.graph_template_select').select2({
+        $('.graph-template-select').select2({
             placeholder: 'Any graph template',
             allowClear: true,
             width: '400px',
@@ -247,7 +247,7 @@ CAPO.graphs = CAPO.graphs || {};
                         q: term,
                         page_limit: 25,
                         page: page,
-                        cacti_instance: $('#cacti_instance_1').val()
+                        cacti_instance: $('#cacti-instance-select').val()
                     };
                 },
                 results: function (data, page) {
@@ -272,7 +272,7 @@ CAPO.graphs = CAPO.graphs || {};
 
     // Enable the Hosts select box
     var enable_hosts_select = function() {
-        $('.host_select').select2({
+        $('.host-select').select2({
             placeholder: 'Any host',
             allowClear: true,
             width: '400px',
@@ -287,7 +287,7 @@ CAPO.graphs = CAPO.graphs || {};
                         q: term,
                         page_limit: 25,
                         page: page,
-                        cacti_instance: $('#cacti_instance_1').val()
+                        cacti_instance: $('#cacti-instance-select-1').val()
                     };
                 },
                 results: function (data, page) {
@@ -319,20 +319,20 @@ CAPO.graphs = CAPO.graphs || {};
 
     // Event handler for the search input
     var handle_search_input = function(fn_handler) {
-        var filter_1_cur = $('#filter_1').val();
+        var filter_cur = $('#filter').val();
 
         if  (
-            (filter_1_cur.length === 0 && _filter_1_prev.length !== 0) ||
-            (filter_1_cur !== _filter_1_prev && filter_1_cur.length >= 2)
+            (filter_cur.length === 0 && _filter_prev.length !== 0) ||
+            (filter_cur !== _filter_prev && filter_cur.length >= 2)
         ) {
             load_results(true);
-            _filter_1_prev = filter_1_cur;
+            _filter_prev = filter_cur;
         }
     };
 
     // Refresh graph results list when typing in the search input box
     var enable_search_input = function() {
-        $('#filter_1').on('keyup', function(event) {
+        $('#filter').on('keyup', function(event) {
             event.preventDefault();
             ns.delay(function() { handle_search_input(); }, 500);
         });
@@ -340,7 +340,7 @@ CAPO.graphs = CAPO.graphs || {};
 
     // Load saved graph selection
     var load_saved_selection = function() {
-        var selector_id = 'graph-selections-select-1';
+        var selector_id = 'graph-selections-select';
         if ($('#' + selector_id).val() === '') {
             return;
         }
@@ -398,10 +398,10 @@ CAPO.graphs = CAPO.graphs || {};
             data: {
                 page: _scroller.page,
                 page_limit: _scroller.per_page,
-                cacti_instance: $('#cacti_instance_select_1').val(),
-                graph_template: $('#template_select_1').val(),
-                host: $('#host_select_1').val(),
-                q: $('#filter_1').val()
+                cacti_instance: $('#cacti-instance-select-1').val(),
+                graph_template: $('#template-select').val(),
+                host: $('#host-select').val(),
+                q: $('#filter').val()
             },
             success: function(response, textStatus, jqXHR) {
                 if (clear) {
@@ -563,7 +563,7 @@ CAPO.graphs = CAPO.graphs || {};
 
         if ($.inArray(graph_id, _cur_saved_selection) != -1) {
             _cur_saved_selection = [];
-            $('#graph-selections-select-1').select2('data', null);
+            $('#graph-selections-select').select2('data', null);
             $('.current_selection').attr({'class': 'selected'});
         }
 

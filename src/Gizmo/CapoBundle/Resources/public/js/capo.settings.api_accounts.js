@@ -135,7 +135,7 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
             data: {
                 page: _scroller.page,
                 page_limit: _scroller.per_page,
-                q: $('#filter_1').val(),
+                q: $('#filter').val(),
                 active_accounts_only: $('#active_accounts_only').is(':checked') ? 1 : 0
             },
             success: function(response, textStatus, jqXHR) {
@@ -143,11 +143,11 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
 
                 if (clear) {
                     $('#results').scrollTop(0);
-                    $('#results_list').empty();
+                    $('#results-list').empty();
                 }
 
                 $.each(response.api_accounts, function(index, account) {
-                    $('#results_list').append(
+                    $('#results-list').append(
                         tpl_api_accounts_result_list_item({
                             'id': account.id,
                         })
@@ -164,8 +164,8 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
                             });
                 });
 
-                $('#result_count')
-                .html('matches: ' + _scroller.total);
+                $('#result-count')
+                    .html('matches: ' + _scroller.total);
                 _scroller.unlock();
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -409,17 +409,17 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
 
     // Refresh results list when typing in the search input box
     var enable_search_input = function() {
-        var filter_1_prev_len = 0;
-        var filter_1_prev = '';
+        var filter_prev_len = 0;
+        var filter_prev = '';
 
-        $('#filter_1').on('keyup', function(event) {
+        $('#filter').on('keyup', function(event) {
             event.preventDefault();
             ns.delay(function() {
-                var filter_1_cur = $('#filter_1').val();
-                if ((filter_1_cur.length === 0 && filter_1_prev.length !== 0) ||
-                   (filter_1_cur !== filter_1_prev && filter_1_cur.length >= 2)) {
+                var filter_cur = $('#filter').val();
+                if ((filter_cur.length === 0 && filter_prev.length !== 0) ||
+                   (filter_cur !== filter_prev && filter_cur.length >= 2)) {
                         refresh_results();
-                        filter_1_prev = filter_1_cur;
+                        filter_prev = filter_cur;
                 }
             }, 500);
         });

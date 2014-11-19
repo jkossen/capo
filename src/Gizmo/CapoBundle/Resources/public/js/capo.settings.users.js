@@ -42,7 +42,7 @@ CAPO.settings.users = CAPO.settings.users || {};
         enable_search_user_input();
         enable_user_results();
 
-        $('#active_users_only').on('change', function(event) {
+        $('#active-users-only').on('change', function(event) {
             event.preventDefault();
             refresh_results();
         });
@@ -93,19 +93,19 @@ CAPO.settings.users = CAPO.settings.users || {};
             data: {
                 page: _scroller.page,
                 page_limit: _scroller.per_page,
-                q: $('#filter_1').val(),
-                active_users_only: $('#active_users_only').is(':CHECKED') ? 1 : 0
+                q: $('#filter').val(),
+                active_users_only: $('#active-users-only').is(':CHECKED') ? 1 : 0
             },
             success: function(response, textStatus, jqXHR) {
                 _scroller.total = response.users_total;
 
                 if (clear) {
                     $('#results').scrollTop(0);
-                    $('#results_list').empty();
+                    $('#results-list').empty();
                 }
 
                 $.each(response.users, function(index, user) {
-                    $('#results_list').append(
+                    $('#results-list').append(
                         tpl_users_result_list_item({
                             'id': user.id,
                             'name': user.username,
@@ -117,7 +117,7 @@ CAPO.settings.users = CAPO.settings.users || {};
                     user_groupselect(user);
                 });
 
-                $('#result_count')
+                $('#result-count')
                 .html('matches: ' + _scroller.total);
                 _scroller.unlock();
             },
@@ -221,17 +221,17 @@ CAPO.settings.users = CAPO.settings.users || {};
 
     // Refresh cacti instances results list when typing in the search input box
     var enable_search_user_input = function() {
-        var filter_1_prev_len = 0;
-        var filter_1_prev = '';
+        var filter_prev_len = 0;
+        var filter_prev = '';
 
-        $('#filter_1').on('keyup', function(event) {
+        $('#filter').on('keyup', function(event) {
             event.preventDefault();
             ns.delay(function() {
-                var filter_1_cur = $('#filter_1').val();
-                if ((filter_1_cur.length === 0 && filter_1_prev.length !== 0) ||
-                   (filter_1_cur !== filter_1_prev && filter_1_cur.length >= 2)) {
+                var filter_cur = $('#filter').val();
+                if ((filter_cur.length === 0 && filter_prev.length !== 0) ||
+                   (filter_cur !== filter_prev && filter_cur.length >= 2)) {
                         refresh_results();
-                        filter_1_prev = filter_1_cur;
+                        filter_prev = filter_cur;
                 }
             }, 500);
         });

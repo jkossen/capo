@@ -274,7 +274,7 @@ CAPO.html = CAPO.html || {};
         });
 
         var tpl =
-            '<tr id="row-graph-<%= graph_id %>" class="' + class_selected + ' <%=class_selection%>">' +
+            '<tr id="row-graph-<%= graph_id %>" class="' + class_selected + ' <%= class_selection %>">' +
             '<td id="col-cacti-instance-<%= graph_id%>" class="cacti-instance"><%= ci_name %></td>' +
             '<td>' + graph_link + '</td>' +
             '<td class="actions">' +

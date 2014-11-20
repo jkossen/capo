@@ -137,7 +137,7 @@ CAPO.weathermaps = CAPO.weathermaps || {};
             event.preventDefault();
             select_wmap(wmap);
         });
-    }
+    };
 
     // Delete weathermap from selection
     var deselect_wmap = function(wmap) {
@@ -174,7 +174,7 @@ CAPO.weathermaps = CAPO.weathermaps || {};
                 refresh_wmap(wmap);
             }
         });
-    }
+    };
 
     // hide all wmaps from selection
     var hide_all_wmaps = function() {

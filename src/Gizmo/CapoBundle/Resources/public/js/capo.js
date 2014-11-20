@@ -112,11 +112,11 @@ var CAPO = CAPO || {};
 
     var start_selection_spinner = function() {
         $('#selection-loading').spin(selection_spinner_opts);
-    }
+    };
 
     var stop_selection_spinner = function() {
         $('#selection-loading').stopspin();
-    }
+    };
 
     // Create object and event handler for infinite scrollable containers
     var create_infinite_scroller = function(element, fn_load) {

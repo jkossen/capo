@@ -169,7 +169,7 @@ CAPO.settings.users = CAPO.settings.users || {};
             event.preventDefault();
             change_group_for_user(user);
         });
-    }
+    };
 
     var change_group_for_user = function(user) {
         var data = {
@@ -194,7 +194,7 @@ CAPO.settings.users = CAPO.settings.users || {};
                 );
             }
         });
-    }
+    };
 
     // Save a change to a User
     var user_update = function(user, fn_success) {

@@ -77,7 +77,7 @@ CAPO.graphs = CAPO.graphs || {};
         });
 
         $('.thumbnail').each(function() { $(this).height(tallest + 30); });
-    }
+    };
 
     // Export the graph selection to PDF
     var pdf_graph_selection = function() {

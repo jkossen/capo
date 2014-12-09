@@ -346,7 +346,7 @@ CAPO.graphs = CAPO.graphs || {};
         }
 
         ns.start_selection_spinner();
-        
+
         $.ajax({
             url: ns.get('base_url') + 'api/get_graph_selection_graphs/',
             type: ns.get('request_method'),
@@ -670,7 +670,7 @@ CAPO.graphs = CAPO.graphs || {};
         // Event handler for the deselect all graphs button
         $('#deselect-all-graphs').on('click', function(event) {
             event.preventDefault();
-            ns.stop_selection_spinner();            
+            ns.stop_selection_spinner();
             deselect_all_graphs();
         });
     };

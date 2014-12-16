@@ -287,7 +287,7 @@ CAPO.graphs = CAPO.graphs || {};
                         q: term,
                         page_limit: 25,
                         page: page,
-                        cacti_instance: $('#cacti-instance-select-1').val()
+                        cacti_instance: $('#cacti-instance-select').val()
                     };
                 },
                 results: function (data, page) {
@@ -398,7 +398,7 @@ CAPO.graphs = CAPO.graphs || {};
             data: {
                 page: _scroller.page,
                 page_limit: _scroller.per_page,
-                cacti_instance: $('#cacti-instance-select-1').val(),
+                cacti_instance: $('#cacti-instance-select').val(),
                 graph_template: $('#template-select').val(),
                 host: $('#host-select').val(),
                 q: $('#filter').val()

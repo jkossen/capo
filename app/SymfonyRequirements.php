@@ -578,8 +578,8 @@ class SymfonyRequirements extends RequirementCollection
 
         $this->addRecommendation(
             class_exists('DomDocument'),
-            'PHP-XML module should be installed',
-            'Install and enable the <strong>PHP-XML</strong> module.'
+            'PHP-DOM and PHP-XML modules should be installed',
+            'Install and enable the <strong>PHP-DOM</strong> and the <strong>PHP-XML</strong> modules.'
         );
 
         $this->addRecommendation(
@@ -647,8 +647,6 @@ class SymfonyRequirements extends RequirementCollection
             (extension_loaded('eaccelerator') && ini_get('eaccelerator.enable'))
             ||
             (extension_loaded('apc') && ini_get('apc.enabled'))
-            ||
-            (extension_loaded('Zend Optimizer+') && ini_get('zend_optimizerplus.enable'))
             ||
             (extension_loaded('Zend OPcache') && ini_get('opcache.enable'))
             ||

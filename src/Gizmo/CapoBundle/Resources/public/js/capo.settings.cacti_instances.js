@@ -222,7 +222,7 @@ CAPO.settings.cacti_instances = CAPO.settings.cacti_instances || {};
                         var new_icon = (cacti_instance.queue_import) ? 'ok' : 'remove';
                         cacti_instance_update(cacti_instance, function() {
                             $('#btn-queue-ci-' + cacti_instance.id).attr('class', new_class);
-                            $('#icon-queue-ci-' + cacti_instance.id).attr('class', 'icon-white icon-' + new_icon);
+                            $('#icon-queue-ci-' + cacti_instance.id).attr('class', 'icon-white glyphicon glyphicon-' + new_icon);
                         });
                     });
 
@@ -233,7 +233,7 @@ CAPO.settings.cacti_instances = CAPO.settings.cacti_instances || {};
                         var new_icon = (cacti_instance.active) ? 'ok' : 'remove';
                         cacti_instance_update(cacti_instance, function() {
                             $('#btn-activate-ci-' + cacti_instance.id).attr('class', new_class);
-                            $('#icon-activate-ci-' + cacti_instance.id).attr('class', 'icon-white icon-' + new_icon);
+                            $('#icon-activate-ci-' + cacti_instance.id).attr('class', 'icon-white glyphicon glyphicon-' + new_icon);
                         });
                     });
 

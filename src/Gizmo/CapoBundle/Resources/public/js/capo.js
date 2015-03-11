@@ -115,6 +115,10 @@ var CAPO = CAPO || {};
         $('#selection-loading').spin(selection_spinner_opts);
     };
 
+    var stop_selection_spinner = function() {
+        $('#selection-loading').stopspin();
+    };
+
     // Create object and event handler for infinite scrollable containers
     var create_infinite_scroller = function(element, fn_load) {
         var scroller = new Object();
@@ -189,6 +193,7 @@ var CAPO = CAPO || {};
     ns.init = init;
     ns.show_error = show_error;
     ns.start_selection_spinner = start_selection_spinner;
+    ns.stop_selection_spinner = stop_selection_spinner;
     ns.get = get;
     ns.set = set;
     ns.create_infinite_scroller = create_infinite_scroller;

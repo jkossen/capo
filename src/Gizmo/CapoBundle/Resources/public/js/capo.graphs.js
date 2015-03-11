@@ -617,6 +617,10 @@ CAPO.graphs = CAPO.graphs || {};
                     $(this).load(function() {
                         cur_img++;
                     });
+
+                    if (cur_img == $('.graph-img').length) {
+                        ns.stop_selection_spinner();
+                    }
                 });
             }
         });
@@ -634,6 +638,10 @@ CAPO.graphs = CAPO.graphs || {};
                     $(this).load(function() {
                         cur_img++;
                     });
+
+                    if (cur_img == $('.graph-img').length) {
+                        ns.stop_selection_spinner();
+                    }
                 });
             }
         });
@@ -658,6 +666,7 @@ CAPO.graphs = CAPO.graphs || {};
         // Event handler for the deselect all graphs button
         $('#deselect-all-graphs').on('click', function(event) {
             event.preventDefault();
+            ns.stop_selection_spinner();
             deselect_all_graphs();
         });
     };

@@ -616,11 +616,10 @@ CAPO.graphs = CAPO.graphs || {};
 
                     $(this).load(function() {
                         cur_img++;
+                        if (cur_img == $('.graph-img').length) {
+                            ns.stop_selection_spinner();
+                        }
                     });
-
-                    if (cur_img == $('.graph-img').length) {
-                        ns.stop_selection_spinner();
-                    }
                 });
             }
         });
@@ -637,11 +636,10 @@ CAPO.graphs = CAPO.graphs || {};
                         graph_id + '/' + _rra_id + '/?' +  new Date().getTime();
                     $(this).load(function() {
                         cur_img++;
+                        if (cur_img == $('.graph-img').length) {
+                            ns.stop_selection_spinner();
+                        }
                     });
-
-                    if (cur_img == $('.graph-img').length) {
-                        ns.stop_selection_spinner();
-                    }
                 });
             }
         });

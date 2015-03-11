@@ -349,6 +349,7 @@ CAPO.graphs = CAPO.graphs || {};
 
         $.ajax({
             url: ns.get('base_url') + 'api/get_graph_selection_graphs/',
+            cache: false,
             type: ns.get('request_method'),
             dataType: 'json',
             data: {
@@ -370,18 +371,11 @@ CAPO.graphs = CAPO.graphs || {};
 
                                $('#graph-' + item.graph.id).load(function() {
                                    nr_of_loaded++;
-
-                                   if (nr_of_loaded == nr_of_graphs) {
-                                       ns.stop_selection_spinner();
-                                   }
                                });
                            });
-                } else {
-                    ns.stop_selection_spinner();
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                ns.stop_selection_spinner();
                 ns.show_error(jqXHR.status + ' ' + errorThrown +
                               '. Unable to fetch graphs.'
                              );
@@ -622,9 +616,6 @@ CAPO.graphs = CAPO.graphs || {};
 
                     $(this).load(function() {
                         cur_img++;
-                        if (cur_img == $('.graph-img').length) {
-                            ns.stop_selection_spinner();
-                        }
                     });
                 });
             }
@@ -642,9 +633,6 @@ CAPO.graphs = CAPO.graphs || {};
                         graph_id + '/' + _rra_id + '/?' +  new Date().getTime();
                     $(this).load(function() {
                         cur_img++;
-                        if (cur_img == $('.graph-img').length) {
-                            ns.stop_selection_spinner();
-                        }
                     });
                 });
             }
@@ -670,7 +658,6 @@ CAPO.graphs = CAPO.graphs || {};
         // Event handler for the deselect all graphs button
         $('#deselect-all-graphs').on('click', function(event) {
             event.preventDefault();
-            ns.stop_selection_spinner();
             deselect_all_graphs();
         });
     };

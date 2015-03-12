@@ -26,6 +26,11 @@ body {
     border-radius: 6px 6px 6px 6px;
 }
 
+.searchbox-form {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .navbar-brand img {
     margin-top: -5px;
     width: 30px;
@@ -138,7 +143,7 @@ td.actions a:hover {
 }
 
 .well {
-    background: rgba(240,240,240,0.4);    
+    background: rgba(240,240,240,0.4);
 }
 
 .thumbnail {

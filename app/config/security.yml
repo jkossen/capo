@@ -35,9 +35,12 @@ security:
 
     firewalls:
         wsse_secured:
-            pattern: /srv/.*
-            wsse: true
-            provider: apiuser_provider
+          pattern: /srv/.*
+          provider: apiuser_provider
+          wsse:
+            realm: "Secured with WSSE" #identifies the set of resources to which the authentication information will apply (WWW-Authenticate)
+            profile: "UsernameToken" #WSSE profile (WWW-Authenticate)
+
 
         main:
             pattern:    ^/

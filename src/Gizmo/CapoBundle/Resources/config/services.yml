@@ -2,16 +2,6 @@ parameters:
 #    gizmo_capo.example.class: Gizmo\CapoBundle\Example
 
 services:
-    wsse.security.authentication.provider:
-        class:  Gizmo\CapoBundle\Security\Authentication\Provider\WsseProvider
-        arguments: ["", "%kernel.cache_dir%/security/nonces"]
-
-    wsse.security.authentication.listener:
-        class:  Gizmo\CapoBundle\Security\Firewall\WsseListener
-        arguments: ["@security.context", "@security.authentication.manager"]
-        calls:
-          - [ setLogger, [@event_logger] ]
-
     pdf_exporter:
         class:  Gizmo\CapoBundle\Services\PDFService
         calls:

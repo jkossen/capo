@@ -29,7 +29,7 @@ doctrine:
 security:
     firewalls:
         main:
-            pattern: ^nonexistant/
+            security: false
 
 fr3d_ldap:
     driver: ~

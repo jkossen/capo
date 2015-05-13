@@ -13,10 +13,10 @@ framework:
     form:            true
     csrf_protection: true
     validation:      { enable_annotations: true }
-    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    templating:      { engines: ['twig'], assets_version: "20150408001" } #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     session:         
-        save_path:  "/var/lib/capo/sessions"
+        save_path:  "%kernel.root_dir%/var/sessions"
 
 # Twig Configuration
 twig:
@@ -63,12 +63,13 @@ fr3d_ldap:
         optReferrals: false  # Optional
         useSsl:       false   # Enable SSL negotiation. Optional
 #       useStartTls:  true   # Enable TLS negotiation. Optional
+        bindRequiresDn: true
     user:
         #baseDn: ou=users, dc=host, dc=foo
         #baseDn: uid=<username>,ou=People,dc=as9143,dc=internal
         baseDn: "%ldap_basedn%"
         #filter: (&(ObjectClass=user))
-        filter:
+        filter: '(&(samaccountname=%%s))'
         attributes:          # Specify ldap attributes mapping [ldap attribute, user object method]
             - { ldap_attr: samaccountname,  user_method: setUsername } # Default
             - { ldap_attr: dn,  user_method: setLdapGroup }
@@ -77,6 +78,7 @@ fr3d_ldap:
     service:
         user_manager: fos_user.user_manager          # Overrides default user manager
         ldap_manager: fr3d_ldap.ldap_manager.default # Overrides default ldap manager
+        ldap_driver: fr3d_ldap.ldap_driver.legacy
 
 fos_user:
     db_driver: orm

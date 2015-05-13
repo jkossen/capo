@@ -51,7 +51,7 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
         $('#active_accounts_only').on('change', function(event) {
             event.preventDefault();
             refresh_results();
-        });        
+        });
     };
 
     var refresh_results = function() {
@@ -60,7 +60,7 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
     };
 
     var load_cacti_instances = function(account, available) {
-        var el = '#api-account-' + account.id + '-ci-select_selected';
+        var el = '#api-account-' + account.id + '-ci-select-selected';
         var data = {
             page: _scroller.page,
             page_limit: _scroller.per_page
@@ -68,7 +68,7 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
 
         if (available) {
             data['exclude_api_account_id'] = account.id;
-            el = '#api-account-' + account.id + '-ci-select_deselected';
+            el = '#api-account-' + account.id + '-ci-select-deselected';
         } else {
             data['api_account_id'] = account.id;
         }
@@ -108,18 +108,18 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
             });
 
         // event handler: remove selected cacti instance from account
-        $('#api-account-' + account.id +'-ci-select_btn_deselect').on('click', function(event) {
+        $('#api-account-' + account.id +'-ci-select-btn-deselect').on('click', function(event) {
             event.preventDefault();
-            var cacti_instance_id = $('#api-account-' + account.id + '-ci-select_selected option:selected').val();
+            var cacti_instance_id = $('#api-account-' + account.id + '-ci-select-selected option:selected').val();
             if (cacti_instance_id != undefined) {
                 disable_cacti_instance_for_account(account, cacti_instance_id);
             }
         });
 
         // event handler: add selected cacti instance to account
-        $('#api-account-' + account.id +'-ci-select_btn_select').on('click', function(event) {
+        $('#api-account-' + account.id +'-ci-select-btn-select').on('click', function(event) {
             event.preventDefault();
-            var cacti_instance_id = $('#api-account-' + account.id + '-ci-select_deselected option:selected').val();
+            var cacti_instance_id = $('#api-account-' + account.id + '-ci-select-deselected option:selected').val();
             if (cacti_instance_id != undefined) {
                 enable_cacti_instance_for_account(account, cacti_instance_id);
             }
@@ -315,8 +315,8 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
             dataType: 'json',
             data: data,
             success: function(response, textStatus, jqXHR) {
-                $('#api-account-' + account.id + '-ci-select_selected').append(
-                    $('#api-account-' + account.id + '-ci-select_deselected option:selected'));
+                $('#api-account-' + account.id + '-ci-select-selected').append(
+                    $('#api-account-' + account.id + '-ci-select-deselected option:selected'));
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 var ret = $.parseJSON(jqXHR.responseText);
@@ -341,8 +341,8 @@ CAPO.settings.api_accounts = CAPO.settings.api_accounts || {};
             dataType: 'json',
             data: data,
             success: function(response, textStatus, jqXHR) {
-                $('#api-account-' + account.id + '-ci-select_deselected').append(
-                    $('#api-account-' + account.id + '-ci-select_selected option:selected'));
+                $('#api-account-' + account.id + '-ci-select-deselected').append(
+                    $('#api-account-' + account.id + '-ci-select-selected option:selected'));
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 var ret = $.parseJSON(jqXHR.responseText);

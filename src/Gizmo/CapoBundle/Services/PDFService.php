@@ -19,9 +19,7 @@
 
 namespace Gizmo\CapoBundle\Services;
 
-require('fpdf.php');
-
-class PDFService extends \FPDF
+class PDFService extends \fpdf\FPDF
 {
     protected $_title;
 

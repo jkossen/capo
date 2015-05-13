@@ -146,7 +146,7 @@ abstract class BaseController extends Controller
                 $this->_privileges['capo_user_id'] = 1;
                 $this->_privileges['capo_group_id'] = 1;
                 $this->_privileges['user_is_admin'] = true;
-                $this->_privileges['user_has_access'] = true;            
+                $this->_privileges['user_has_access'] = true;
             }
         }
 

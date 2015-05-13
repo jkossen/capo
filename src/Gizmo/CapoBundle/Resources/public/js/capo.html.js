@@ -324,25 +324,32 @@ CAPO.html = CAPO.html || {};
         var tpl =
             '<div class="col-xs-6 graph-selected" id="graph-selected-<%= graph_id %>">' +
             '<div class="thumbnail">' +
+            '<div class="caption">' +
+            '<h3 class="graph-description"><a href="<%= hlink_uri %>" title="<%= hlink_title %>" target="_blank"><%= ci_name %> - <%= graph_name %></a></h3>' +
+            '<div class="actions">' +
+            '<button type="button" class="btn btn-xs btn-danger btn-deselect-graph" id="deselect-btn-<%= graph_id %>">' +
+            '<span class="glyphicon glyphicon-remove"></span></button>' +
+            '<div class="clearfix"></div>' +
+            '</div></div>' +
             '<a href="<%= hlink_uri %>" title="<%= hlink_title %>" target="_blank">' +
             '<img id="graph-<%= graph_id %>" class="graph-img" src="<%= hlink_img %>" alt="<%= graph_name %>">' +
             '</a>' +
-            '<div class="caption">' +
-            '<h3 class="graph-description"><%= ci_name %> - <%= graph_name %></h3>' +
-            '<div class="actions"><button type="button" class="btn btn-danger btn-deselect-graph" id="deselect-btn-<%= graph_id %>">close</button></div>' +
-            '<div class="clearfix"></div></div></div></div>';
+            '</div></div>';
 
         return _.template(tpl);
     };
 
     // The html for an item in the weather map selection
     var selected_wmap_item = function() {
-
         var tpl =
-            '<div class="thumbnail" id="wmap-selected-<%= wmap_id %>">' +
-            '<a href="#" class="pull-right btn-deselect-graph" id="deselect-btn-<%= wmap_id %>">&times;</a>' +
-            '<a href="<%= hlink_uri %>" title="<%= hlink_title %>" target="_blank">' +
-            '<p class="wmap-description"><%= ci_name %> - <%= wmap_name %></p>' +
+            '<div class="thumbnail wmap-selected" id="wmap-selected-<%= wmap_id %>">' +
+            '<div class="caption">' +
+            '<h3 class="wmap-description"><a href="<%= hlink_uri %>" title="<%= hlink_title %>" target="_blank"><%= ci_name %> - <%= wmap_name %></a></h3>' +
+            '<div class="actions">' +
+            '<button type="button" class="btn btn-xs btn-danger btn-deselect-wmap pull-right" id="deselect-btn-<%= wmap_id %>">' +
+            '<span class="glyphicon glyphicon-remove"></span></button>' +
+            '<div class="clearfix"></div>' +
+            '</div></div>' +
             '<img id="wmap-<%= wmap_id %>" class="wmap-img" src="<%= hlink_img %>" alt="<%= wmap_name %>">' +
             '</a></div>';
 

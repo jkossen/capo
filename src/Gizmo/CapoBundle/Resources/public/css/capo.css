@@ -26,6 +26,11 @@ body {
     border-radius: 6px 6px 6px 6px;
 }
 
+.searchbox-form {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .navbar-brand img {
     margin-top: -5px;
     width: 30px;
@@ -46,16 +51,6 @@ td.actions, th.actions {
 
 #select_all_graphs {
     margin-left: 10px;
-}
-
-.btn-deselect-graph {
-    margin-top: -8px;
-}
-
-h3.graph-description {
-    font-size: 10px;
-    text-align: center;
-    margin-top: 0px;
 }
 
 tr.selected {
@@ -101,19 +96,45 @@ td.group-edit-cacti-instances {
     padding-right: 0px;
 }
 
-.graph-selected .thumbnail {
+.graph-selected .thumbnail, .wmap-selected {
     border: 0;
 }
 
-.graph-selected .actions {
+.graph-selected .caption, .wmap-selected .caption {
+    background-color: #efefef;
+    border-top: 2px solid #e0e0e0;
+    border-left: 2px solid #e0e0e0;
+    border-right: 2px solid #e0e0e0;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
 }
+
+.wmap-selected .caption {
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.graph-selected .caption {
+    max-width: 753px;
+}
+
+.graph-selected .caption h3, .wmap-selected .caption h3 {
+    display: inline;
+    line-height: 0.6;
+    font-size: 10px;
+}
+
+.graph-selected .caption .actions, .wmap-selected .caption .actions {
+    float: right;
+}
+
 
 #loading-div {
     position: relative;
     top: 0px;
     left: 0px;
-    float:right;
+    float: right;
 }
 
 .navbar-toggle {
@@ -138,7 +159,7 @@ td.actions a:hover {
 }
 
 .well {
-    background: rgba(240,240,240,0.4);    
+    background: rgba(240,240,240,0.4);
 }
 
 .thumbnail {

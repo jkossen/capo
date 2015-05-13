@@ -287,7 +287,7 @@ CAPO.graphs = CAPO.graphs || {};
                         q: term,
                         page_limit: 25,
                         page: page,
-                        cacti_instance: $('#cacti-instance-select-1').val()
+                        cacti_instance: $('#cacti-instance-select').val()
                     };
                 },
                 results: function (data, page) {
@@ -346,9 +346,10 @@ CAPO.graphs = CAPO.graphs || {};
         }
 
         ns.start_selection_spinner();
-        
+
         $.ajax({
             url: ns.get('base_url') + 'api/get_graph_selection_graphs/',
+            cache: false,
             type: ns.get('request_method'),
             dataType: 'json',
             data: {
@@ -370,18 +371,11 @@ CAPO.graphs = CAPO.graphs || {};
 
                                $('#graph-' + item.graph.id).load(function() {
                                    nr_of_loaded++;
-
-                                   if (nr_of_loaded == nr_of_graphs) {
-                                       ns.stop_selection_spinner();
-                                   }
                                });
                            });
-                } else {
-                    ns.stop_selection_spinner();
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                ns.stop_selection_spinner();
                 ns.show_error(jqXHR.status + ' ' + errorThrown +
                               '. Unable to fetch graphs.'
                              );
@@ -398,7 +392,7 @@ CAPO.graphs = CAPO.graphs || {};
             data: {
                 page: _scroller.page,
                 page_limit: _scroller.per_page,
-                cacti_instance: $('#cacti-instance-select-1').val(),
+                cacti_instance: $('#cacti-instance-select').val(),
                 graph_template: $('#template-select').val(),
                 host: $('#host-select').val(),
                 q: $('#filter').val()
@@ -670,7 +664,7 @@ CAPO.graphs = CAPO.graphs || {};
         // Event handler for the deselect all graphs button
         $('#deselect-all-graphs').on('click', function(event) {
             event.preventDefault();
-            ns.stop_selection_spinner();            
+            ns.stop_selection_spinner();
             deselect_all_graphs();
         });
     };

@@ -88,7 +88,7 @@ var CAPO = CAPO || {};
             '<p><strong>ERROR:</strong> <%= message %></p>';
 
         var out = _.template(tpl);
-        
+
         $('#error-container')
             .append(out({
                 'message': msg
@@ -107,6 +107,7 @@ var CAPO = CAPO || {};
             .ajaxStop(function() {
                 $('#search_is_loading').toggle();
                 $('#loading-div').stopspin();
+                $('#selection-loading').stopspin();
             });
     };
 

@@ -48,11 +48,9 @@ CAPO.settings.users = CAPO.settings.users || {};
         });
     };
 
-
     var select2_graph_selection_format = function (item) {
         return item.name + ' (' + item.created.date + ')';
     };
-
 
     var refresh_results = function() {
         _scroller.reset();

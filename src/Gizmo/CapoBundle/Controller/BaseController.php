@@ -47,28 +47,14 @@ abstract class BaseController extends Controller
     }
 
     /**
-     * Determine if access control should be enabled or not
-     *
-     * @return bool enabled
-     */
-    protected function _access_control_enabled()
-    {
-        if ($this->_get_environment() === 'test') {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Convenience function for getting the Symfony user object
      *
      * @return Object user
      */
     protected function _get_user()
     {
-        if ($this->_access_control_enabled()) {
-            return $this->get('security.context')->getToken()->getUser();
+        if ($token = $this->get('security.context')->getToken()) {
+            return $token->getUser();
         } else {
             return null;
         }
@@ -82,7 +68,7 @@ abstract class BaseController extends Controller
     protected function _get_privileges()
     {
         if (!is_array($this->_privileges)) {
-            if ($this->_access_control_enabled()) {
+            if ($this->_get_environment() !== 'test') {
                 $admins = $this->container->getParameter('admins');
 
                 if (count($admins) === 0) {
@@ -170,9 +156,8 @@ abstract class BaseController extends Controller
      */
     protected function _log_event($str_function, $str_args, $message=null)
     {
-        $access_control_enabled = $this->_access_control_enabled();
         $logger = $this->get('event_logger');
-        $logger->log(get_class($this), $str_function, $str_args, $message, $access_control_enabled);
+        $logger->log(get_class($this), $str_function, $str_args, $message);
     }
 
     /**

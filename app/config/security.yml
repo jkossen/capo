@@ -41,6 +41,9 @@ security:
             realm: "Secured with WSSE" #identifies the set of resources to which the authentication information will apply (WWW-Authenticate)
             profile: "UsernameToken" #WSSE profile (WWW-Authenticate)
 
+        login:
+            pattern:  ^/login$
+            security: false
 
         main:
             pattern:    ^/
@@ -52,10 +55,6 @@ security:
             logout:     true
             anonymous:  true
             provider: chain_provider
-
-        login:
-            pattern:  ^/login$
-            security: false
 
 
 #        secured_area:

@@ -64,15 +64,13 @@ fr3d_ldap:
         useSsl:       false   # Enable SSL negotiation. Optional
 #       useStartTls:  true   # Enable TLS negotiation. Optional
         bindRequiresDn: true
+        accountFilterFormat: '(&(sAMAccountName=%%s))'
     user:
-        #baseDn: ou=users, dc=host, dc=foo
-        #baseDn: uid=<username>,ou=People,dc=as9143,dc=internal
         baseDn: "%ldap_basedn%"
-        #filter: (&(ObjectClass=user))
-        filter: '(&(samaccountname=%%s))'
+        filter: (&(ObjectClass=user))
         attributes:          # Specify ldap attributes mapping [ldap attribute, user object method]
             - { ldap_attr: samaccountname,  user_method: setUsername } # Default
-            - { ldap_attr: dn,  user_method: setLdapGroup }
+            - { ldap_attr: distinguishedname,  user_method: setLdapGroup }
 #           - { ldap_attr: cn,   user_method: setName }     # Optional
 #           - { ldap_attr: ...,  user_method: ... }         # Optional
     service:

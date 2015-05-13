@@ -50,7 +50,7 @@ class EventLogService
     /**
      * Create an event log message
      */
-    public function log($str_class, $str_function, $str_args, $message=null, $have_user=true)
+    public function log($str_class, $str_function, $str_args, $message=null)
     {
         if (! $this->enabled) {
             return;
@@ -64,8 +64,8 @@ class EventLogService
         }
 
         $user = false;
-        if ($have_user) {
-            $user = $this->securityContext->getToken()->getUser();
+        if ($token = $this->securityContext->getToken()) {
+            $user = $token->getUser();
         }
 
         $log_line = $er->createEventLog(

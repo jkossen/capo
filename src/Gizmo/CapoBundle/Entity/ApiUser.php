@@ -207,6 +207,5 @@ class ApiUser implements UserInterface
     }
 
     public function eraseCredentials() {
-        $this->password = null;
     }
 }

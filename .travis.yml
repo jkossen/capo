@@ -13,6 +13,6 @@ before_install:
   - echo "extension=ldap.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer selfupdate
 
-install: composer update --prefer-dist --no-interaction
+install: composer install
 
 script: phpunit --configuration app/phpunit.xml

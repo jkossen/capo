@@ -21,7 +21,7 @@
     </testsuites>
 
     <php>
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="strong"/>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
     </php>
 
     <filter>

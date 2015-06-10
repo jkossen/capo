@@ -19,6 +19,8 @@
 
 namespace Gizmo\CapoBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * Capo Settings controller
  *
@@ -32,15 +34,15 @@ class SettingsController extends BaseController
     /**
      * The default settings page
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return $this->savedSelectionsAction();
+        return $this->savedSelectionsAction($request);
     }
-    
+
     /**
      * Page for editing saved selections
      */
-    public function savedSelectionsAction()
+    public function savedSelectionsAction(Request $request)
     {
         $data = $this->_get_privileges();
         $data['active_page'] = 'settings';
@@ -51,7 +53,7 @@ class SettingsController extends BaseController
     /**
      * Page for adding, removing and editing Cacti instances
      */
-    public function cactiInstancesAction()
+    public function cactiInstancesAction(Request $request)
     {
         $this->_need_admin_privileges();
         $data = $this->_get_privileges();
@@ -63,7 +65,7 @@ class SettingsController extends BaseController
     /**
      * Page for configuring users
      */
-    public function userAccessAction()
+    public function userAccessAction(Request $request)
     {
         $this->_need_admin_privileges();
         $data = $this->_get_privileges();
@@ -75,7 +77,7 @@ class SettingsController extends BaseController
     /**
      * Page for configuring API accounts
      */
-    public function apiAccountsAction()
+    public function apiAccountsAction(Request $request)
     {
         $this->_need_admin_privileges();
         $data = $this->_get_privileges();
@@ -87,7 +89,7 @@ class SettingsController extends BaseController
     /**
      * Page for granting and revoking access for groups to Cacti instances
      */
-    public function groupAccessAction()
+    public function groupAccessAction(Request $request)
     {
         $this->_need_admin_privileges();
         $data = $this->_get_privileges();
@@ -99,7 +101,7 @@ class SettingsController extends BaseController
     /**
      * Page for viewing the Event Log lines
      */
-    public function eventLogAction()
+    public function eventLogAction(Request $request)
     {
         $this->_need_admin_privileges();
         $data = $this->_get_privileges();

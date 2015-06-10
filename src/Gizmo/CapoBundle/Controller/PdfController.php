@@ -19,6 +19,7 @@
 
 namespace Gizmo\CapoBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use \Gizmo\CapoBundle\Services\PDFService;
 
@@ -117,7 +118,7 @@ class PdfController extends BaseController
                                        -110,
                                        0,
                                        'PNG') .
-                           $pdf->Cell(0,5,$rra[$i],0,1,'C'),                           
+                           $pdf->Cell(0,5,$rra[$i],0,1,'C'),
                            0, 1, 'C', false);
                 unlink($tmpfname);
             } catch (\Exception $e) { }
@@ -165,7 +166,7 @@ class PdfController extends BaseController
                                            -110,
                                            0,
                                            'PNG') .
-                               $pdf->Cell(0,5,$rra[$rra_id],0,1,'C'),                           
+                               $pdf->Cell(0,5,$rra[$rra_id],0,1,'C'),
                                0, 1, 'C', false);
                     unlink($tmpfname);
                 } catch (\Exception $e) { }
@@ -179,10 +180,8 @@ class PdfController extends BaseController
      *
      * @return Response PDF file
      */
-    public function pdfSingleGraphAction()
+    public function pdfSingleGraphAction(Request $request)
     {
-        $request = $this->getRequest();
-
         if (! $request->isMethod('POST')) {
             throw $this->createNotFoundException('Only POST is supported');
         } else {
@@ -190,7 +189,7 @@ class PdfController extends BaseController
                 Array('graph', 'integer')
             );
 
-            $data = $this->_get_request_data($form);
+            $data = $this->_get_request_data($form, $request);
 
             if (!isset($data['graph'])) {
                 throw $this->createNotFoundException('No graph given');
@@ -236,10 +235,8 @@ class PdfController extends BaseController
      *
      * @return Response PDF file
      */
-    public function pdfGraphSelectionAction()
+    public function pdfGraphSelectionAction(Request $request)
     {
-        $request = $this->getRequest();
-
         if (! $request->isMethod('POST')) {
             throw $this->createNotFoundException('Only POST is supported');
         } else {
@@ -247,7 +244,7 @@ class PdfController extends BaseController
                 Array('graphs_selected', 'text')
             );
 
-            $data = $this->_get_request_data($form);
+            $data = $this->_get_request_data($form, $request);
             $graphs_indexed = Array();
             $graphs_validated = Array();
             $graphs_posted = json_decode($data['graphs_selected']);
@@ -305,7 +302,7 @@ class PdfController extends BaseController
             $response->headers->set('Pragma', 'public');
             $response->headers->set('Content-Type', 'application/pdf');
             $response->headers->set('Content-Disposition',
-                                    'attachment; filename="capo_' . 
+                                    'attachment; filename="capo_' .
                                     date('YmdHs') . '.pdf"');
 
             return $response;

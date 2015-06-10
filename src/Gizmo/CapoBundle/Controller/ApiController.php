@@ -19,6 +19,7 @@
 
 namespace Gizmo\CapoBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -37,16 +38,16 @@ class ApiController extends BaseController
      *
      * @return Response JSON encoded array of graph data
      */
-    public function getGraphAction()
+    public function getGraphAction(Request $request)
     {
-        $response = Array();
-        $request = $this->getRequest();
         $form = Array(
             Array('id', 'integer'),
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $response = Array();
+
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         if (!isset($data['id'])) {
@@ -77,7 +78,7 @@ class ApiController extends BaseController
      *
      * @return Response JSON encoded array of Cacti instances
      */
-    public function getCactiInstancesAction()
+    public function getCactiInstancesAction(Request $request)
     {
         $form = Array(
             Array('q', 'text'),
@@ -87,7 +88,7 @@ class ApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
@@ -105,7 +106,7 @@ class ApiController extends BaseController
      *
      * @return Response JSON encoded array of graph selections
      */
-    public function getGraphSelectionGraphsAction()
+    public function getGraphSelectionGraphsAction(Request $request)
     {
         $form = Array(
             Array('graph_selection_id', 'integer'),
@@ -114,7 +115,7 @@ class ApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
@@ -132,7 +133,7 @@ class ApiController extends BaseController
      *
      * @return Response JSON encoded array of graph selections
      */
-    public function getGraphSelectionsAction()
+    public function getGraphSelectionsAction(Request $request)
     {
         $form = Array(
             Array('q', 'text'),
@@ -141,7 +142,7 @@ class ApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
@@ -157,7 +158,7 @@ class ApiController extends BaseController
      *
      * @return Response encoded response
      */
-    public function saveGraphSelectionAction()
+    public function saveGraphSelectionAction(Request $request)
     {
         $form = Array(
             Array('name', 'text'),
@@ -165,7 +166,7 @@ class ApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         if (empty($data['name'])) {
@@ -233,14 +234,14 @@ class ApiController extends BaseController
      *
      * @return Response encoded response
      */
-    public function disableGraphSelectionAction()
+    public function disableGraphSelectionAction(Request $request)
     {
         $form = Array(
             Array('graph_selection', 'integer'),
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         if (empty($data['graph_selection'])) {
@@ -270,7 +271,7 @@ class ApiController extends BaseController
      *
      * @return Response encoded response
      */
-    public function renameGraphSelectionAction()
+    public function renameGraphSelectionAction(Request $request)
     {
         $form = Array(
             Array('graph_selection', 'integer'),
@@ -278,7 +279,7 @@ class ApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         if (empty($data['graph_selection'])) {
@@ -317,7 +318,7 @@ class ApiController extends BaseController
      *
      * @return Response encoded response
      */
-    public function changeGraphSelectionItemItemNrAction()
+    public function changeGraphSelectionItemItemNrAction(Request $request)
     {
         $form = Array(
             Array('item_id', 'integer'),
@@ -325,7 +326,7 @@ class ApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         if (empty($data['item_id'])) {
@@ -366,7 +367,7 @@ class ApiController extends BaseController
      *
      * @return Response JSON encoded array of Cacti graphs
      */
-    public function getGraphsAction()
+    public function getGraphsAction(Request $request)
     {
         $form = Array(
             Array('q', 'text'),
@@ -378,7 +379,7 @@ class ApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
@@ -396,7 +397,7 @@ class ApiController extends BaseController
      *
      * @return Response JSON encoded array of Cacti graph templates
      */
-    public function getGraphTemplatesAction()
+    public function getGraphTemplatesAction(Request $request)
     {
         $form = Array(
             Array('q', 'text'),
@@ -406,7 +407,7 @@ class ApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
@@ -424,7 +425,7 @@ class ApiController extends BaseController
      *
      * @return Response JSON encoded array of hosts
      */
-    public function getHostsAction()
+    public function getHostsAction(Request $request)
     {
         $form = Array(
             Array('q', 'text'),
@@ -434,7 +435,7 @@ class ApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
@@ -451,7 +452,7 @@ class ApiController extends BaseController
      *
      * @return Response encoded array of graph titles
      */
-    public function getGraphTitlesAction()
+    public function getGraphTitlesAction(Request $request)
     {
         $form = Array(
             Array('q', 'text'),
@@ -462,7 +463,7 @@ class ApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
@@ -480,7 +481,7 @@ class ApiController extends BaseController
      *
      * @return Response JSON encoded array of weathermaps
      */
-    public function getWeathermapsAction()
+    public function getWeathermapsAction(Request $request)
     {
         $form = Array(
             Array('q', 'text'),
@@ -490,7 +491,7 @@ class ApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
@@ -509,7 +510,7 @@ class ApiController extends BaseController
      *
      * @return Response PNG image of graph
      */
-    public function showGraphAction($graph_id, $rra_id, $graph_start=0, $graph_end=0)
+    public function showGraphAction(Request $request, $graph_id, $rra_id, $graph_start=0, $graph_end=0)
     {
         $form = Array();
         $rra_id = intval($rra_id);
@@ -517,7 +518,7 @@ class ApiController extends BaseController
         $graph_start = intval($graph_start);
         $graph_end = intval($graph_end);
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $data['id'] = $graph_id;
 
         if ($rra_id > 10) {
@@ -584,11 +585,11 @@ class ApiController extends BaseController
      *
      * @return Response PNG image of weathermap
      */
-    public function showWmapAction($wmap_id)
+    public function showWmapAction(Request $request, $wmap_id)
     {
         $form = Array();
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $data['id'] = $wmap_id;
 
         try {

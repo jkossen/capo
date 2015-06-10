@@ -13,10 +13,14 @@ framework:
     form:            true
     csrf_protection: true
     validation:      { enable_annotations: true }
-    templating:      { engines: ['twig'], assets_version: "20150408001" } #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
-    session:         
+    templating:
+        engines:
+            - twig
+    session:
         save_path:  "%kernel.root_dir%/var/sessions"
+    assets:
+        version:    20150610001
 
 # Twig Configuration
 twig:

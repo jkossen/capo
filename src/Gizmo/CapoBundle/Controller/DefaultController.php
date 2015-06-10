@@ -19,29 +19,33 @@
 
 namespace Gizmo\CapoBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+
 class DefaultController extends BaseController
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $form = Array(
             Array('q', 'text')
         );
         $privileges = $this->_get_privileges();
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $data['active_page'] = 'graphs';
+
         return $this->render('GizmoCapoBundle:Default:index.html.twig',
                              array('data' => $data,
                              'privileges' => $privileges));
     }
 
-    public function weathermapsAction()
+    public function weathermapsAction(Request $request)
     {
         $form = Array(
             Array('q', 'text')
         );
         $privileges = $this->_get_privileges();
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $data['active_page'] = 'weathermaps';
+
         return $this->render('GizmoCapoBundle:Default:weathermaps.html.twig',
                              array('data' => $data,
                                    'privileges' => $privileges

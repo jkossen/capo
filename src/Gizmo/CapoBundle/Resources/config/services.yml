@@ -10,7 +10,7 @@ services:
 
     event_logger:
         class:  Gizmo\CapoBundle\Services\EventLogService
-        arguments: ['@security.context', '@doctrine', %enable_eventlog%]
+        arguments: ['@security.token_storage', '@doctrine', %enable_eventlog%]
         tags:
             - { name: 'kernel.event_listener', event: 'security.interactive_login' }
 

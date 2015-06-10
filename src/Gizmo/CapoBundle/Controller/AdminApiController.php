@@ -19,6 +19,8 @@
 
 namespace Gizmo\CapoBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * The Capo Admin API controller
  *
@@ -35,7 +37,7 @@ class AdminApiController extends BaseController
      *
      * @return Response encoded array of users
      */
-    public function getUsersAction()
+    public function getUsersAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -47,7 +49,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
@@ -65,7 +67,7 @@ class AdminApiController extends BaseController
      *
      * @return Response encoded array of groups
      */
-    public function getGroupsAction()
+    public function getGroupsAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -77,7 +79,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
@@ -95,7 +97,7 @@ class AdminApiController extends BaseController
      *
      * @return Response encoded array of API accounts
      */
-    public function getApiAccountsAction()
+    public function getApiAccountsAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -107,7 +109,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
@@ -123,7 +125,7 @@ class AdminApiController extends BaseController
      *
      * @return Response encoded array of event log messages
      */
-    public function getEventLogAction()
+    public function getEventLogAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -134,7 +136,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
@@ -151,7 +153,7 @@ class AdminApiController extends BaseController
      *
      * @return Response encoded array of cacti instances
      */
-    public function getCactiInstancesAction()
+    public function getCactiInstancesAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -165,7 +167,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
@@ -223,7 +225,7 @@ class AdminApiController extends BaseController
      *
      * @return Response OK
      */
-    public function enableCactiInstanceForGroupAction()
+    public function enableCactiInstanceForGroupAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -233,7 +235,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         if (!isset($data['group_id'])) {
@@ -284,7 +286,7 @@ class AdminApiController extends BaseController
      *
      * @return Response OK
      */
-    public function disableCactiInstanceForGroupAction()
+    public function disableCactiInstanceForGroupAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -294,7 +296,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
@@ -333,7 +335,7 @@ class AdminApiController extends BaseController
      *
      * @return Response OK
      */
-    public function enableCactiInstanceForApiUserAction()
+    public function enableCactiInstanceForApiUserAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -343,7 +345,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         if (!isset($data['api_user_id'])) {
@@ -394,7 +396,7 @@ class AdminApiController extends BaseController
      *
      * @return Response OK
      */
-    public function disableCactiInstanceForApiUserAction()
+    public function disableCactiInstanceForApiUserAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -404,7 +406,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         $em = $this->getDoctrine()->getManager();
@@ -443,7 +445,7 @@ class AdminApiController extends BaseController
      *
      * @return Response OK
      */
-    public function changeGroupForUserAction()
+    public function changeGroupForUserAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -453,7 +455,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         if (!isset($data['group_id'])) {
@@ -504,7 +506,7 @@ class AdminApiController extends BaseController
      *
      * @return Response encoded response
      */
-    public function updateCactiInstanceAction()
+    public function updateCactiInstanceAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -517,7 +519,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         if (empty($data['id'])) {
@@ -554,7 +556,7 @@ class AdminApiController extends BaseController
      *
      * @return Response encoded response
      */
-    public function updateGroupAction()
+    public function updateGroupAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -565,7 +567,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         if (empty($data['id'])) {
@@ -602,7 +604,7 @@ class AdminApiController extends BaseController
      *
      * @return Response encoded response
      */
-    public function updateApiUserAction()
+    public function updateApiUserAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -614,7 +616,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         if (empty($data['id'])) {
@@ -651,7 +653,7 @@ class AdminApiController extends BaseController
      *
      * @return Response encoded response
      */
-    public function updateUserAction()
+    public function updateUserAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -661,7 +663,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         if (empty($data['id'])) {
@@ -698,7 +700,7 @@ class AdminApiController extends BaseController
      *
      * @return Response encoded response
      */
-    public function createCactiInstanceAction()
+    public function createCactiInstanceAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -708,7 +710,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         if (empty($data['name'])) {
@@ -767,7 +769,7 @@ class AdminApiController extends BaseController
      *
      * @return Response encoded response
      */
-    public function createGroupAction()
+    public function createGroupAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -776,7 +778,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         if (empty($data['name'])) {
@@ -821,7 +823,7 @@ class AdminApiController extends BaseController
      *
      * @return Response encoded response
      */
-    public function createApiUserAction()
+    public function createApiUserAction(Request $request)
     {
         $this->_need_admin_privileges();
 
@@ -830,7 +832,7 @@ class AdminApiController extends BaseController
             Array('format', 'text')
         );
 
-        $data = $this->_get_request_data($form);
+        $data = $this->_get_request_data($form, $request);
         $format = $this->_get_supported_format($data['format']);
 
         if (empty($data['username'])) {

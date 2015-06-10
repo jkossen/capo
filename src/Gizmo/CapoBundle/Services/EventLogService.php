@@ -20,13 +20,13 @@
 namespace Gizmo\CapoBundle\Services;
 
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 
 class EventLogService
 {
-    /** @var \Symfony\Component\Security\Core\SecurityContext */
-    private $securityContext;
+    private $tokenStorage;
 
     /** @var \Doctrine\ORM\EntityManager */
     private $em;
@@ -40,9 +40,9 @@ class EventLogService
      * @param Doctrine        $doctrine
      * @param bool            $enabled
      */
-    public function __construct(SecurityContext $securityContext, Doctrine $doctrine, $enabled = false)
+    public function __construct(TokenStorage $tokenStorage, Doctrine $doctrine, $enabled = false)
     {
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
         $this->em = $doctrine->getManager();
         $this->enabled = $enabled;
     }
@@ -64,7 +64,7 @@ class EventLogService
         }
 
         $user = false;
-        if ($token = $this->securityContext->getToken()) {
+        if ($token = $this->tokenStorage->getToken()) {
             $user = $token->getUser();
         }
 

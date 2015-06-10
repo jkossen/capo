@@ -169,15 +169,11 @@ abstract class BaseController extends Controller
      *
      * @return Array request data
      */
-    protected function _get_request_data(Array $form_fields)
+    protected function _get_request_data(Array $form_fields, Request $request)
     {
-        $kernel = $this->get('kernel');
-        $environment = $this->_get_environment();
-        $request = $this->getRequest();
-
         $privileges = $this->_get_privileges();
 
-        $fb = $this->createFormBuilder();
+        $fb = $this->createFormBuilder(null, array('csrf_protection' => false));
         foreach ($form_fields as $field) {
             $fb->add($field[0], $field[1]);
         }
@@ -185,9 +181,9 @@ abstract class BaseController extends Controller
         $form = $fb->getForm();
 
         if ($request->isMethod('POST')) {
-            $form->bind($request->request->all());
+            $form->submit($request->request->all());
         } else {
-            $form->bind($request->query->all());
+            $form->submit($request->query->all());
         }
 
         $data = $form->getData();

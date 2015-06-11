@@ -173,25 +173,33 @@ abstract class BaseController extends Controller
     {
         $privileges = $this->_get_privileges();
 
-        $fb = $this->createFormBuilder(null, array('csrf_protection' => false));
+        $initial_data = array(
+            'capo_user_id' => $privileges['capo_user_id'],
+            'capo_group_id' => $privileges['capo_group_id'],
+            'user_is_admin' => $privileges['user_is_admin'],
+            'api_user' => $privileges['api_user']
+        );
+
+        // make sure each form field is present, even when there's no form
+        // submitted
+        foreach ($form_fields as $field) {
+            $initial_data[$field[0]] = null;
+        }
+
+        $fb = $this->get('form.factory')
+            ->createNamedBuilder('', 'form', $initial_data, array(
+                'csrf_protection' => false,
+                'method' => $request->getMethod()
+            ));
+
         foreach ($form_fields as $field) {
             $fb->add($field[0], $field[1]);
         }
 
         $form = $fb->getForm();
-
-        if ($request->isMethod('POST')) {
-            $form->submit($request->request->all());
-        } else {
-            $form->submit($request->query->all());
-        }
+        $form->handleRequest($request);
 
         $data = $form->getData();
-
-        $data['capo_user_id'] = $privileges['capo_user_id'];
-        $data['capo_group_id'] = $privileges['capo_group_id'];
-        $data['user_is_admin'] = $privileges['user_is_admin'];
-        $data['api_user'] = $privileges['api_user'];
 
         return $data;
     }

@@ -53,7 +53,7 @@ abstract class BaseController extends Controller
      */
     protected function _get_user()
     {
-        if ($token = $this->get('security.context')->getToken()) {
+        if ($token = $this->get('security.token_storage')->getToken()) {
             return $token->getUser();
         } else {
             return null;

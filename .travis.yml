@@ -14,7 +14,7 @@ before_install:
   - echo "extension=ldap.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer selfupdate -q
   - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com "$GH_TOKEN"; fi;
-  - mysql -e "CREATE USER 'capo'@'127.0.0.1' IDENTIFIED BY 'djikjdioue23io4ueiodwjdioq932108329edjka;';"
+  - mysql -e "CREATE DATABASE capo; CREATE USER 'capo'@'127.0.0.1' IDENTIFIED BY 'djikjdioue23io4ueiodwjdioq932108329edjka;';GRANT ALL ON capo.* TO 'capo'@'127.0.0.1'"
 
 install: composer install --no-interaction
 

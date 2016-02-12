@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f405ce02c70e6df699cc57a86dff3ae7",
-    "content-hash": "9c692a0e8adb73647f1ae1ce0cd704a2",
+    "hash": "cdf2a5cdaf49ab3b54b1dc265023e97d",
+    "content-hash": "cb8426b0bd3a558a682b82f244fd74e7",
     "packages": [
         {
             "name": "components/bootstrap",
@@ -1534,20 +1534,20 @@
         },
         {
             "name": "robloach/component-installer",
-            "version": "0.2.0",
+            "version": "0.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobLoach/component-installer.git",
-                "reference": "9ebfe24d48b08ce63cf377d719e4ad045e057855"
+                "reference": "908a859aa7c4949ba9ad67091e67bac10b66d3d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/9ebfe24d48b08ce63cf377d719e4ad045e057855",
-                "reference": "9ebfe24d48b08ce63cf377d719e4ad045e057855",
+                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/908a859aa7c4949ba9ad67091e67bac10b66d3d7",
+                "reference": "908a859aa7c4949ba9ad67091e67bac10b66d3d7",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "1.0.0",
+                "composer-plugin-api": "^1.0",
                 "kriswallsmith/assetic": "1.*",
                 "php": ">=5.3.2"
             },
@@ -1578,7 +1578,7 @@
                 }
             ],
             "description": "Allows installation of Components via Composer.",
-            "time": "2015-06-08 13:01:20"
+            "time": "2015-08-10 12:35:38"
         },
         {
             "name": "select2-bootstrap",

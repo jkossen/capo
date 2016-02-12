@@ -11,8 +11,9 @@ env:
 
 before_install:
   - echo "extension=ldap.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - composer selfupdate
+  - composer selfupdate -q
+  - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com "$GH_TOKEN"; fi;
 
-install: composer install
+install: composer install --no-interactive
 
 script: phpunit --configuration app/phpunit.xml

@@ -66,7 +66,7 @@ class Graph
     /**
      * @var Host $host
      *
-     * @ORM\ManyToOne(targetEntity="Host", inversedBy="graphs")
+     * @ORM\ManyToOne(targetEntity="Host")
      * @ORM\JoinColumn(name="host_id", referencedColumnName="id", nullable=false)
      */
     protected $host;

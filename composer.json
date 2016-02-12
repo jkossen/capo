@@ -26,11 +26,11 @@
         "components/jquery": "1.11.*",
         "components/underscore": "dev-master",
         "itbz/fpdf": "dev-master",
-        "twitter/bootstrap": "3.3.4",
         "ivaynberg/select2": ">=3.5.1,<3.6.0",
         "spinjs": "2.0.1",
         "select2-bootstrap": "1.4.4",
-        "jscrolljs": "2.2.4"
+        "jscrolljs": "2.2.4",
+        "components/bootstrap": "^3.3"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

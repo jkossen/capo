@@ -50,7 +50,7 @@ class GraphTemplate
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="CactiInstance", inversedBy="graphtemplates")
+     * @ORM\ManyToOne(targetEntity="CactiInstance", inversedBy="graph_templates")
      * @ORM\JoinColumn(name="cacti_instance_id", referencedColumnName="id", nullable=false)
      */
     protected $cacti_instance;

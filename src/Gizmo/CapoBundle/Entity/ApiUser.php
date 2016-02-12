@@ -60,7 +60,7 @@ class ApiUser implements UserInterface
     protected $active = True;
 
     /**
-     * @ORM\ManyToMany(targetEntity="CactiInstance", inversedBy="groups")
+     * @ORM\ManyToMany(targetEntity="CactiInstance", inversedBy="apiusers")
      * @ORM\JoinTable(name="apiuser_cacti_instance")
      */
     protected $cacti_instances;

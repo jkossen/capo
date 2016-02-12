@@ -20,7 +20,7 @@
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
-        "escapestudios/wsse-authentication-bundle": "2.0.2",
+        "escapestudios/wsse-authentication-bundle": "dev-sf30",
         "fr3d/ldap-bundle": "2.0.0",
         "components/jquery": "1.11.*",
         "components/underscore": "dev-master",
@@ -120,5 +120,9 @@
                 "type": "file"
             }
         }
+    },
+    {
+        "type": "vcs",
+        "url": "https://github.com/xelaris/EscapeWSSEAuthenticationBundle"
     }]
 }

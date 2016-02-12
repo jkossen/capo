@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "35563c2d78281ab6da6a81b8a9671b20",
-    "content-hash": "008fc4086d79647dfe3e0ff966792682",
+    "hash": "c81c04508c94203a8248d14235c54f26",
+    "content-hash": "4267ee660f7931adccdbd10de3ddf4fe",
     "packages": [
         {
             "name": "components/bootstrap",
@@ -1049,40 +1049,35 @@
         },
         {
             "name": "escapestudios/wsse-authentication-bundle",
-            "version": "2.0.2",
+            "version": "dev-sf30",
             "target-dir": "Escape/WSSEAuthenticationBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/escapestudios/EscapeWSSEAuthenticationBundle.git",
-                "reference": "013b7d36c46a950c0a4d7f7b3b824ce7f64ea904"
+                "url": "https://github.com/xelaris/EscapeWSSEAuthenticationBundle.git",
+                "reference": "d698ac22a7e48b4b575c3eaf73c9715c4c557c45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/escapestudios/EscapeWSSEAuthenticationBundle/zipball/013b7d36c46a950c0a4d7f7b3b824ce7f64ea904",
-                "reference": "013b7d36c46a950c0a4d7f7b3b824ce7f64ea904",
+                "url": "https://api.github.com/repos/xelaris/EscapeWSSEAuthenticationBundle/zipball/d698ac22a7e48b4b575c3eaf73c9715c4c557c45",
+                "reference": "d698ac22a7e48b4b575c3eaf73c9715c4c557c45",
                 "shasum": ""
             },
             "require": {
                 "doctrine/common": "~2.2",
-                "php": ">=5.3.2",
-                "symfony/framework-bundle": "~2.3",
-                "symfony/security-bundle": "~2.3"
+                "php": ">=5.3.9",
+                "symfony/framework-bundle": "~2.3|~3.0",
+                "symfony/security-bundle": "~2.3|~3.0"
             },
             "require-dev": {
-                "symfony/finder": "~2.3"
+                "symfony/finder": "~2.3|3.0.*",
+                "symfony/phpunit-bridge": "~2.7"
             },
             "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.3.x-dev"
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "Escape\\WSSEAuthenticationBundle": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1099,11 +1094,14 @@
             "description": "Symfony2 bundle to implement WSSE authentication",
             "homepage": "https://github.com/escapestudios/EscapeWSSEAuthenticationBundle",
             "keywords": [
-                "Authentication",
+                "authentication",
                 "bundle",
                 "wsse"
             ],
-            "time": "2015-04-10 17:37:02"
+            "support": {
+                "source": "https://github.com/xelaris/EscapeWSSEAuthenticationBundle/tree/sf30"
+            },
+            "time": "2015-12-11 23:26:42"
         },
         {
             "name": "fr3d/ldap-bundle",
@@ -1756,17 +1754,17 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v4.0.4",
+            "version": "v4.0.5",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "cc0c9478da84f051da4465cf3a67f537ae758b13"
+                "reference": "c89375c9d95fc5afaeb99e7a49b428b6e3beb9d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/cc0c9478da84f051da4465cf3a67f537ae758b13",
-                "reference": "cc0c9478da84f051da4465cf3a67f537ae758b13",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/c89375c9d95fc5afaeb99e7a49b428b6e3beb9d3",
+                "reference": "c89375c9d95fc5afaeb99e7a49b428b6e3beb9d3",
                 "shasum": ""
             },
             "require": {
@@ -1812,7 +1810,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-11-26 18:10:31"
+            "time": "2016-02-12 16:21:25"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -3939,6 +3937,7 @@
     "stability-flags": {
         "doctrine/doctrine-fixtures-bundle": 20,
         "friendsofsymfony/user-bundle": 20,
+        "escapestudios/wsse-authentication-bundle": 20,
         "components/underscore": 20,
         "itbz/fpdf": 20
     },

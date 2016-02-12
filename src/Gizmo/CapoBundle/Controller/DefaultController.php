@@ -19,6 +19,7 @@
 
 namespace Gizmo\CapoBundle\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends BaseController
@@ -26,7 +27,7 @@ class DefaultController extends BaseController
     public function indexAction(Request $request)
     {
         $form = Array(
-            Array('q', 'text')
+            Array('q', TextType::class)
         );
         $privileges = $this->_get_privileges();
         $data = $this->_get_request_data($form, $request);
@@ -40,7 +41,7 @@ class DefaultController extends BaseController
     public function weathermapsAction(Request $request)
     {
         $form = Array(
-            Array('q', 'text')
+            Array('q', TextType::class)
         );
         $privileges = $this->_get_privileges();
         $data = $this->_get_request_data($form, $request);

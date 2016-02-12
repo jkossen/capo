@@ -21,6 +21,8 @@ namespace Gizmo\CapoBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use \Gizmo\CapoBundle\Services\PDFService;
 
 class PdfController extends BaseController
@@ -186,7 +188,7 @@ class PdfController extends BaseController
             throw $this->createNotFoundException('Only POST is supported');
         } else {
             $form = Array(
-                Array('graph', 'integer')
+                Array('graph', IntegerType::class)
             );
 
             $data = $this->_get_request_data($form, $request);
@@ -241,7 +243,7 @@ class PdfController extends BaseController
             throw $this->createNotFoundException('Only POST is supported');
         } else {
             $form = Array(
-                Array('graphs_selected', 'text')
+                Array('graphs_selected', TextType::class)
             );
 
             $data = $this->_get_request_data($form, $request);

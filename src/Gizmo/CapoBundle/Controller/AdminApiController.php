@@ -19,6 +19,9 @@
 
 namespace Gizmo\CapoBundle\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -42,11 +45,11 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('q', 'text'),
-            Array('page_limit', 'integer'),
-            Array('page', 'integer'),
-            Array('active_users_only', 'integer'),
-            Array('format', 'text')
+            Array('q', TextType::class),
+            Array('page_limit', IntegerType::class),
+            Array('page', IntegerType::class),
+            Array('active_users_only', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -72,11 +75,11 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('q', 'text'),
-            Array('page_limit', 'integer'),
-            Array('page', 'integer'),
-            Array('active_groups_only', 'integer'),
-            Array('format', 'text')
+            Array('q', TextType::class),
+            Array('page_limit', IntegerType::class),
+            Array('page', IntegerType::class),
+            Array('active_groups_only', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -102,11 +105,11 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('q', 'text'),
-            Array('page_limit', 'integer'),
-            Array('page', 'integer'),
-            Array('active_accounts_only', 'integer'),
-            Array('format', 'text')
+            Array('q', TextType::class),
+            Array('page_limit', IntegerType::class),
+            Array('page', IntegerType::class),
+            Array('active_accounts_only', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -130,10 +133,10 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('q', 'text'),
-            Array('page_limit', 'integer'),
-            Array('page', 'integer'),
-            Array('format', 'text')
+            Array('q', TextType::class),
+            Array('page_limit', IntegerType::class),
+            Array('page', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -158,13 +161,13 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('page_limit', 'integer'),
-            Array('page', 'integer'),
-            Array('group_id', 'integer'),
-            Array('api_account_id', 'integer'),
-            Array('exclude_group_id', 'integer'),
-            Array('exclude_api_account_id', 'integer'),
-            Array('format', 'text')
+            Array('page_limit', IntegerType::class),
+            Array('page', IntegerType::class),
+            Array('group_id', IntegerType::class),
+            Array('api_account_id', IntegerType::class),
+            Array('exclude_group_id', IntegerType::class),
+            Array('exclude_api_account_id', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -230,9 +233,9 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('group_id', 'integer'),
-            Array('cacti_instance_id', 'integer'),
-            Array('format', 'text')
+            Array('group_id', IntegerType::class),
+            Array('cacti_instance_id', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -291,9 +294,9 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('group_id', 'integer'),
-            Array('cacti_instance_id', 'integer'),
-            Array('format', 'text')
+            Array('group_id', IntegerType::class),
+            Array('cacti_instance_id', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -340,9 +343,9 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('api_user_id', 'integer'),
-            Array('cacti_instance_id', 'integer'),
-            Array('format', 'text')
+            Array('api_user_id', IntegerType::class),
+            Array('cacti_instance_id', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -401,9 +404,9 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('api_user_id', 'integer'),
-            Array('cacti_instance_id', 'integer'),
-            Array('format', 'text')
+            Array('api_user_id', IntegerType::class),
+            Array('cacti_instance_id', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -450,9 +453,9 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('group_id', 'integer'),
-            Array('user_id', 'integer'),
-            Array('format', 'text')
+            Array('group_id', IntegerType::class),
+            Array('user_id', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -511,12 +514,12 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('id', 'integer'),
-            Array('name', 'text'),
-            Array('base_url', 'url'),
-            Array('active', 'integer'),
-            Array('queue_import', 'integer'),
-            Array('format', 'text')
+            Array('id', IntegerType::class),
+            Array('name', TextType::class),
+            Array('base_url', UrlType::class),
+            Array('active', IntegerType::class),
+            Array('queue_import', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -561,10 +564,10 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('id', 'integer'),
-            Array('name', 'text'),
-            Array('active', 'integer'),
-            Array('format', 'text')
+            Array('id', IntegerType::class),
+            Array('name', TextType::class),
+            Array('active', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -609,11 +612,11 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('id', 'integer'),
-            Array('username', 'text'),
-            Array('password', 'text'),
-            Array('active', 'integer'),
-            Array('format', 'text')
+            Array('id', IntegerType::class),
+            Array('username', TextType::class),
+            Array('password', TextType::class),
+            Array('active', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -658,9 +661,9 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('id', 'integer'),
-            Array('enabled', 'integer'),
-            Array('format', 'text')
+            Array('id', IntegerType::class),
+            Array('enabled', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -705,9 +708,9 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('name', 'text'),
-            Array('base_url', 'url'),
-            Array('format', 'text')
+            Array('name', TextType::class),
+            Array('base_url', UrlType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -774,8 +777,8 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('name', 'text'),
-            Array('format', 'text')
+            Array('name', TextType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -828,8 +831,8 @@ class AdminApiController extends BaseController
         $this->_need_admin_privileges();
 
         $form = Array(
-            Array('username', 'text'),
-            Array('format', 'text')
+            Array('username', TextType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);

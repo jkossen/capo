@@ -20,9 +20,10 @@
 namespace Gizmo\CapoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Capo Base controller
@@ -187,7 +188,7 @@ abstract class BaseController extends Controller
         }
 
         $fb = $this->get('form.factory')
-            ->createNamedBuilder('', 'form', $initial_data, array(
+            ->createNamedBuilder('', FormType::class, $initial_data, array(
                 'csrf_protection' => false,
                 'method' => $request->getMethod()
             ));

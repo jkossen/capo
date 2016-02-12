@@ -19,6 +19,8 @@
 
 namespace Gizmo\CapoBundle\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -41,8 +43,8 @@ class ApiController extends BaseController
     public function getGraphAction(Request $request)
     {
         $form = Array(
-            Array('id', 'integer'),
-            Array('format', 'text')
+            Array('id', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $response = Array();
@@ -81,11 +83,11 @@ class ApiController extends BaseController
     public function getCactiInstancesAction(Request $request)
     {
         $form = Array(
-            Array('q', 'text'),
-            Array('page_limit', 'integer'),
-            Array('page', 'integer'),
-            Array('active_only', 'integer'),
-            Array('format', 'text')
+            Array('q', TextType::class),
+            Array('page_limit', IntegerType::class),
+            Array('page', IntegerType::class),
+            Array('active_only', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -109,10 +111,10 @@ class ApiController extends BaseController
     public function getGraphSelectionGraphsAction(Request $request)
     {
         $form = Array(
-            Array('graph_selection_id', 'integer'),
-            Array('page_limit', 'integer'),
-            Array('page', 'integer'),
-            Array('format', 'text')
+            Array('graph_selection_id', IntegerType::class),
+            Array('page_limit', IntegerType::class),
+            Array('page', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -136,10 +138,10 @@ class ApiController extends BaseController
     public function getGraphSelectionsAction(Request $request)
     {
         $form = Array(
-            Array('q', 'text'),
-            Array('page_limit', 'integer'),
-            Array('page', 'integer'),
-            Array('format', 'text')
+            Array('q', TextType::class),
+            Array('page_limit', IntegerType::class),
+            Array('page', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -161,9 +163,9 @@ class ApiController extends BaseController
     public function saveGraphSelectionAction(Request $request)
     {
         $form = Array(
-            Array('name', 'text'),
-            Array('graphs', 'text'),
-            Array('format', 'text')
+            Array('name', TextType::class),
+            Array('graphs', TextType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -237,8 +239,8 @@ class ApiController extends BaseController
     public function disableGraphSelectionAction(Request $request)
     {
         $form = Array(
-            Array('graph_selection', 'integer'),
-            Array('format', 'text')
+            Array('graph_selection', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -274,9 +276,9 @@ class ApiController extends BaseController
     public function renameGraphSelectionAction(Request $request)
     {
         $form = Array(
-            Array('graph_selection', 'integer'),
-            Array('name', 'text'),
-            Array('format', 'text')
+            Array('graph_selection', IntegerType::class),
+            Array('name', TextType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -321,9 +323,9 @@ class ApiController extends BaseController
     public function changeGraphSelectionItemItemNrAction(Request $request)
     {
         $form = Array(
-            Array('item_id', 'integer'),
-            Array('new_pos', 'integer'),
-            Array('format', 'text')
+            Array('item_id', IntegerType::class),
+            Array('new_pos', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -370,13 +372,13 @@ class ApiController extends BaseController
     public function getGraphsAction(Request $request)
     {
         $form = Array(
-            Array('q', 'text'),
-            Array('page_limit', 'integer'),
-            Array('page', 'integer'),
-            Array('cacti_instance', 'integer'),
-            Array('graph_template', 'text'),
-            Array('host', 'integer'),
-            Array('format', 'text')
+            Array('q', TextType::class),
+            Array('page_limit', IntegerType::class),
+            Array('page', IntegerType::class),
+            Array('cacti_instance', IntegerType::class),
+            Array('graph_template', TextType::class),
+            Array('host', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -400,11 +402,11 @@ class ApiController extends BaseController
     public function getGraphTemplatesAction(Request $request)
     {
         $form = Array(
-            Array('q', 'text'),
-            Array('page_limit', 'integer'),
-            Array('page', 'integer'),
-            Array('cacti_instance', 'integer'),
-            Array('format', 'text')
+            Array('q', TextType::class),
+            Array('page_limit', IntegerType::class),
+            Array('page', IntegerType::class),
+            Array('cacti_instance', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -428,11 +430,11 @@ class ApiController extends BaseController
     public function getHostsAction(Request $request)
     {
         $form = Array(
-            Array('q', 'text'),
-            Array('page_limit', 'integer'),
-            Array('page', 'integer'),
-            Array('cacti_instance', 'integer'),
-            Array('format', 'text')
+            Array('q', TextType::class),
+            Array('page_limit', IntegerType::class),
+            Array('page', IntegerType::class),
+            Array('cacti_instance', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -455,12 +457,12 @@ class ApiController extends BaseController
     public function getGraphTitlesAction(Request $request)
     {
         $form = Array(
-            Array('q', 'text'),
-            Array('page_limit', 'integer'),
-            Array('page', 'integer'),
-            Array('cacti_instance', 'integer'),
-            Array('graph_template', 'integer'),
-            Array('format', 'text')
+            Array('q', TextType::class),
+            Array('page_limit', IntegerType::class),
+            Array('page', IntegerType::class),
+            Array('cacti_instance', IntegerType::class),
+            Array('graph_template', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);
@@ -484,11 +486,11 @@ class ApiController extends BaseController
     public function getWeathermapsAction(Request $request)
     {
         $form = Array(
-            Array('q', 'text'),
-            Array('cacti_instance', 'integer'),
-            Array('page_limit', 'integer'),
-            Array('page', 'integer'),
-            Array('format', 'text')
+            Array('q', TextType::class),
+            Array('cacti_instance', IntegerType::class),
+            Array('page_limit', IntegerType::class),
+            Array('page', IntegerType::class),
+            Array('format', TextType::class)
         );
 
         $data = $this->_get_request_data($form, $request);

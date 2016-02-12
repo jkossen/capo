@@ -8,19 +8,19 @@
     },
     "require": {
         "php": ">=5.5",
-        "symfony/symfony": "2.7.*",
+        "symfony/symfony": "2.8.*",
         "doctrine/orm": "~2.3",
         "doctrine/doctrine-bundle": "~1.4",
         "doctrine/doctrine-fixtures-bundle": "2.2.*@dev",
         "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
-        "symfony/monolog-bundle": "~2.7",
-	"symfony/var-dumper": "^2.7",
+        "symfony/monolog-bundle": "~2.8",
+	"symfony/var-dumper": "^2.8",
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
-        "escapestudios/wsse-authentication-bundle": "2.0.2",
+        "escapestudios/wsse-authentication-bundle": "dev-sf30",
         "fr3d/ldap-bundle": "2.0.0",
         "components/jquery": "1.11.*",
         "components/underscore": "dev-master",
@@ -36,7 +36,7 @@
         "sensio/generator-bundle": "~2.3",
         "phpunit/phpunit": "~4.6",
         "ext-pdo_sqlite": "*",
-        "symfony/phpunit-bridge": "2.7.x"
+        "symfony/phpunit-bridge": "2.8.x"
     },
     "scripts": {
         "post-root-package-install": [
@@ -120,5 +120,9 @@
                 "type": "file"
             }
         }
+    },
+    {
+        "type": "vcs",
+        "url": "https://github.com/xelaris/EscapeWSSEAuthenticationBundle"
     }]
 }

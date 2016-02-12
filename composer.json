@@ -7,17 +7,16 @@
         "psr-4": { "": "src/", "SymfonyStandard\\": "app/" }
     },
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.5",
         "symfony/symfony": "2.7.*",
-        "doctrine/orm": "~2.2,>=2.2.3,<2.5",
-        "doctrine/dbal": "<2.5",
+        "doctrine/orm": "~2.3",
         "doctrine/doctrine-bundle": "~1.4",
         "doctrine/doctrine-fixtures-bundle": "2.2.*@dev",
         "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
-        "symfony/monolog-bundle": "~2.4",
+        "symfony/monolog-bundle": "~2.7",
 	"symfony/var-dumper": "^2.7",
-        "sensio/distribution-bundle": "~3.0,>=3.0.12",
+        "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
@@ -30,7 +29,8 @@
         "spinjs": "2.0.1",
         "select2-bootstrap": "1.4.4",
         "jscrolljs": "2.2.4",
-        "components/bootstrap": "^3.3"
+        "components/bootstrap": "^3.3",
+        "robloach/component-installer": "^0.2.3"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

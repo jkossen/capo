@@ -21,7 +21,7 @@ namespace Gizmo\CapoBundle\Controller;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
-use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\TransferException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -82,7 +82,7 @@ class PdfController extends BaseController
 
             $image = $res->getBody();
 
-        } catch (ClientException $e) {
+        } catch (TransferException $e) {
             throw $this->createNotFoundException('Unable to retrieve graph data');
         }
 

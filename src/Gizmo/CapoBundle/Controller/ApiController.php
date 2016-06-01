@@ -21,7 +21,7 @@ namespace Gizmo\CapoBundle\Controller;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
-use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\TransferException;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -577,7 +577,7 @@ class ApiController extends BaseController
 
             $image = $res->getBody();
 
-        } catch (ClientException $e) {
+        } catch (TransferException $e) {
             // could not retrieve image, show error image
             $arrBundle = $this->get('kernel')->getBundles();
             $image = file_get_contents($arrBundle['GizmoCapoBundle']->getPath() .
@@ -649,7 +649,7 @@ class ApiController extends BaseController
 
             $image = $res->getBody();
 
-        } catch (ClientException $e) {
+        } catch (TransferException $e) {
             // could not retrieve image, show error image
             $arrBundle = $this->get('kernel')->getBundles();
             $image = file_get_contents($arrBundle['GizmoCapoBundle']->getPath() .

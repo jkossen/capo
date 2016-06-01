@@ -19,6 +19,9 @@
 
 namespace Gizmo\CapoBundle\Controller;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Cookie\CookieJar;
+use GuzzleHttp\Exception\ClientException;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -550,23 +553,35 @@ class ApiController extends BaseController
             throw new \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException('Please specify capo_retrieval_code in parameters.yml');
         }
 
-        $ch = curl_init($img_url);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, 'code=' . $code);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        $client = new Client();
+        $jar = new CookieJar();
 
-        $image = curl_exec($ch);
+        try {
+            $res = $client->get($img_url, ['cookies' => $jar]);
+            $body = $res->getBody();
 
-        if (!$image) {
+            if (preg_match('/.* csrfMagicToken = "([^"]*)".*/', $body, $matches)) {
+                $csrfMagicToken = $matches[1];
+            }
+            if (preg_match('/.* csrfMagicName = "([^"]*)".*/', $body, $matches)) {
+                $csrfMagicName = $matches[1];
+            }
+
+            if (isset($csrfMagicName)) {
+                $postData = [ 'code' => $code, "$csrfMagicName" => "$csrfMagicToken" ];
+            } else {
+                $postData = [ 'code' => $code ];
+            }
+
+            $res = $client->post($img_url, [ 'form_params' => $postData, 'cookies' => $jar ]);
+
+            $image = $res->getBody();
+
+        } catch (ClientException $e) {
             // could not retrieve image, show error image
             $arrBundle = $this->get('kernel')->getBundles();
             $image = file_get_contents($arrBundle['GizmoCapoBundle']->getPath() .
-                '/Resources/public/images/capo_graph_error.png');
+                    '/Resources/public/images/capo_graph_error.png');
         }
 
         $this->_log_event(__FUNCTION__,
@@ -610,19 +625,31 @@ class ApiController extends BaseController
             throw new \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException('Please specify capo_retrieval_code in parameters.yml');
         }
 
-        $ch = curl_init($img_url);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, 'code=' . $code);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        $client = new Client();
+        $jar = new CookieJar();
 
-        $image = curl_exec($ch);
+        try {
+            $res = $client->get($img_url, ['cookies' => $jar]);
+            $body = $res->getBody();
 
-        if (!$image) {
+            if (preg_match('/.* csrfMagicToken = "([^"]*)".*/', $body, $matches)) {
+                $csrfMagicToken = $matches[1];
+            }
+            if (preg_match('/.* csrfMagicName = "([^"]*)".*/', $body, $matches)) {
+                $csrfMagicName = $matches[1];
+            }
+
+            if (isset($csrfMagicName)) {
+                $postData = [ 'code' => $code, "$csrfMagicName" => "$csrfMagicToken" ];
+            } else {
+                $postData = [ 'code' => $code ];
+            }
+
+            $res = $client->post($img_url, [ 'form_params' => $postData, 'cookies' => $jar ]);
+
+            $image = $res->getBody();
+
+        } catch (ClientException $e) {
             // could not retrieve image, show error image
             $arrBundle = $this->get('kernel')->getBundles();
             $image = file_get_contents($arrBundle['GizmoCapoBundle']->getPath() .

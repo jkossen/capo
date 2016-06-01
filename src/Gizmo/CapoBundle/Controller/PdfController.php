@@ -19,6 +19,9 @@
 
 namespace Gizmo\CapoBundle\Controller;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Cookie\CookieJar;
+use GuzzleHttp\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -55,25 +58,37 @@ class PdfController extends BaseController
             throw new \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException('Please specify capo_retrieval_code in parameters.yml');
         }
 
-        $ch = curl_init($img_url);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, 'code=' . $code);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        $client = new Client();
+        $jar = new CookieJar();
 
-        $image_data = curl_exec($ch);
+        try {
+            $res = $client->get($img_url, ['cookies' => $jar]);
+            $body = $res->getBody();
 
-        if (! $image_data) {
+            if (preg_match('/.* csrfMagicToken = "([^"]*)".*/', $body, $matches)) {
+                $csrfMagicToken = $matches[1];
+            }
+            if (preg_match('/.* csrfMagicName = "([^"]*)".*/', $body, $matches)) {
+                $csrfMagicName = $matches[1];
+            }
+
+            if (isset($csrfMagicName)) {
+                $postData = [ 'code' => $code, "$csrfMagicName" => "$csrfMagicToken" ];
+            } else {
+                $postData = [ 'code' => $code ];
+            }
+
+            $res = $client->post($img_url, [ 'form_params' => $postData, 'cookies' => $jar ]);
+
+            $image = $res->getBody();
+
+        } catch (ClientException $e) {
             throw $this->createNotFoundException('Unable to retrieve graph data');
         }
 
         $tmpfname = tempnam(sys_get_temp_dir(), 'capo_pdf_img');
         $fh = fopen($tmpfname, 'w');
-        if (! fwrite($fh, $image_data)) {
+        if (! fwrite($fh, $image)) {
             fclose($fh);
             unlink($tmpfname);
             throw $this->createNotFoundException('Unable to write graph data');

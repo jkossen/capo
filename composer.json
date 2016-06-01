@@ -30,7 +30,8 @@
         "select2-bootstrap": "1.4.4",
         "jscrolljs": "2.2.4",
         "components/bootstrap": "^3.3",
-        "robloach/component-installer": "^0.2.3"
+        "robloach/component-installer": "^0.2.3",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

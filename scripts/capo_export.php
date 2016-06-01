@@ -8,6 +8,12 @@ ini_set('display_errors', 1);
 
 require('capo_head.php');
 require('include/global.php');
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    header('Content-type: text/html');
+    print '<html><head><title>Capo export page</title></head><body><form><input name="code" method="post"></input></form></body></html>';
+    exit;
+}
 header('Content-type: text/plain');
 
 /*

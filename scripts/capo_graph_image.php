@@ -23,7 +23,13 @@
 */
 
 require('capo_head.php');
+require('include/global.php');
 
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    header('Content-type: text/html');
+    print '<html><head><title>Capo graph page</title></head><body><form><input name="code" method="post"></input></form></body></html>';
+    exit;
+}
 /* since we'll have additional headers, tell php when to flush them */
 ob_start();
 

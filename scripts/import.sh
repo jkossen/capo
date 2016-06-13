@@ -6,6 +6,8 @@ WDIR="$(dirname $0)"
 cd "$WDIR"
 
 TMPFILE=$(/bin/mktemp /tmp/capo.XXXXXXXX)
+FORM=$(/bin/mktemp /tmp/capo.XXXXXXXX)
+COOKIESFILE=$(/bin/mktemp /tmp/capo.XXXXXXXX)
 BASE_URL="$1"
 URL="${BASE_URL}capo_export.php"
 DBHOST="$(grep database_host ../app/config/parameters.yml |awk '{print $2}' |sed -e 's/"//g')"
@@ -19,9 +21,9 @@ export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/local/bin"
 #
 # functions
 cleanup() {
-	if [ -f "$TMPFILE" ]; then
-        rm -f "$TMPFILE"
-    fi
+    rm -f "$TMPFILE"
+    rm -f "$FORM"
+    rm -f "$COOKIESFILE"
 }
 
 exit_err() {
@@ -37,7 +39,15 @@ exit_int() {
 }
 
 retrieve_data() {
-    wget -t 1 --timeout 120 -O "$TMPFILE" --post-data="code=$RETRIEVAL_CODE" "$1"
+    wget -t 1 --timeout 120 --save-cookies "$COOKIESFILE" --keep-session-cookies -O $FORM "$1"
+    CSRF_MAGIC_TOKEN=`sed 's/.* csrfMagicToken = "\([^"]*\)".*/\1/' $FORM`
+    CSRF_MAGIC_NAME=`sed 's/.* csrfMagicName = "\([^"]*\)".*/\1/' $FORM`
+    if [ -z "$CSRF_MAGIC_NAME" ] ; then
+	POST_DATA="code=$RETRIEVAL_CODE"
+    else
+	POST_DATA="code=$RETRIEVAL_CODE&$CSRF_MAGIC_NAME=$CSRF_MAGIC_TOKEN"
+    fi
+    wget -t 1 --timeout 120 --load-cookies "$COOKIESFILE" -O "$TMPFILE" --post-data="$POST_DATA" "$1"
     
     if [ $? != 0 ]; then
         exit_err "ERROR: failed to retrieve $URL" 1

@@ -14,9 +14,19 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
     exit('You are not allowed to access this file.');
 }
 
-if (!isset($_POST['code']) || crypt($_POST['code'], SALT) !== CODE) {
-    header('HTTP/1.0 403 Forbidden');
-    exit('You are not allowed to access this file.');
+switch ($_SERVER['REQUEST_METHOD']) {
+case 'GET':
+    break;
+case 'POST':
+    if (!isset($_POST['code']) || crypt($_POST['code'], SALT) !== CODE) {
+        header('HTTP/1.0 403 Forbidden');
+        exit('You are not allowed to access this file.');
+    }
+    break;
+default:
+    header('HTTP/1.0 405 Method Not Allowed');
+    exit('This method is not allowed.');
 }
+
 
 ?>

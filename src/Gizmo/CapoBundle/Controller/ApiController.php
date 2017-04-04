@@ -515,7 +515,7 @@ class ApiController extends BaseController
      *
      * @return Response PNG image of graph
      */
-    public function showGraphAction(Request $request, $graph_id, $rra_id, $graph_start=0, $graph_end=0)
+    public function showGraphAction(Request $request, $graph_id, $rra_id = 0, $graph_start=0, $graph_end=0)
     {
         $form = Array();
         $rra_id = intval($rra_id);

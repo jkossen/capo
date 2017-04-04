@@ -99,6 +99,8 @@ CAPO.graphs = CAPO.graphs || {};
             $('#input-graphs-selected')
             .attr('value', JSON.stringify(graphs));
 
+            $('#input-predefined-timespan-id')
+            .attr('value', _predefined_timespan_id);
             $('#input-rra-id')
             .attr('value', _rra_id);
 
@@ -476,31 +478,119 @@ CAPO.graphs = CAPO.graphs || {};
         });
     };
 
+    var get_span = function() {
+        if (null !== _predefined_timespan_id) {
+	    var begin_now = new Date();
+	    var end_now = new Date(begin_now.getTime());
+	    switch(_predefined_timespan_id) {
+		case 1:
+		    begin_now.setMinutes(begin_now.getMinutes() - 30);
+		    break;
+		case 2:
+		    begin_now.setHours(begin_now.getHours() - 1);
+		    break;
+		case 3:
+		    begin_now.setHours(begin_now.getHours() - 2);
+		    break;
+		case 4:
+		    begin_now.setHours(begin_now.getHours() - 4);
+		    break;
+		case 5:
+		    begin_now.setHours(begin_now.getHours() - 6);
+		    break;
+		case 6:
+		    begin_now.setHours(begin_now.getHours() - 12);
+		    break;
+		case 7:
+		    begin_now.setDate(begin_now.getDate() - 1);
+		    break;
+		case 8:
+		    begin_now.setDate(begin_now.getDate() - 2);
+		    break;
+		case 9:
+		    begin_now.setDate(begin_now.getDate() - 3);
+		    break;
+		case 10:
+		    begin_now.setDate(begin_now.getDate() - 4);
+		    break;
+		case 11:
+		    begin_now.setDate(begin_now.getDate() - 7);
+		    break;
+		case 12:
+		    begin_now.setDate(begin_now.getDate() - 14);
+		    break;
+		case 13:
+		    begin_now.setMonth(begin_now.getMonth() - 1);
+		    break;
+		case 14:
+		    begin_now.setMonth(begin_now.getMonth() - 2);
+		    break;
+		case 15:
+		    begin_now.setMonth(begin_now.getMonth() - 3);
+		    break;
+		case 16:
+		    begin_now.setMonth(begin_now.getMonth() - 4);
+		    break;
+		case 17:
+		    begin_now.setMonth(begin_now.getMonth() - 6);
+		    break;
+		case 18:
+		    begin_now.setFullYear(begin_now.getFullYear() - 1);
+		    break;
+		case 19:
+		    begin_now.setFullYear(begin_now.getFullYear() - 2);
+		    break;
+		case 21:
+		    begin_now = new Date(begin_now.getFullYear(), begin_now.getMonth(), begin_now.getDate());
+		    end_now = new Date(begin_now.getFullYear(), begin_now.getMonth(), begin_now.getDate());
+		    end_now.setDate(end_now.getDate() + 1);
+		    break;
+		case 23:
+		    begin_now = new Date(begin_now.getFullYear(), begin_now.getMonth(), 1);
+		    end_now = new Date(begin_now.getFullYear(), begin_now.getMonth(), 1);
+		    end_now.setMonth(end_now.getMonth() + 1);
+		    break;
+		case 24:
+		    begin_now = new Date(begin_now.getFullYear(), 0, 1);
+		    end_now = new Date(begin_now.getFullYear(), 0, 1);
+		    end_now.setFullYear(end_now.getFullYear() + 1);
+		    break;
+		case 25:
+		    begin_now = new Date(begin_now.getFullYear(), begin_now.getMonth(), begin_now.getDate());
+		    end_now = new Date(begin_now.getFullYear(), begin_now.getMonth(), begin_now.getDate());
+		    begin_now.setDate(begin_now.getDate() - 1);
+		    break;
+		case 27:
+		    begin_now = new Date(begin_now.getFullYear(), begin_now.getMonth(), 1);
+		    end_now = new Date(begin_now.getFullYear(), begin_now.getMonth(), 1);
+		    begin_now.setMonth(begin_now.getMonth() - 1);
+		    break;
+		case 28:
+		    begin_now = new Date(begin_now.getFullYear(), 0, 1);
+		    end_now = new Date(begin_now.getFullYear(), 0, 1);
+		    begin_now.setFullYear(begin_now.getFullYear() - 1);
+		    break;
+		default:
+		    begin_now.setDate(begin_now.getDate() - 1);
+	    }
+	    begin_now = Math.floor((+begin_now) / 1000);
+	    end_now = Math.floor((+end_now) / 1000);
+
+	    return {
+		begin: begin_now,
+		end: end_now
+	    };
+	}
+    };
+
     // Get show graph suffic
     var show_graph_suffix = function() {
         var url_suffix;
         if (null === _predefined_timespan_id) {
             url_suffix = '/' + _rra_id + '/?' + new Date().getTime();
         } else {
-            var begin_now = new Date();
-            var end_now = new Date(begin_now.getTime());
-            switch(_predefined_timespan_id) {
-                case 11:
-                    begin_now.setDate(begin_now.getDate() - 7);
-                    break;
-                case 13:
-                    begin_now.setMonth(begin_now.getMonth() - 1);
-                    break;
-                case 18:
-                    begin_now.setFullYear(begin_now.getFullYear() - 1);
-                    break;
-                case 7:
-                default:
-                    begin_now.setDate(begin_now.getDate() - 1);
-            }
-            begin_now = Math.floor((+begin_now) / 1000);
-            end_now = Math.floor((+end_now) / 1000);
-            url_suffix =  '//' + begin_now + '/' + end_now + '/';
+            var span = get_span();
+            url_suffix =  '//' + span.begin + '/' + span.end + '/';
         }
 
         return url_suffix;
@@ -625,7 +715,6 @@ CAPO.graphs = CAPO.graphs || {};
             var cur_img = 0;
             $('.graph-img').each(function() {
                     var graph_id = parseInt(this.id.split('-').pop());
-                    console.log('Refresh graph ' + graph_id);
                     this.src = ns.get('base_url') + 'api/show_graph/' +
                     graph_id + url_suffix;
 

@@ -370,6 +370,7 @@ CAPO.html = CAPO.html || {};
             '<form action="<%= action %>" method="post" id="<%= form_id %>">' +
             '<input type="hidden" id="input-graphs-selected" name="graphs_selected">' +
             '<input type="hidden" id="input-rra-id" name="rra_id">' +
+            '<input type="hidden" id="input-predefined-timespan-id" name="predefined_timespan_id">' +
             '</form>';
 
         return _.template(tpl);

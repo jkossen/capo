@@ -81,22 +81,22 @@ class PredefinedTimespan
             case static::LAST_2_YEARS:
                 break;
             case static::DAY_SHIFT:
-                throw new \UnexpectedValueException("Unsupported Value");
+                throw new \InvalidArgumentException("Predefined timespan Day Shift not supported");
             case static::THIS_DAY:
                 break;
             case static::THIS_WEEK:
-                throw new \UnexpectedValueException("Unsupported Value");
+                throw new \InvalidArgumentException("Predefined timespan This Week not supported");
             case static::THIS_MONTH:
             case static::THIS_YEAR:
             case static::PREV_DAY:
                 break;
             case static::PREV_WEEK:
-                throw new \UnexpectedValueException("Unsupported Value");
+                throw new \InvalidArgumentException("Predefined timespan Previous Week not supported");
             case static::PREV_MONTH:
             case static::PREV_YEAR:
                 break;
             default:
-                throw new \UnexpectedValueException("Unsupported Value");
+                throw new \InvalidArgumentException("Unknown predefined timespan constant given");
         }
 
         $this->setEnd($end);
@@ -170,14 +170,14 @@ class PredefinedTimespan
                 $this->start = $this->end->sub(new \DateInterval('P2Y'));
                 break;
             case static::DAY_SHIFT:
-                throw new \UnexpectedValueException("Unsupported Value");
+                throw new \InvalidArgumentException("Predefined timespan Day Shift not implemented");
             case static::THIS_DAY:
                 $start = new \DateTimeImmutable($this->end->format('Y-m-d\T00:00:00P'));
                 $this->start = $start;
                 $this->end = $start->add(new \DateInterval('P1D'));
                 break;
             case static::THIS_WEEK:
-                throw new \UnexpectedValueException("Unsupported Value");
+                throw new \InvalidArgumentException("Predefined timespan This Week not implemented");
             case static::THIS_MONTH:
                 $start = new \DateTimeImmutable($this->end->format('Y-m-01\T00:00:00P'));
                 $this->start = $start;
@@ -194,7 +194,7 @@ class PredefinedTimespan
                 $this->end = $end;
                 break;
             case static::PREV_WEEK:
-                throw new \UnexpectedValueException("Unsupported Value");
+                throw new \InvalidArgumentException("Predefined timespan Previous Week not implemented");
             case static::PREV_MONTH:
                 $end = new \DateTimeImmutable($this->end->format('Y-m-01\T00:00:00P'));
                 $this->start = $end->sub(new \DateInterval('P1M'));
@@ -206,7 +206,7 @@ class PredefinedTimespan
                 $this->end = $end;
                 break;
             default:
-                throw new \UnexpectedValueException("Unsupported Value");
+                throw new \InvalidArgumentException("Unknown predefined timespan constant given");
         }
     }
 

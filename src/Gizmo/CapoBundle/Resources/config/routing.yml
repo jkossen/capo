@@ -68,6 +68,13 @@ gizmo_capo_api_show_graph_dated:
         rra_id: \d+
         graph_start: \d+
         graph_end: \d+
+gizmo_capo_api_show_graph_timespan:
+    path: /api/show_graph/{graph_id}//{graph_start}/{graph_end}/
+    defaults: { _controller: GizmoCapoBundle:Api:showGraph }
+    requirements:
+        graph_id: \d+
+        graph_start: \d+
+        graph_end: \d+
 gizmo_capo_api_show_wmap:
     path: /api/show_wmap/{wmap_id}/
     defaults: { _controller: GizmoCapoBundle:Api:showWmap}

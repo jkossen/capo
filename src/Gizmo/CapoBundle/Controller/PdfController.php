@@ -27,6 +27,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use \Gizmo\CapoBundle\Services\PDFService;
+use \Gizmo\CapoBundle\Model\PredefinedTimespan;
 
 class PdfController extends BaseController
 {
@@ -149,7 +150,7 @@ class PdfController extends BaseController
      * @param Array data
      *
      */
-    protected function _create_content_multiple_graphs(PDFService $pdf, Array $data, $rra_id)
+    protected function _create_content_multiple_graphs(PDFService $pdf, Array $data, $rra_id, $timespan_id)
     {
         $rra = array(
             '1' => 'Daily (5 minute average)',
@@ -157,6 +158,18 @@ class PdfController extends BaseController
             '3' => 'Monthly (2 Hour Average)',
             '4' => 'Yearly (1 Day Average)'
         );
+
+        if (null !== $timespan_id) {
+            $span = new PredefinedTimespan($timespan_id);
+            $suffix = sprintf('&graph_start=%d&graph_end=%d', $span->getStart()->getTimestamp(), $span->getEnd()->getTimestamp());
+            $desc = $span->getDescription();
+        } else {
+            if (null === $rra_id || !array_key_exists($rra_id, $rra)) {
+                $rra_id = 1;
+            }
+            $suffix = sprintf('&rra_id=%d', $rra_id);
+            $desc = $rra[$rra_id];
+        }
 
         $i = 0;
         $graph_ids_indexed = array_keys($data['graphs_indexed']);
@@ -171,7 +184,7 @@ class PdfController extends BaseController
 
                 $img_url = $graph['cacti_instance']['base_url'] .
                 'capo_graph_image.php?action=view&local_graph_id=' .
-                $graph['graph_local_id'] . '&rra_id=' . $rra_id;
+                $graph['graph_local_id'] . $suffix;
 
                 try {
                     $tmpfname = $this->_retrieve_image($img_url);
@@ -183,7 +196,7 @@ class PdfController extends BaseController
                                            -110,
                                            0,
                                            'PNG') .
-                               $pdf->Cell(0,5,$rra[$rra_id],0,1,'C'),
+                               $pdf->Cell(0,5,$desc,0,1,'C'),
                                0, 1, 'C', false);
                     unlink($tmpfname);
                 } catch (\Exception $e) { }
@@ -258,18 +271,15 @@ class PdfController extends BaseController
             throw $this->createNotFoundException('Only POST is supported');
         } else {
             $form = Array(
-                Array('graphs_selected', TextType::class)
+                Array('graphs_selected', TextType::class),
+                Array('rra_id', IntegerType::class),
+                Array('predefined_timespan_id', IntegerType::class),
             );
 
             $data = $this->_get_request_data($form, $request);
             $graphs_indexed = Array();
             $graphs_validated = Array();
             $graphs_posted = json_decode($data['graphs_selected']);
-            $rra_id = intval($request->request->get('rra_id'));
-
-            if ($rra_id > 10 || $rra_id < 1) {
-                $rra_id = 1;
-            }
 
             if (empty($graphs_posted)) {
                 throw $this->createNotFoundException('No graph ids given');
@@ -307,7 +317,9 @@ class PdfController extends BaseController
             $data['graphs_indexed'] = $graphs_indexed;
 
             $pdf = $this->_initPdf();
-            $this->_create_content_multiple_graphs($pdf, $data, $rra_id);
+
+            $this->_create_content_multiple_graphs($pdf, $data, $data['rra_id'], $data['predefined_timespan_id']);
+
             $output = $pdf->Output('capo.pdf', 'S');
 
             $this->_log_event(__FUNCTION__, count($graphs_posted) . ' graphs',

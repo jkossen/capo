@@ -82,8 +82,37 @@
                     <li class="divider-vertical"></li>
                     <li>
                         <form role="form" class="navbar-form form-horizontal pull-left">
+                            <select class="form-control" name="predefined-timespan-selector" id="predefined-timespan-selector">
+                                <option value="" disabled="disabled">Select een predefined timespan</option>
+                                <option value="1">Last Half Hour</option>
+                                <option value="2">Last Hour</option>
+                                <option value="3">Last 2 Hours</option>
+                                <option value="4">Last 4 Hours</option>
+                                <option value="5">Last 6 Hours</option>
+                                <option value="6">Last 12 Hours</option>
+                                <option selected="selected" value="7">Last Day</option>
+                                <option value="8">Last 2 Days</option>
+                                <option value="9">Last 3 Days</option>
+                                <option value="10">Last 4 Days</option>
+                                <option value="11">Last Week</option>
+                                <option value="12">Last 2 Weeks</option>
+                                <option value="13">Last Month</option>
+                                <option value="14">Last 2 Months</option>
+                                <option value="15">Last 3 Months</option>
+                                <option value="16">Last 4 Months</option>
+                                <option value="17">Last 6 Months</option>
+                                <option value="18">Last Year</option>
+                                <option value="19">Last 2 Years</option>
+                                <option value="21">This Day</option>
+                                <option value="23">This Month</option>
+                                <option value="24">This Year</option>
+                                <option value="25">Last Day</option>
+                                <option value="27">Last Month</option>
+                                <option value="28">Last Year</option>
+                            </select>
                             <select class="form-control" name="rra-selector" id="rra-selector">
-                                <option selected="selected" value="1">Daily (5 minute average)</option>
+                                <option value="" disabled="disabled" selected="selected">Select an RRA</option>
+                                <option value="1">Daily (5 minute average)</option>
                                 <option value="2">Weekly (30 Minute Average)</option>
                                 <option value="3">Monthly (2 Hour Average)</option>
                                 <option value="4">Yearly (1 Day Average)</option>

@@ -113,22 +113,22 @@ class PredefinedTimespan
 
         switch ($this->timespan) {
             case static::LAST_HALF_HOUR:
-                $this->start = $this->end->sub(new \DateInterval('P30M'));
+                $this->start = $this->end->sub(new \DateInterval('PT30M'));
                 break;
             case static::LAST_HOUR:
-                $this->start = $this->end->sub(new \DateInterval('P1H'));
+                $this->start = $this->end->sub(new \DateInterval('PT1H'));
                 break;
             case static::LAST_2_HOURS:
-                $this->start = $this->end->sub(new \DateInterval('P2H'));
+                $this->start = $this->end->sub(new \DateInterval('PT2H'));
                 break;
             case static::LAST_4_HOURS:
-                $this->start = $this->end->sub(new \DateInterval('P4H'));
+                $this->start = $this->end->sub(new \DateInterval('PT4H'));
                 break;
             case static::LAST_6_HOURS:
-                $this->start = $this->end->sub(new \DateInterval('P6H'));
+                $this->start = $this->end->sub(new \DateInterval('PT6H'));
                 break;
             case static::LAST_12_HOURS:
-                $this->start = $this->end->sub(new \DateInterval('P12H'));
+                $this->start = $this->end->sub(new \DateInterval('PT12H'));
                 break;
             case static::LAST_DAY:
                 $this->start = $this->end->sub(new \DateInterval('P1D'));

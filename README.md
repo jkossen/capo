@@ -22,8 +22,7 @@ any other symfony project. The web frontend is constructed in HTML5 using
 Twitter Bootstrap and jQuery and supports all regular browsers.
 
 The software is quite stable and has been in use for quite a while at a large
-organization. Documentation is currently lacking, but has top priority and will
-follow soon.
+organization.
 
 *NOTE*: Unfortunately, Capo is no longer under active development. If you want to contribute and/or take over the project please contact me.
 

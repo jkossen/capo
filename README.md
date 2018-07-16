@@ -25,7 +25,21 @@ The software is quite stable and has been in use for quite a while at a large
 organization. Documentation is currently lacking, but has top priority and will
 follow soon.
 
-If you can and want to help out, please let me know.
+*NOTE*: Unfortunately, Capo is no longer under active development. If you want to contribute and/or take over the project please contact me.
+
+What's missing currently are installation instructions. Basically it comes down to:
+
+- create a capo database and user
+- install composer (getcomposer.org/download)
+- composer install (will ask a few questions regarding database setup)
+
+- adjust the SALT, CODE and IP addresses in scripts/capo_head.php
+- copy the scripts/capo_* files onto the actual Cacti servers
+
+- Adjust (make sure paths are correct) and install scripts/capo.cron into the cron of the Capo server
+- Log in as an admin to Capo, add Cacti instances (cacti servers), groups and users
+
+After that, you should be able to use Capo, search for graphs and show them on screen.
 
 Copyright (c) 2013 by Jochem Kossen <jochem@jkossen.nl>. This software was
 released under the GNU GPLv3 license. See the LICENSE file or

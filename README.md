@@ -3,6 +3,8 @@
 Capo - Cacti portal
 ===================
 
+*NOTE*: Be aware, this code is and has been unmaintained for quite a while. It will probable contain security and other issues. Only use it for reference.
+
 A JSON API and HTML5 frontend for querying multiple Cacti installations and
 displaying graphs
 
